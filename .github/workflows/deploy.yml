@@ -1,0 +1,77 @@
+# Adapted from https://github.com/Sitecore/developer-portal/blob/main/.github/workflows/deploy.yml
+
+name: Deploy to Vercel CI
+
+on: 
+  # Triggers the workflow pull request events for the "main" and "staging" branch
+  pull_request: 
+    branches: ["main", "staging"]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    # The type of runner that the job will run on (Github's server)
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Setup node, install dependencies and finally build
+      # - name: Use Node.js lts/gallium (16)
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: lts/gallium
+      #     cache: 'npm'
+
+      # - name: Install dependencies
+      #   run: npm install
+
+      # - name: Build project
+      #   run: npm run build
+
+  # Runs tests after build
+  # test: 
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Run tests
+  #       run: npm run test
+
+  # Should be dependent on test when tests are available
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start deployment
+        uses: bobheadxi/deployments@v1.3.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ fromJSON('["Production", "Preview"]')[github.ref != 'refs/heads/main'] }} 
+
+      - uses: actions/checkout@v3
+
+      - name: Vercel Action
+        uses: amondnet/vercel-action@v25.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}  
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} 
+          vercel-args: ${{ fromJSON('["--prod", ""]')[github.ref != 'refs/heads/main'] }}
+          scope: ${{ secrets.VERCEL_ORG_ID}}
+          working-directory: ./
+
+      - name: Update deployment status
+        uses: bobheadxi/deployments@v1.3.0
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          env: ${{ steps.deployment.outputs.env }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
