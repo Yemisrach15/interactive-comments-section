@@ -88,7 +88,7 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} 
           vercel-args: ${{ fromJSON('["--prod", ""]')[github.ref != 'refs/heads/main'] }}
           scope: ${{ secrets.VERCEL_ORG_ID}}
-          working-directory: ./
+          working-directory: ./build
 
       # Marks github deployment status as "complete"
       - name: Update deployment status
