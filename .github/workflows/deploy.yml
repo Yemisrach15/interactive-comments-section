@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with: 
           name: build-artifact
-          path: ./build
+          path: .
 
   # Runs tests after build
   # test: 
