@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with: 
           name: build-artifact
-          path: .
+          path: ./build
 
   # Runs tests after build
   # test: 
@@ -64,6 +64,8 @@ jobs:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
           env: ${{ fromJSON('["Production", "Preview"]')[github.ref != 'refs/heads/main'] }} 
+
+      - uses: actions/checkout@v3
 
       # Download build output from build job
       - name: Download artifact from build job
