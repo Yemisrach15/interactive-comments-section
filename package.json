@@ -23,7 +23,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
-    "prettify": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' --config ./.prettierrc.json",
+    "prettify": "prettier --write 'src/**/*.{js,jsx,ts,tsx,scss,json}' --config ./.prettierrc.json",
     "prepare": "husky install"
   },
   "eslintConfig": {
@@ -59,8 +59,11 @@
     "prettier": "2.7.1"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,json}": [
+    "*.{js,jsx,ts,tsx}": [
       "npm run lint:fix",
+      "npm run prettify"
+    ],
+    "*.{scss,json}": [
       "npm run prettify"
     ]
   }
