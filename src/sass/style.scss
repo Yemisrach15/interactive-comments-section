@@ -1,5 +1,30 @@
-body {
+@import './utils/index';
+@import './base/index';
+@import './themes/index';
+
+*,
+*::after,
+*::before {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 14.5px 30.5px;
+
+  &--primary {
+    border-radius: 8px;
+  }
+
+  &--compact {
+    padding: 0;
+  }
+
+  &--iconed {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+  }
 }

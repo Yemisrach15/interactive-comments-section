@@ -1,6 +1,74 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+*,
+*::after,
+*::before {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+*,
+*::after,
+*::before {
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
+}
+
+.btn {
+  font-weight: 500;
+}
+.btn--uppercase {
+  text-transform: uppercase;
+}
+
+.btn--primary {
+  background-color: hsl(238deg, 40%, 52%);
+  color: hsl(0deg, 0%, 100%);
+}
+.btn--secondary {
+  color: hsl(238deg, 40%, 52%);
+}
+.btn--tertiary {
+  color: hsl(223deg, 19%, 93%);
+}
+.btn--text-primary {
+  color: hsl(238deg, 40%, 52%);
+}
+.btn--text-danger {
+  color: hsl(358deg, 79%, 66%);
+}
+
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 14.5px 30.5px;
+}
+.btn--primary {
+  border-radius: 8px;
+}
+.btn--compact {
+  padding: 0;
+}
+.btn--iconed {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
 }

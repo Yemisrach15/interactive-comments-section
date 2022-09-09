@@ -1,0 +1,24 @@
+@import '../utils/colors';
+
+.btn {
+  &--primary {
+    background-color: $primary-color-200;
+    color: $neutral-color-100;
+  }
+
+  &--secondary {
+    color: $primary-color-200;
+  }
+
+  &--tertiary {
+    color: $neutral-color-300;
+  }
+
+  &--text-primary {
+    color: $primary-color-200;
+  }
+
+  &--text-danger {
+    color: $secondary-color-200;
+  }
+}
