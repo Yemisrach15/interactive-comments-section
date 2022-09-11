@@ -22,3 +22,26 @@
     color: $secondary-color-200;
   }
 }
+
+.heading {
+  color: $neutral-color-500;
+}
+
+.mention {
+  color: $primary-color-200;
+}
+
+.text {
+  &--light {
+    color: $neutral-color-400;
+  }
+
+  &--dark {
+    color: $neutral-color-500;
+  }
+}
+
+.badge {
+  background-color: $primary-color-200;
+  color: $neutral-color-100;
+}

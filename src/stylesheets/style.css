@@ -27,6 +27,27 @@ button {
   text-transform: uppercase;
 }
 
+.heading {
+  letter-spacing: -0.3px;
+}
+
+.mention {
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.text {
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 1.5;
+}
+
+.badge {
+  font-size: 0.8em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
 .btn--primary {
   background-color: hsl(238deg, 40%, 52%);
   color: hsl(0deg, 0%, 100%);
@@ -42,6 +63,26 @@ button {
 }
 .btn--text-danger {
   color: hsl(358deg, 79%, 66%);
+}
+
+.heading {
+  color: hsl(212deg, 24%, 26%);
+}
+
+.mention {
+  color: hsl(238deg, 40%, 52%);
+}
+
+.text--light {
+  color: hsl(211deg, 10%, 45%);
+}
+.text--dark {
+  color: hsl(212deg, 24%, 26%);
+}
+
+.badge {
+  background-color: hsl(238deg, 40%, 52%);
+  color: hsl(0deg, 0%, 100%);
 }
 
 *,
@@ -71,4 +112,12 @@ button {
   display: -ms-flexbox;
   display: flex;
   gap: 8px;
+}
+
+.badge {
+  border-radius: 2px;
+  padding: 2px 6px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
