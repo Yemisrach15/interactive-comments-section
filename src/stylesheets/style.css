@@ -11,6 +11,7 @@
 button {
   background: none;
   border: none;
+  cursor: pointer;
 }
 
 *,
@@ -46,6 +47,14 @@ button {
   font-size: 0.8em;
   font-weight: 500;
   letter-spacing: 0.5px;
+}
+
+.spinner button {
+  line-height: 0;
+}
+.spinner .text {
+  font-weight: 500;
+  line-height: initial;
 }
 
 .btn--primary {
@@ -91,6 +100,13 @@ button {
 
 .box--white {
   background-color: hsl(0deg, 0%, 100%);
+}
+
+.spinner {
+  background-color: hsl(223deg, 19%, 93%);
+}
+.spinner .text {
+  color: hsl(238deg, 40%, 52%);
 }
 
 *,
@@ -166,4 +182,23 @@ button {
   border-radius: 8px;
   padding: 16px;
   padding-bottom: 13px;
+}
+
+.spinner {
+  border-radius: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  padding: 4px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.spinner button {
+  padding: 10.5px;
+}
+.spinner .text {
+  -ms-flex-item-align: center;
+      align-self: center;
 }

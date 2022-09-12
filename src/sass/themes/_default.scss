@@ -55,3 +55,11 @@
     background-color: $neutral-color-100;
   }
 }
+
+.spinner {
+  background-color: $neutral-color-300;
+
+  & .text {
+    color: $primary-color-200;
+  }
+}
