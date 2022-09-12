@@ -1,9 +1,13 @@
 import React from 'react';
 
-interface HeadingProps extends React.HTMLProps<HTMLHeadingElement> {}
+type headingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-function Heading({ children, ...props }: HeadingProps) {
-  return <h2 {...props}>{children}</h2>;
+interface HeadingProps extends React.HTMLProps<HTMLHeadingElement> {
+  tag: React.ElementType & headingLevels;
+}
+
+function Heading({ tag: Tag, children, ...props }: HeadingProps) {
+  return <Tag {...props}>{children}</Tag>;
 }
 
 export default Heading;
