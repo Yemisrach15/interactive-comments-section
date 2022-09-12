@@ -1,12 +1,13 @@
 import React from 'react';
 
-interface ButtonProps {
-  children?: React.ReactNode;
-  className?: string;
-}
+interface ButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {}
 
-function Button(props: ButtonProps) {
-  return <button className={props.className}>{props.children}</button>;
+function Button({ children, ...props }: ButtonProps) {
+  return <button {...props}>{children}</button>;
 }
 
 export default Button;

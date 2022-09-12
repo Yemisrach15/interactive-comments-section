@@ -1,12 +1,9 @@
 import React from 'react';
 
-interface TextProps {
-  children: React.ReactNode;
-  className: string;
-}
+interface TextProps extends React.HTMLProps<HTMLParagraphElement> {}
 
-function Text(props: TextProps) {
-  return <p className={props.className}>{props.children}</p>;
+function Text({ children, ...props }: TextProps) {
+  return <p {...props}>{children}</p>;
 }
 
 export default Text;

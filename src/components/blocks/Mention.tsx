@@ -1,12 +1,9 @@
 import React from 'react';
 
-interface MentionProps {
-  children: React.ReactNode;
-  className: string;
-}
+interface MentionProps extends React.HTMLProps<HTMLSpanElement> {}
 
-function Mention(props: MentionProps) {
-  return <span className={props.className}>{props.children}</span>;
+function Mention({ children, ...props }: MentionProps) {
+  return <span {...props}>{children}</span>;
 }
 
 export default Mention;

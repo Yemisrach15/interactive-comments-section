@@ -1,18 +1,18 @@
 import React from 'react';
 
-interface IconedButtonProps {
-  children: React.ReactNode;
+interface IconedButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-  className: string;
 }
 
-function IconedButton(props: IconedButtonProps) {
+function IconedButton({ children, icon: Icon, ...props }: IconedButtonProps) {
   return (
-    <button className={props.className}>
-      <>
-        {<props.icon />}
-        {props.children}
-      </>
+    <button {...props}>
+      {<Icon />}
+      {children}
     </button>
   );
 }
