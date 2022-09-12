@@ -20,7 +20,11 @@ export interface MentionProps extends React.HTMLProps<HTMLSpanElement> {}
 
 export interface PictureProps extends React.HTMLProps<HTMLPictureElement> {}
 
-export interface TextProps extends React.HTMLProps<HTMLParagraphElement> {}
+type textualElements = 'p' | 'span';
+
+export interface TextProps extends React.HTMLProps<HTMLParagraphElement> {
+  tag?: React.ElementType & textualElements;
+}
 
 export interface TextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {}
 
