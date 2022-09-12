@@ -34,3 +34,22 @@
   padding: 2px 6px;
   width: fit-content;
 }
+
+.comment-input {
+  border-radius: 8px;
+  border: 1px solid;
+  overflow: auto;
+  padding: 13px 23px;
+  resize: vertical;
+  width: 100%;
+}
+
+.sr-only {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
