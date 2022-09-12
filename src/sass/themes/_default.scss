@@ -48,5 +48,10 @@
 
 .comment-input {
   color: $neutral-color-400;
-  border-color: $neutral-color-300;
+}
+
+.box {
+  &--white {
+    background-color: $neutral-color-100;
+  }
 }

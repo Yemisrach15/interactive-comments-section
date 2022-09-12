@@ -37,7 +37,7 @@
 
 .comment-input {
   border-radius: 8px;
-  border: 1px solid;
+  border: 1px solid $neutral-color-300;
   overflow: auto;
   padding: 13px 23px;
   resize: vertical;
@@ -68,4 +68,10 @@
     height: auto;
     width: 40px;
   }
+}
+
+.box {
+  border-radius: 8px;
+  padding: 16px;
+  padding-bottom: 13px;
 }

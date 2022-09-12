@@ -1,4 +1,4 @@
-import Box from './Box';
+import Box from './blocks/Box';
 import Button from './blocks/Button';
 import Heading from './blocks/Heading';
 import IconedButton from './blocks/IconedButton';
