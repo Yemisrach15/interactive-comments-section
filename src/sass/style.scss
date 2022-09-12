@@ -53,3 +53,19 @@
   white-space: nowrap;
   width: 1px;
 }
+
+.profile-pic {
+  & img {
+    border-radius: 50%;
+  }
+
+  &--sm img {
+    height: auto;
+    width: 32px;
+  }
+
+  &--md img {
+    height: auto;
+    width: 40px;
+  }
+}
