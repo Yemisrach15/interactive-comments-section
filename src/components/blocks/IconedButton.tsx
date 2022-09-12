@@ -11,7 +11,7 @@ interface IconedButtonProps
 function IconedButton({ children, icon: Icon, ...props }: IconedButtonProps) {
   return (
     <button {...props}>
-      {<Icon />}
+      {<Icon aria-hidden="true" focusable="false" />}
       {children}
     </button>
   );
