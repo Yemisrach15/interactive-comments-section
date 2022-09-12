@@ -1,6 +1,5 @@
 import React from 'react';
-
-interface TextAreaProps extends React.HTMLProps<HTMLTextAreaElement> {}
+import { TextAreaProps } from '../types';
 
 function TextArea({ children, ...props }: TextAreaProps) {
   return <textarea {...props}>{children}</textarea>;

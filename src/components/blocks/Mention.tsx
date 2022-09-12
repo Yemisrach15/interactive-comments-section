@@ -1,6 +1,5 @@
 import React from 'react';
-
-interface MentionProps extends React.HTMLProps<HTMLSpanElement> {}
+import { MentionProps } from '../types';
 
 function Mention({ children, ...props }: MentionProps) {
   return <span {...props}>{children}</span>;

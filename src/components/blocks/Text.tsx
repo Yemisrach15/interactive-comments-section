@@ -1,6 +1,5 @@
 import React from 'react';
-
-interface TextProps extends React.HTMLProps<HTMLParagraphElement> {}
+import { TextProps } from '../types';
 
 function Text({ children, ...props }: TextProps) {
   return <p {...props}>{children}</p>;

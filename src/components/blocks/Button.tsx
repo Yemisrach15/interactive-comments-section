@@ -1,10 +1,5 @@
 import React from 'react';
-
-interface ButtonProps
-  extends React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {}
+import { ButtonProps } from '../types';
 
 function Button({ children, ...props }: ButtonProps) {
   return <button {...props}>{children}</button>;

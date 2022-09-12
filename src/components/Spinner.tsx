@@ -2,12 +2,7 @@ import React from 'react';
 import { Box, Button, Text } from '.';
 import { ReactComponent as PlusIcon } from '../assets/icons/icon-plus.svg';
 import { ReactComponent as MinusIcon } from '../assets/icons/icon-minus.svg';
-
-interface SpinnerProps {
-  value: number;
-  onPlusIconClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  onMinusIconClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-}
+import { SpinnerProps } from './types';
 
 function Spinner(props: SpinnerProps) {
   return (

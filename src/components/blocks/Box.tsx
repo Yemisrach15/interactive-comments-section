@@ -1,8 +1,5 @@
 import React from 'react';
-
-type BoxProps = React.HTMLAttributes<HTMLElement> & {
-  tag: React.ElementType;
-};
+import { BoxProps } from '../types';
 
 function Box({ tag: Tag, children, ...props }: BoxProps) {
   return <Tag {...props}>{children}</Tag>;

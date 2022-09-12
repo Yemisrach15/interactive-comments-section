@@ -1,17 +1,10 @@
 import React from 'react';
+import { ButtonProps } from '../types';
 
-interface IconedButtonProps
-  extends React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
-  icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-}
-
-function IconedButton({ children, icon: Icon, ...props }: IconedButtonProps) {
+function IconedButton({ children, icon: Icon, ...props }: ButtonProps) {
   return (
     <button {...props}>
-      {<Icon aria-hidden="true" focusable="false" />}
+      {Icon && <Icon aria-hidden="true" focusable="false" />}
       {children}
     </button>
   );
