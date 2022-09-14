@@ -3,19 +3,27 @@ import { Text, TextArea } from '.';
 import { extractUserName } from '../utils';
 
 interface EditableTextProps {
-  isOnEdit?: boolean;
+  isOnEdit: boolean;
+  label: string;
+  labelID: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  value?: string;
+  value: string;
 }
 
 function EditableText(props: EditableTextProps) {
   const { userName, text } = extractUserName(props.value || '');
   return props.isOnEdit ? (
-    <TextArea
-      className="comment-input text--dark	"
-      onChange={props.onChange}
-      defaultValue={props.value}
-    />
+    <>
+      <label htmlFor={props.labelID} className="sr-only">
+        {props.label}
+      </label>
+      <TextArea
+        className="comment-input text--dark"
+        id={props.labelID}
+        onChange={props.onChange}
+        defaultValue={props.value}
+      />
+    </>
   ) : (
     <Text className="text text--light">
       {userName && (
