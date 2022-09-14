@@ -83,11 +83,94 @@
   padding: 4px;
   width: fit-content;
 
+  @include screen-desktop {
+    flex-direction: column;
+  }
+
   & button {
     padding: 10.5px;
+
+    @include screen-desktop {
+      padding: 9px 10.5px;
+    }
   }
 
   & .text {
     align-self: center;
+  }
+}
+
+.comment-box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding-right: 18px;
+
+  @include screen-desktop {
+    column-gap: 24.5px;
+    grid-template-columns: repeat(3, auto);
+    padding: 24px;
+  }
+
+  & > section {
+    align-items: center;
+    display: flex;
+    gap: 16px;
+    grid-column: 1 / 3;
+    grid-row: 1;
+    margin-bottom: 16px;
+
+    @include screen-desktop {
+      grid-column: 2 / 3;
+      grid-row: 1;
+    }
+  }
+
+  & > p {
+    grid-column: 1 / 3;
+    grid-row: 2;
+    margin-bottom: 16px;
+
+    @include screen-desktop {
+      grid-column: 2 / 4;
+      grid-row: 2;
+      margin-bottom: 0px;
+    }
+  }
+
+  & > .spinner {
+    align-self: center;
+    grid-column: 1 / 2;
+    grid-row: 3;
+
+    @include screen-desktop {
+      align-self: start;
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+  }
+
+  & > div:last-of-type {
+    align-self: center;
+    display: flex;
+    grid-column: 2 / 3;
+    grid-row: 3;
+    justify-self: end;
+    margin: 0px -8.5px;
+
+    @include screen-desktop {
+      align-self: start;
+      gap: 8px;
+      grid-column: 3 / 4;
+      grid-row: 1;
+      margin: -3px -8.5px;
+    }
+
+    & button {
+      padding: 10.5px 8.5px;
+    }
+  }
+
+  & h2 > span {
+    margin-left: 8px;
   }
 }

@@ -33,3 +33,15 @@ export interface SpinnerProps {
   onPlusIconClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onMinusIconClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
+
+export interface CommentBoxProps extends Omit<SpinnerProps, 'value'> {
+  comment: string;
+  commenter: string;
+  commentTimestamp: string;
+  isOwn: boolean;
+  onDeleteBtnClick?: (e: React.MouseEvent) => void;
+  onEditBtnClick?: (e: React.MouseEvent) => void;
+  onReplyBtnClick?: (e: React.MouseEvent) => void;
+  profileImages: { png: string; webp: string };
+  upvoteValue: number;
+}

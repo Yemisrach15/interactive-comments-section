@@ -14,6 +14,10 @@ button {
   cursor: pointer;
 }
 
+picture {
+  line-height: 0;
+}
+
 *,
 *::after,
 *::before {
@@ -191,10 +195,105 @@ button {
   width: -moz-fit-content;
   width: fit-content;
 }
+@media screen and (min-width: 768px) {
+  .spinner {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
 .spinner button {
   padding: 10.5px;
+}
+@media screen and (min-width: 768px) {
+  .spinner button {
+    padding: 9px 10.5px;
+  }
 }
 .spinner .text {
   -ms-flex-item-align: center;
       align-self: center;
+}
+
+.comment-box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding-right: 18px;
+}
+@media screen and (min-width: 768px) {
+  .comment-box {
+    -webkit-column-gap: 24.5px;
+       -moz-column-gap: 24.5px;
+            column-gap: 24.5px;
+    grid-template-columns: repeat(3, auto);
+    padding: 24px;
+  }
+}
+.comment-box > section {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 16px;
+  grid-column: 1/3;
+  grid-row: 1;
+  margin-bottom: 16px;
+}
+@media screen and (min-width: 768px) {
+  .comment-box > section {
+    grid-column: 2/3;
+    grid-row: 1;
+  }
+}
+.comment-box > p {
+  grid-column: 1/3;
+  grid-row: 2;
+  margin-bottom: 16px;
+}
+@media screen and (min-width: 768px) {
+  .comment-box > p {
+    grid-column: 2/4;
+    grid-row: 2;
+    margin-bottom: 0px;
+  }
+}
+.comment-box > .spinner {
+  align-self: center;
+  grid-column: 1/2;
+  grid-row: 3;
+}
+@media screen and (min-width: 768px) {
+  .comment-box > .spinner {
+    align-self: start;
+    grid-column: 1;
+    grid-row: 1/3;
+  }
+}
+.comment-box > div:last-of-type {
+  align-self: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  grid-column: 2/3;
+  grid-row: 3;
+  justify-self: end;
+  margin: 0px -8.5px;
+}
+@media screen and (min-width: 768px) {
+  .comment-box > div:last-of-type {
+    align-self: start;
+    gap: 8px;
+    grid-column: 3/4;
+    grid-row: 1;
+    margin: -3px -8.5px;
+  }
+}
+.comment-box > div:last-of-type button {
+  padding: 10.5px 8.5px;
+}
+.comment-box h2 > span {
+  margin-left: 8px;
 }
