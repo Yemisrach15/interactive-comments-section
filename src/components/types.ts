@@ -34,7 +34,17 @@ export interface SpinnerProps {
   onMinusIconClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-export interface CommentBoxProps extends Omit<SpinnerProps, 'value'> {
+export interface EditableTextProps {
+  isOnEdit: boolean;
+  label: string;
+  labelID: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  value: string;
+}
+
+export interface CommentBoxProps
+  extends Omit<SpinnerProps, 'value'>,
+    Omit<EditableTextProps, 'value' | 'label'> {
   comment: string;
   commenter: string;
   commentTimestamp: string;
@@ -43,6 +53,7 @@ export interface CommentBoxProps extends Omit<SpinnerProps, 'value'> {
   onDeleteBtnClick?: (e: React.MouseEvent) => void;
   onEditBtnClick?: (e: React.MouseEvent) => void;
   onReplyBtnClick?: (e: React.MouseEvent) => void;
+  onUpdateBtnClick?: (e: React.MouseEvent) => void;
   profileImages: { png: string; webp: string };
   upvoteValue: number;
 }

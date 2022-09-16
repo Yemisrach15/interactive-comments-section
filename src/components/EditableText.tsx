@@ -1,14 +1,7 @@
 import React from 'react';
 import { Text, TextArea } from '.';
 import { extractUserName } from '../utils';
-
-interface EditableTextProps {
-  isOnEdit: boolean;
-  label: string;
-  labelID: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  value: string;
-}
+import { EditableTextProps } from './types';
 
 function EditableText(props: EditableTextProps) {
   const { userName, text } = extractUserName(props.value || '');

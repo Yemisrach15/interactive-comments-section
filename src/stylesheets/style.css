@@ -61,6 +61,10 @@ picture {
   line-height: initial;
 }
 
+.comment-input {
+  line-height: 1.5;
+}
+
 body {
   background-color: hsl(223deg, 19%, 93%);
 }
@@ -128,7 +132,7 @@ body {
 
 .btn {
   cursor: pointer;
-  padding: 14.5px 30.5px;
+  padding: 14.5px 20px;
 }
 .btn--primary {
   border-radius: 8px;
@@ -157,8 +161,9 @@ body {
 .comment-input {
   border-radius: 8px;
   border: 1px solid hsl(223deg, 19%, 93%);
+  min-height: 125px;
   overflow: auto;
-  padding: 13px 23px;
+  padding: 10px 24px;
   resize: vertical;
   width: 100%;
 }
@@ -228,7 +233,7 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin-bottom: 24px;
-  max-width: 624px;
+  max-width: 642px;
   padding-right: 18px;
 }
 @media screen and (min-width: 768px) {
@@ -236,7 +241,8 @@ body {
     -webkit-column-gap: 24.5px;
        -moz-column-gap: 24.5px;
             column-gap: 24.5px;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: -webkit-min-content repeat(2, auto);
+    grid-template-columns: min-content repeat(2, auto);
     padding: 24px;
   }
 }
@@ -271,6 +277,19 @@ body {
     grid-row: 2;
     margin-bottom: 0px;
   }
+}
+.comment-box > form {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 14px;
 }
 .comment-box > .spinner {
   align-self: center;

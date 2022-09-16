@@ -32,16 +32,18 @@ function CommentBox(props: CommentBoxProps) {
         </Heading>
         <Text className="text text--light">{props.commentTimestamp}</Text>
       </Box>
-      {props.isOnEdit ? (
-        <form action="#">
+      {props.isOnEdit && props.isOwn ? (
+        <form>
           <EditableText
             isOnEdit={props.isOnEdit}
             label={'Edit comment'}
-            labelID={'some-comment'}
+            labelID={props.labelID}
             value={props.comment}
-            onChange={(e) => console.log(e.target.value)}
+            onChange={props.onChange}
           />
-          <Button className="btn btn--primary btn--uppercase">update</Button>
+          <Button className="btn btn--primary btn--uppercase" onClick={props.onUpdateBtnClick}>
+            Update
+          </Button>
         </form>
       ) : (
         <Text className="text text--light">
@@ -70,6 +72,7 @@ function CommentBox(props: CommentBoxProps) {
             </Button>
             <Button
               className="btn btn--iconed btn--text-primary"
+              disabled={props.isOnEdit}
               icon={EditIcon}
               onClick={props.onEditBtnClick}
             >

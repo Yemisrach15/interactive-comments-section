@@ -5,6 +5,8 @@ import JuliusProfileWEBP from '../assets/images/avatars/image-juliusomo.webp';
 
 function Main() {
   const [value, setValue] = React.useState(12);
+  const [isOnEdit, setIsOnEdit] = React.useState(false);
+
   return (
     <Box tag={'section'}>
       <CommentBox
@@ -19,10 +21,14 @@ function Main() {
         upvoteValue={value}
         onMinusIconClick={() => setValue(value - 1)}
         onPlusIconClick={() => setValue(value + 1)}
+        labelID={'comment-1'}
+        onChange={() => {
+          console.log('edited');
+        }}
       />
       <CommentBox
         isOwn={true}
-        isOnEdit={true}
+        isOnEdit={isOnEdit}
         profileImages={{ png: JuliusProfilePNG, webp: JuliusProfileWEBP }}
         commenter={'juliusomo'}
         commentTimestamp={'2 days ago'}
@@ -30,8 +36,18 @@ function Main() {
           "@ramsesmiron I couldn't agree more with this. Everything moves so fast and it always seems like everyone knows the newest library/framework. But the fundamentals are what stay constant."
         }
         upvoteValue={value}
+        onEditBtnClick={() => setIsOnEdit(!isOnEdit)}
         onMinusIconClick={() => setValue(value - 1)}
         onPlusIconClick={() => setValue(value + 1)}
+        labelID={'comment-2'}
+        onChange={(e) => {
+          console.log(e.target.value);
+        }}
+        onUpdateBtnClick={(e) => {
+          e.preventDefault();
+          console.log(e);
+          setIsOnEdit(false);
+        }}
       />
     </Box>
   );
