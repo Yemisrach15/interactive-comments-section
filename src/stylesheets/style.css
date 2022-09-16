@@ -61,6 +61,10 @@ picture {
   line-height: initial;
 }
 
+body {
+  background-color: hsl(223deg, 19%, 93%);
+}
+
 .btn--primary {
   background-color: hsl(238deg, 40%, 52%);
   color: hsl(0deg, 0%, 100%);
@@ -116,6 +120,10 @@ picture {
           box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  padding: 1.55em;
 }
 
 .btn {
@@ -219,6 +227,8 @@ picture {
 .comment-box {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 24px;
+  max-width: 624px;
   padding-right: 18px;
 }
 @media screen and (min-width: 768px) {
@@ -248,13 +258,15 @@ picture {
     grid-row: 1;
   }
 }
-.comment-box > p {
+.comment-box > p,
+.comment-box > form {
   grid-column: 1/3;
   grid-row: 2;
   margin-bottom: 16px;
 }
 @media screen and (min-width: 768px) {
-  .comment-box > p {
+  .comment-box > p,
+.comment-box > form {
     grid-column: 2/4;
     grid-row: 2;
     margin-bottom: 0px;

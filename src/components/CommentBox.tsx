@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Heading, Picture, Spinner, Text } from '.';
+import { Box, Button, EditableText, Heading, Picture, Spinner, Text } from '.';
 import { ReactComponent as ReplyIcon } from '../assets/icons/icon-reply.svg';
 import { ReactComponent as EditIcon } from '../assets/icons/icon-edit.svg';
 import { ReactComponent as DeleteIcon } from '../assets/icons/icon-delete.svg';
@@ -32,14 +32,27 @@ function CommentBox(props: CommentBoxProps) {
         </Heading>
         <Text className="text text--light">{props.commentTimestamp}</Text>
       </Box>
-      <Text className="text text--light">
-        {userName && (
-          <Text className="mention" tag={'span'}>
-            {userName}&nbsp;
-          </Text>
-        )}
-        {text}
-      </Text>
+      {props.isOnEdit ? (
+        <form action="#">
+          <EditableText
+            isOnEdit={props.isOnEdit}
+            label={'Edit comment'}
+            labelID={'some-comment'}
+            value={props.comment}
+            onChange={(e) => console.log(e.target.value)}
+          />
+          <Button className="btn btn--primary btn--uppercase">update</Button>
+        </form>
+      ) : (
+        <Text className="text text--light">
+          {userName && (
+            <Text className="mention" tag={'span'}>
+              {userName}&nbsp;
+            </Text>
+          )}
+          {text}
+        </Text>
+      )}
       <Spinner
         value={props.upvoteValue}
         onMinusIconClick={props.onMinusIconClick}

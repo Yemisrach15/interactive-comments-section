@@ -38,6 +38,7 @@ export interface CommentBoxProps extends Omit<SpinnerProps, 'value'> {
   comment: string;
   commenter: string;
   commentTimestamp: string;
+  isOnEdit: boolean;
   isOwn: boolean;
   onDeleteBtnClick?: (e: React.MouseEvent) => void;
   onEditBtnClick?: (e: React.MouseEvent) => void;
