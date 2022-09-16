@@ -11,7 +11,7 @@ function Spinner(props: SpinnerProps) {
         <PlusIcon aria-hidden="true" focusable="false" />
         <span className="sr-only">Like</span>
       </Button>
-      <Text className="text" aria-label="Number of likes">
+      <Text className="text" aria-label={`${props.value} likes`}>
         {props.value}
       </Text>
       <Button onClick={props.onMinusIconClick}>
