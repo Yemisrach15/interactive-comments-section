@@ -15,12 +15,8 @@ body {
 }
 
 .btn {
-  cursor: pointer;
+  border-radius: 8px;
   padding: 14.5px 20px;
-
-  &--primary {
-    border-radius: 8px;
-  }
 
   &--compact {
     padding: 0;
@@ -187,5 +183,44 @@ body {
 
   & h2 > span {
     margin-left: 8px;
+  }
+}
+
+dialog {
+  border-radius: 10px;
+  border: none;
+  left: 50%;
+  max-width: 400px;
+  padding: 25px;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 91.5%;
+
+  @include screen-desktop {
+    padding: 32px;
+  }
+
+  & h2,
+  p {
+    margin-bottom: 16px;
+
+    @include screen-desktop {
+      margin-bottom: 20px;
+    }
+  }
+
+  & > ul:last-of-type {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    list-style: none;
+
+    & li {
+      flex: 1;
+    }
+
+    & button {
+      width: 100%;
+    }
   }
 }

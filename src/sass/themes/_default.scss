@@ -18,6 +18,15 @@ body {
     color: $neutral-color-300;
   }
 
+  &--gray {
+    background-color: $neutral-color-400;
+    color: $neutral-color-100;
+  }
+  &--danger {
+    background-color: $secondary-color-200;
+    color: $neutral-color-100;
+  }
+
   &--text-primary {
     color: $primary-color-200;
   }
@@ -61,5 +70,13 @@ body {
 
   & .text {
     color: $primary-color-200;
+  }
+}
+
+dialog {
+  background-color: $neutral-color-100;
+
+  &::backdrop {
+    background-color: transparentize($color: black, $amount: 0.5);
   }
 }

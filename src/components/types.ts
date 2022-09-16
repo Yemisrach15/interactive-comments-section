@@ -57,3 +57,8 @@ export interface CommentBoxProps
   profileImages: { png: string; webp: string };
   upvoteValue: number;
 }
+
+export interface ModalProps extends React.HTMLProps<HTMLDialogElement> {
+  onCancelBtnClick: (e: React.MouseEvent) => void;
+  onDeleteBtnClick: (e: React.MouseEvent) => void;
+}

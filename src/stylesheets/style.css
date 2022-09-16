@@ -65,6 +65,15 @@ picture {
   line-height: 1.5;
 }
 
+dialog h2 {
+  font-size: 1.25em;
+}
+@media screen and (min-width: 768px) {
+  dialog h2 {
+    font-size: 1.5em;
+  }
+}
+
 body {
   background-color: hsl(223deg, 19%, 93%);
 }
@@ -78,6 +87,14 @@ body {
 }
 .btn--tertiary {
   color: hsl(223deg, 19%, 93%);
+}
+.btn--gray {
+  background-color: hsl(211deg, 10%, 45%);
+  color: hsl(0deg, 0%, 100%);
+}
+.btn--danger {
+  background-color: hsl(358deg, 79%, 66%);
+  color: hsl(0deg, 0%, 100%);
 }
 .btn--text-primary {
   color: hsl(238deg, 40%, 52%);
@@ -117,6 +134,16 @@ body {
   color: hsl(238deg, 40%, 52%);
 }
 
+dialog {
+  background-color: hsl(0deg, 0%, 100%);
+}
+dialog::-webkit-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 *,
 *::after,
 *::before {
@@ -131,11 +158,8 @@ body {
 }
 
 .btn {
-  cursor: pointer;
-  padding: 14.5px 20px;
-}
-.btn--primary {
   border-radius: 8px;
+  padding: 14.5px 20px;
 }
 .btn--compact {
   padding: 0;
@@ -327,4 +351,49 @@ body {
 }
 .comment-box h2 > span {
   margin-left: 8px;
+}
+
+dialog {
+  border-radius: 10px;
+  border: none;
+  left: 50%;
+  max-width: 400px;
+  padding: 25px;
+  top: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+  width: 91.5%;
+}
+@media screen and (min-width: 768px) {
+  dialog {
+    padding: 32px;
+  }
+}
+dialog h2,
+dialog p {
+  margin-bottom: 16px;
+}
+@media screen and (min-width: 768px) {
+  dialog h2,
+dialog p {
+    margin-bottom: 20px;
+  }
+}
+dialog > ul:last-of-type {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 12px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  list-style: none;
+}
+dialog > ul:last-of-type li {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+dialog > ul:last-of-type button {
+  width: 100%;
 }

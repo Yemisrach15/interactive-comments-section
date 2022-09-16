@@ -48,3 +48,13 @@
 .comment-input {
   line-height: 1.5;
 }
+
+dialog {
+  & h2 {
+    font-size: 1.25em;
+
+    @include screen-desktop {
+      font-size: 1.5em;
+    }
+  }
+}
