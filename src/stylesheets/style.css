@@ -102,6 +102,9 @@ body {
 .btn--text-danger {
   color: hsl(358deg, 79%, 66%);
 }
+.btn:hover {
+  opacity: 0.75;
+}
 
 .heading {
   color: hsl(212deg, 24%, 26%);
@@ -123,6 +126,11 @@ body {
   color: hsl(0deg, 0%, 100%);
 }
 
+.comment-input:hover, .comment-input:focus-visible {
+  border-color: hsl(212deg, 24%, 26%);
+  outline-color: hsl(212deg, 24%, 26%);
+}
+
 .box--white {
   background-color: hsl(0deg, 0%, 100%);
 }
@@ -132,6 +140,9 @@ body {
 }
 .spinner .text {
   color: hsl(238deg, 40%, 52%);
+}
+.spinner button:hover > svg path {
+  fill: hsl(238deg, 40%, 52%);
 }
 
 dialog {

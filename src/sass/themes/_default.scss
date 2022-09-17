@@ -34,6 +34,10 @@ body {
   &--text-danger {
     color: $secondary-color-200;
   }
+
+  &:hover {
+    opacity: 0.75;
+  }
 }
 
 .heading {
@@ -59,6 +63,14 @@ body {
   color: $neutral-color-100;
 }
 
+.comment-input {
+  &:hover,
+  &:focus-visible {
+    border-color: $neutral-color-500;
+    outline-color: $neutral-color-500;
+  }
+}
+
 .box {
   &--white {
     background-color: $neutral-color-100;
@@ -70,6 +82,10 @@ body {
 
   & .text {
     color: $primary-color-200;
+  }
+
+  & button:hover > svg path {
+    fill: $primary-color-200;
   }
 }
 
