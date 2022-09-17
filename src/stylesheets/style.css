@@ -146,6 +146,9 @@ body {
 }
 
 dialog {
+  background-color: transparent;
+}
+dialog > div[role=document] {
   background-color: hsl(0deg, 0%, 100%);
 }
 dialog::-webkit-backdrop {
@@ -365,6 +368,12 @@ body {
 }
 
 dialog {
+  padding: 0;
+  border: 0;
+}
+
+dialog > div[role=document] {
+  position: fixed;
   border-radius: 10px;
   border: none;
   left: 50%;
@@ -376,21 +385,21 @@ dialog {
   width: 91.5%;
 }
 @media screen and (min-width: 768px) {
-  dialog {
+  dialog > div[role=document] {
     padding: 32px;
   }
 }
-dialog h2,
-dialog p {
+dialog > div[role=document] h2,
+dialog > div[role=document] p {
   margin-bottom: 16px;
 }
 @media screen and (min-width: 768px) {
-  dialog h2,
-dialog p {
+  dialog > div[role=document] h2,
+dialog > div[role=document] p {
     margin-bottom: 20px;
   }
 }
-dialog > ul:last-of-type {
+dialog > div[role=document] > ul:last-of-type {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -400,11 +409,11 @@ dialog > ul:last-of-type {
           justify-content: space-between;
   list-style: none;
 }
-dialog > ul:last-of-type li {
+dialog > div[role=document] > ul:last-of-type li {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
-dialog > ul:last-of-type button {
+dialog > div[role=document] > ul:last-of-type button {
   width: 100%;
 }
