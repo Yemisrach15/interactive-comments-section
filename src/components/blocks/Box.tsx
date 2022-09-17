@@ -1,8 +1,14 @@
 import React from 'react';
 import { BoxProps } from '../types';
 
-function Box({ tag: Tag, children, ...props }: BoxProps) {
-  return <Tag {...props}>{children}</Tag>;
-}
+const Box = React.forwardRef(({ tag: Tag, children, ...props }: BoxProps, ref) => {
+  return (
+    <Tag ref={ref} {...props}>
+      {children}
+    </Tag>
+  );
+});
+
+Box.displayName = 'Box';
 
 export default Box;

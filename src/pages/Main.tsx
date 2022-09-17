@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, CommentBox } from '../components';
+import { Box, CommentBox, Modal } from '../components';
 import JuliusProfilePNG from '../assets/images/avatars/image-juliusomo.png';
 import JuliusProfileWEBP from '../assets/images/avatars/image-juliusomo.webp';
 
 function Main() {
   const [value, setValue] = React.useState(12);
   const [isOnEdit, setIsOnEdit] = React.useState(false);
+  const deleteModalRef = React.useRef<HTMLDialogElement>(null);
 
   return (
     <Box tag={'section'}>
@@ -36,6 +37,11 @@ function Main() {
           "@ramsesmiron I couldn't agree more with this. Everything moves so fast and it always seems like everyone knows the newest library/framework. But the fundamentals are what stay constant."
         }
         upvoteValue={value}
+        onDeleteBtnClick={() => {
+          if (deleteModalRef.current && typeof deleteModalRef.current.showModal === 'function') {
+            deleteModalRef.current.showModal();
+          }
+        }}
         onEditBtnClick={() => setIsOnEdit(!isOnEdit)}
         onMinusIconClick={() => setValue(value - 1)}
         onPlusIconClick={() => setValue(value + 1)}
@@ -48,6 +54,12 @@ function Main() {
           console.log(e);
           setIsOnEdit(false);
         }}
+      />
+      <Modal
+        id="delete-modal"
+        ref={deleteModalRef}
+        onCancelBtnClick={() => deleteModalRef.current && deleteModalRef.current.close()}
+        onDeleteBtnClick={() => console.log('comment deleted')}
       />
     </Box>
   );

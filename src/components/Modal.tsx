@@ -2,9 +2,19 @@ import React from 'react';
 import { Box, Button, Heading, Text } from '.';
 import { ModalProps } from './types';
 
-function Modal(props: ModalProps) {
+const Modal = React.forwardRef((props: ModalProps, ref) => {
+  React.useEffect(() => {
+    const modalRef = ref as React.RefObject<HTMLDialogElement>;
+    if (modalRef && modalRef.current) {
+      modalRef.current.addEventListener('click', (e) => {
+        if (modalRef.current && e.target === modalRef.current) modalRef.current.close();
+      });
+    }
+  }, []);
+
   return (
     <Box
+      ref={ref}
       tag={'dialog'}
       id={props.id}
       role="alertdialog"
@@ -36,6 +46,8 @@ function Modal(props: ModalProps) {
       </Box>
     </Box>
   );
-}
+});
+
+Modal.displayName = 'Modal';
 
 export default Modal;
