@@ -187,6 +187,12 @@ body {
 }
 
 dialog {
+  padding: 0;
+  border: 0;
+}
+
+dialog > div[role='document'] {
+  position: fixed;
   border-radius: 10px;
   border: none;
   left: 50%;

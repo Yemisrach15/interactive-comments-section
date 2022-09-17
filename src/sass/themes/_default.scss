@@ -90,7 +90,11 @@ body {
 }
 
 dialog {
-  background-color: $neutral-color-100;
+  background-color: transparent;
+
+  & > div[role='document'] {
+    background-color: $neutral-color-100;
+  }
 
   &::backdrop {
     background-color: transparentize($color: black, $amount: 0.5);
