@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, CommentBox, Modal } from '../components';
+import { Box, CommentBox, CommentInputForm, Modal } from '../components';
 import JuliusProfilePNG from '../assets/images/avatars/image-juliusomo.png';
 import JuliusProfileWEBP from '../assets/images/avatars/image-juliusomo.webp';
 
@@ -60,6 +60,19 @@ function Main() {
         ref={deleteModalRef}
         onCancelBtnClick={() => deleteModalRef.current && deleteModalRef.current.close()}
         onDeleteBtnClick={() => console.log('comment deleted')}
+      />
+      <CommentInputForm
+        labelID="comment-3"
+        isReply={false}
+        onCommentChange={(e) => console.log(e)}
+        profileImages={{ png: JuliusProfilePNG, webp: JuliusProfileWEBP }}
+      />
+      <CommentInputForm
+        labelID="comment-4"
+        isReply={true}
+        replyingTo={'ramsesmiron'}
+        onCommentChange={(e) => console.log(e.target.value)}
+        profileImages={{ png: JuliusProfilePNG, webp: JuliusProfileWEBP }}
       />
     </Box>
   );
