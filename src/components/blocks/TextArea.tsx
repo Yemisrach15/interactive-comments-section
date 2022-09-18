@@ -3,7 +3,7 @@ import { TextAreaProps } from '../types';
 
 function TextArea({ children, ...props }: TextAreaProps) {
   return (
-    <textarea {...props} value={children as string}>
+    <textarea {...props} defaultValue={props.defaultValue || (children as string)}>
       {children}
     </textarea>
   );
