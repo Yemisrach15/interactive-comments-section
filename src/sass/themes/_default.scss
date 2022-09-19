@@ -1,0 +1,102 @@
+@import '../utils/colors';
+
+body {
+  background-color: $neutral-color-300;
+}
+
+.btn {
+  &--primary {
+    background-color: $primary-color-200;
+    color: $neutral-color-100;
+  }
+
+  &--secondary {
+    color: $primary-color-200;
+  }
+
+  &--tertiary {
+    color: $neutral-color-300;
+  }
+
+  &--gray {
+    background-color: $neutral-color-400;
+    color: $neutral-color-100;
+  }
+  &--danger {
+    background-color: $secondary-color-200;
+    color: $neutral-color-100;
+  }
+
+  &--text-primary {
+    color: $primary-color-200;
+  }
+
+  &--text-danger {
+    color: $secondary-color-200;
+  }
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.heading {
+  color: $neutral-color-500;
+}
+
+.mention {
+  color: $primary-color-200;
+}
+
+.text {
+  &--light {
+    color: $neutral-color-400;
+  }
+
+  &--dark {
+    color: $neutral-color-500;
+  }
+}
+
+.badge {
+  background-color: $primary-color-200;
+  color: $neutral-color-100;
+}
+
+.comment-input {
+  &:hover,
+  &:focus-visible {
+    border-color: $neutral-color-500;
+    outline-color: $neutral-color-500;
+  }
+}
+
+.box {
+  &--white {
+    background-color: $neutral-color-100;
+  }
+}
+
+.spinner {
+  background-color: $neutral-color-300;
+
+  & .text {
+    color: $primary-color-200;
+  }
+
+  & button:hover > svg path {
+    fill: $primary-color-200;
+  }
+}
+
+dialog {
+  background-color: transparent;
+
+  & > div[role='document'] {
+    background-color: $neutral-color-100;
+  }
+
+  &::backdrop {
+    background-color: transparentize($color: black, $amount: 0.5);
+  }
+}
