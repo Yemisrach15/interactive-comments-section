@@ -1,14 +1,11 @@
 import React from 'react';
 import { Box, CommentBox, CommentInputForm, Modal } from '../components';
-import JuliusProfilePNG from '../assets/images/avatars/image-juliusomo.png';
-import JuliusProfileWEBP from '../assets/images/avatars/image-juliusomo.webp';
-import Data from '../data.json';
+import data from '../data.json';
 
 function Main() {
   const [value, setValue] = React.useState(12);
   const [isOnEdit, setIsOnEdit] = React.useState(false);
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
-  const [data, setData] = React.useState(Data);
 
   React.useEffect(() => {
     console.log('mounted');
@@ -43,7 +40,7 @@ function Main() {
             c.replies.map((r) => (
               <CommentBox
                 key={r.id}
-                comment={r.content}
+                comment={`@${r.replyingTo} ${r.content}`}
                 commenter={r.user.username}
                 commentTimestamp={r.createdAt}
                 isOwn={r.user.username === data.currentUser.username}
