@@ -14,6 +14,13 @@ body {
   padding: 16px;
 }
 
+main {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .btn {
   border-radius: 8px;
   padding: 14.5px 20px;
@@ -104,14 +111,23 @@ body {
 .comment-box {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 24px;
-  max-width: 642px;
+  //   margin-bottom: 24px;
+  //   max-width: 642px;
   padding-right: 18px;
 
   @include screen-desktop {
     column-gap: 24.5px;
     grid-template-columns: min-content repeat(2, auto);
     padding: 24px;
+  }
+
+  &--indent {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-left: 1px solid $neutral-color-400;
+    margin-left: 32px;
+    padding-left: 32px;
   }
 
   & > section {
@@ -237,7 +253,7 @@ dialog > div[role='document'] {
   gap: 16px;
   grid-template-columns: repeat(2, 1fr);
   margin-bottom: 24px;
-  max-width: 730px;
+  //   max-width: 730px;
 
   @include screen-desktop {
     align-items: start;

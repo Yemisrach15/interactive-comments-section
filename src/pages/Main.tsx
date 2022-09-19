@@ -13,7 +13,7 @@ function Main() {
   }, []);
 
   return (
-    <Box tag={'section'}>
+    <Box tag={'main'}>
       {data.comments.map((c) => (
         <>
           <CommentBox
@@ -36,30 +36,33 @@ function Main() {
               webp: require(`../assets/${c.user.image.webp}`),
             }}
           />
-          {c.replies.length !== 0 &&
-            c.replies.map((r) => (
-              <CommentBox
-                key={r.id}
-                comment={`@${r.replyingTo} ${r.content}`}
-                commenter={r.user.username}
-                commentTimestamp={r.createdAt}
-                isOwn={r.user.username === data.currentUser.username}
-                isOnEdit={isOnEdit}
-                upvoteValue={r.score}
-                labelID={`comment-${r.user.username}-${r.id}`}
-                onDeleteBtnClick={() => deleteModalRef.current?.showModal()}
-                onEditBtnClick={() => setIsOnEdit(!isOnEdit)}
-                onMinusIconClick={() => setValue(value - 1)}
-                onPlusIconClick={() => setValue(value + 1)}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                }}
-                profileImages={{
-                  png: require(`../assets/${r.user.image.png}`),
-                  webp: require(`../assets/${r.user.image.webp}`),
-                }}
-              />
-            ))}
+          {c.replies.length !== 0 && (
+            <Box tag={'div'} className="comment-box--indent">
+              {c.replies.map((r) => (
+                <CommentBox
+                  key={r.id}
+                  comment={`@${r.replyingTo} ${r.content}`}
+                  commenter={r.user.username}
+                  commentTimestamp={r.createdAt}
+                  isOwn={r.user.username === data.currentUser.username}
+                  isOnEdit={isOnEdit}
+                  upvoteValue={r.score}
+                  labelID={`comment-${r.user.username}-${r.id}`}
+                  onDeleteBtnClick={() => deleteModalRef.current?.showModal()}
+                  onEditBtnClick={() => setIsOnEdit(!isOnEdit)}
+                  onMinusIconClick={() => setValue(value - 1)}
+                  onPlusIconClick={() => setValue(value + 1)}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                  }}
+                  profileImages={{
+                    png: require(`../assets/${r.user.image.png}`),
+                    webp: require(`../assets/${r.user.image.webp}`),
+                  }}
+                />
+              ))}
+            </Box>
+          )}
         </>
       ))}
       <CommentInputForm
