@@ -3,9 +3,10 @@
 name: Deploy to Vercel CI
 
 on:
-  # Triggers the workflow pull request events for the "main" and "staging" branch
+  # Triggers the workflow pull request events for the "staging" branch
   pull_request:
-    branches: ['main', 'staging']
+    branches:
+      - 'staging'
   # Triggers the workflow push events for the "main" branch
   push:
     branches:
