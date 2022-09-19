@@ -58,7 +58,10 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions: 
+      deployments: write
+      pull-requests: write
+      contents: write
     steps:
       # Marks github deployment status as "started"
       - name: Start deployment
