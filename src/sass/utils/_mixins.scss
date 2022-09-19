@@ -1,0 +1,21 @@
+$tablet-width: 768px;
+$hybrid-width: 1100px;
+$desktop-width: 1440px;
+
+@mixin screen-desktop {
+  @media screen and (min-width: $tablet-width) {
+    @content;
+  }
+}
+
+@mixin screen-hybrid {
+  @media screen and (min-width: $tablet-width) and (max-width: $hybrid-width) {
+    @content;
+  }
+}
+
+@mixin screen-hybrid-max {
+  @media screen and (min-width: $hybrid-width) {
+    @content;
+  }
+}
