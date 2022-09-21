@@ -16,4 +16,5 @@ export interface IComment {
   user: IUser;
   replies?: IComment[];
   replyingTo?: string;
+  isOnReply?: boolean;
 }

@@ -74,7 +74,27 @@ function Main() {
   };
 
   const onReplyBtnClick = (id: number, rId?: number) => {
-    console.log(id, rId);
+    if (!rId) {
+      const updatedData = data.comments.map((c) => {
+        if (c.id === id) c.isOnReply = true;
+        return c;
+      });
+      setData({ comments: updatedData, currentUser: data.currentUser });
+
+      return;
+    }
+
+    const updatedData = data.comments.map((c) => {
+      c.id === id &&
+        c.replies?.map((r) => {
+          if (r.id === rId) r.isOnReply = true;
+          return r;
+        });
+
+      return c;
+    });
+
+    setData({ comments: updatedData, currentUser: data.currentUser });
   };
 
   const onSubmitBtnClick = (e: React.MouseEvent) => {
@@ -124,16 +144,18 @@ function Main() {
                 webp: require(`../assets/${c.user.image.webp}`),
               }}
             />
-            <CommentInputForm
-              labelID="comment-5"
-              isReply={true}
-              replyingTo={c.user.username}
-              onCommentChange={(e) => setNewComment(e.target.value)}
-              profileImages={{
-                png: require(`../assets/${data.currentUser?.image.png}`),
-                webp: require(`../assets/${data.currentUser?.image.webp}`),
-              }}
-            />
+            {c.isOnReply && (
+              <CommentInputForm
+                labelID="comment-5"
+                isReply={true}
+                replyingTo={c.user.username}
+                onCommentChange={(e) => setNewComment(e.target.value)}
+                profileImages={{
+                  png: require(`../assets/${data.currentUser?.image.png}`),
+                  webp: require(`../assets/${data.currentUser?.image.webp}`),
+                }}
+              />
+            )}
             {c.replies && c.replies.length !== 0 && (
               <Box tag={'div'} className="comment-box--indent">
                 {c.replies.map((r) => (
@@ -160,16 +182,18 @@ function Main() {
                         webp: require(`../assets/${r.user.image.webp}`),
                       }}
                     />
-                    <CommentInputForm
-                      labelID="comment-5"
-                      isReply={true}
-                      replyingTo={r.user.username}
-                      onCommentChange={(e) => setNewComment(e.target.value)}
-                      profileImages={{
-                        png: require(`../assets/${data.currentUser?.image.png}`),
-                        webp: require(`../assets/${data.currentUser?.image.webp}`),
-                      }}
-                    />
+                    {r.isOnReply && (
+                      <CommentInputForm
+                        labelID="comment-5"
+                        isReply={true}
+                        replyingTo={r.user.username}
+                        onCommentChange={(e) => setNewComment(e.target.value)}
+                        profileImages={{
+                          png: require(`../assets/${data.currentUser?.image.png}`),
+                          webp: require(`../assets/${data.currentUser?.image.webp}`),
+                        }}
+                      />
+                    )}
                   </React.Fragment>
                 ))}
               </Box>
