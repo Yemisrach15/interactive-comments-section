@@ -122,12 +122,15 @@ main {
   }
 
   &--indent {
+    border-left: 1px solid $neutral-color-400;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    border-left: 1px solid $neutral-color-400;
-    margin-left: 32px;
     padding-left: 32px;
+
+    @include screen-desktop {
+      margin-left: 32px;
+    }
   }
 
   & > section {
