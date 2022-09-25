@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box, CommentBox, CommentInputForm, Modal } from '../components';
 import Data from '../data.json';
-import { IData } from './types';
+import { IComment, IData } from './types';
 
 function Main() {
   const [isOnEdit, setIsOnEdit] = React.useState(false);
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
   const [data, setData] = React.useState<IData>({} as IData);
-  const [newComment, setNewComment] = React.useState<string>();
+  const [newComment, setNewComment] = React.useState<string>('');
   let id = 5;
 
   React.useEffect(() => {
@@ -113,6 +113,68 @@ function Main() {
       ],
     });
     setNewComment('');
+
+    id++;
+  };
+
+  const onReplySubmitBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
+    e.preventDefault();
+
+    if (!rId) {
+      const updatedData = data.comments.map((c) => {
+        if (c.id === cId) {
+          c.replies = [
+            ...(c.replies as IComment[]),
+            {
+              id,
+              content: newComment,
+              createdAt: 'few minutes ago',
+              score: 0,
+              replyingTo: c.user.username,
+              user: data.currentUser,
+            },
+          ];
+          c.isOnReply = false;
+        }
+        return c;
+      });
+
+      setData({
+        currentUser: data.currentUser,
+        comments: updatedData as IComment[],
+      });
+
+      return;
+    }
+
+    const updatedData = data.comments.map((c) => {
+      if (c.id === cId) {
+        c.replies?.map((r) => {
+          if (r.id === rId) {
+            c.replies = [
+              ...(c.replies as IComment[]),
+              {
+                id,
+                content: newComment,
+                createdAt: 'few minutes ago',
+                score: 0,
+                replyingTo: r.user.username,
+                user: data.currentUser,
+              },
+            ];
+            r.isOnReply = false;
+          }
+        });
+      }
+      return c;
+    });
+
+    setData({
+      currentUser: data.currentUser,
+      comments: updatedData as IComment[],
+    });
+
+    setNewComment('');
     id++;
   };
 
@@ -123,7 +185,6 @@ function Main() {
         data.comments.map((c) => (
           <React.Fragment key={c.id}>
             <CommentBox
-              data-id={c.id}
               key={c.id}
               comment={c.content}
               commenter={c.user.username}
@@ -154,6 +215,7 @@ function Main() {
                   png: require(`../assets/${data.currentUser?.image.png}`),
                   webp: require(`../assets/${data.currentUser?.image.webp}`),
                 }}
+                onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id)}
               />
             )}
             {c.replies && c.replies.length !== 0 && (
@@ -192,6 +254,7 @@ function Main() {
                           png: require(`../assets/${data.currentUser?.image.png}`),
                           webp: require(`../assets/${data.currentUser?.image.webp}`),
                         }}
+                        onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id, r.id)}
                       />
                     )}
                   </React.Fragment>
