@@ -9,6 +9,7 @@ function Main() {
   const [newComment, setNewComment] = React.useState<string>('');
   const [newReply, setNewReply] = React.useState<string>('');
   let id = 5;
+  const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
 
   React.useEffect(() => {
     if (localStorage.getItem('data')) {
@@ -226,6 +227,28 @@ function Main() {
     setData({ comments: updatedData, currentUser: data.currentUser });
   };
 
+  const onDeleteBtnClick = (id: number, rId?: number) => {
+    deleteModalRef.current?.showModal();
+    setCommentToDelete({ cId: id, rId: rId });
+  };
+
+  const onYesDeleteBtnClick = () => {
+    let updatedData;
+    if (!commentToDelete?.rId) {
+      updatedData = data.comments.filter((c) => c.id !== commentToDelete?.cId);
+    } else {
+      updatedData = data.comments.map((c) => {
+        if (c.id === commentToDelete?.cId)
+          c.replies = c.replies?.filter((r) => r.id !== commentToDelete.rId);
+        return c;
+      });
+    }
+
+    setData({ comments: updatedData, currentUser: data.currentUser });
+
+    deleteModalRef.current && deleteModalRef.current.close();
+  };
+
   return (
     <Box tag={'main'}>
       {data.comments &&
@@ -238,6 +261,7 @@ function Main() {
               commenter={c.user.username}
               commentTimestamp={c.createdAt}
               isOwn={c.user.username === data.currentUser?.username}
+              onDeleteBtnClick={() => onDeleteBtnClick(c.id)}
               isOnEdit={c.isOnEdit as boolean}
               upvoteValue={c.score}
               labelID={`comment-${c.user.username}-${c.id}`}
@@ -280,7 +304,7 @@ function Main() {
                       isOnEdit={r.isOnEdit as boolean}
                       upvoteValue={r.score}
                       labelID={`comment-${r.user.username}-${r.id}`}
-                      onDeleteBtnClick={() => deleteModalRef.current?.showModal()}
+                      onDeleteBtnClick={() => onDeleteBtnClick(c.id, r.id)}
                       onEditBtnClick={() => onEditBtnClick(c.id, r.id)}
                       onMinusIconClick={() => onMinusIconClick(c.id, r.id)}
                       onPlusIconClick={() => onPlusIconClick(c.id, r.id)}
@@ -327,9 +351,10 @@ function Main() {
         />
       )}
       <Modal
+        id="delete-modal"
         ref={deleteModalRef}
         onCancelBtnClick={() => deleteModalRef.current && deleteModalRef.current.close()}
-        onDeleteBtnClick={() => console.log('comment deleted')}
+        onDeleteBtnClick={onYesDeleteBtnClick}
       />
     </Box>
   );
