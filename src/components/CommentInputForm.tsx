@@ -24,6 +24,7 @@ function CommentInputForm(props: CommentInputFormProps) {
         placeholder="Add a comment..."
         defaultValue={props.isReply ? `@${props.replyingTo}` : ''}
         onChange={props.onCommentChange}
+        value={props.value}
       />
       <Button className="btn btn--primary btn--uppercase" onClick={props.onSubmitBtnClick}>
         {props.isReply ? 'Reply' : 'Send'}

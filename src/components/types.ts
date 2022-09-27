@@ -63,6 +63,7 @@ export interface ModalProps extends React.HTMLProps<HTMLDialogElement> {
   onDeleteBtnClick: (e: React.MouseEvent) => void;
 }
 export interface CommentInputFormProps {
+  value?: string;
   labelID: string;
   isReply: boolean;
   profileImages: { png: string; webp: string };
