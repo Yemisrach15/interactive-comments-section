@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, CommentBox, CommentInputForm, Modal } from '../components';
 import Data from '../data.json';
+import { extractUserName } from '../utils';
 import { IComment, IData } from './types';
 
 function Main() {
@@ -93,7 +94,7 @@ function Main() {
     e.preventDefault();
     const reply = {
       id,
-      content: newReply,
+      content: extractUserName(newReply).text,
       createdAt: 'few minutes ago',
       score: 0,
       user: data.currentUser,
@@ -156,7 +157,7 @@ function Main() {
     if (!rId) {
       updatedData = data.comments.map((c) => {
         if (c.id === cId) {
-          c.content = newReply;
+          c.content = extractUserName(newReply).text;
           c.isOnEdit = false;
         }
         return c;
@@ -166,7 +167,7 @@ function Main() {
         c.id === cId &&
           c.replies?.map((r) => {
             if (r.id === rId) {
-              r.content = newReply;
+              r.content = extractUserName(newReply).text;
               r.isOnEdit = false;
             }
             return r;
