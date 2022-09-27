@@ -6,19 +6,17 @@ import { IComment, IData } from './types';
 function Main() {
   let id = 5;
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
-  const [data, setData] = React.useState<IData>({} as IData);
+  const [data, setData] = React.useState<IData>(
+    ((localStorage.getItem('data') && JSON.parse(localStorage.getItem('data') as string)) ||
+      Data) as IData
+  );
   const [newComment, setNewComment] = React.useState<string>('');
   const [newReply, setNewReply] = React.useState<string>('');
   const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
 
   React.useEffect(() => {
-    if (localStorage.getItem('data')) {
-      setData(JSON.parse(localStorage.getItem('data') || ''));
-    } else {
-      setData(Data as IData);
-      localStorage.setItem('data', JSON.stringify(Data));
-    }
-  }, []);
+    localStorage.setItem('data', JSON.stringify(data));
+  }, [data]);
 
   // Function for plus and minus button clicks
   const onMinusPlusIconClick = (isMinus: boolean, cId: number, rId?: number) => {
