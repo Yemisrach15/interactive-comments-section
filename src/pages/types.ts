@@ -17,4 +17,5 @@ export interface IComment {
   replies?: IComment[];
   replyingTo?: string;
   isOnReply?: boolean;
+  isOnEdit?: boolean;
 }

@@ -4,10 +4,10 @@ import Data from '../data.json';
 import { IComment, IData } from './types';
 
 function Main() {
-  const [isOnEdit, setIsOnEdit] = React.useState(false);
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
   const [data, setData] = React.useState<IData>({} as IData);
   const [newComment, setNewComment] = React.useState<string>('');
+  const [newReply, setNewReply] = React.useState<string>('');
   let id = 5;
 
   React.useEffect(() => {
@@ -178,6 +178,54 @@ function Main() {
     id++;
   };
 
+  const onEditBtnClick = (id: number, rId?: number) => {
+    if (!rId) {
+      const updatedData = data.comments.map((c) => {
+        if (c.id === id) c.isOnEdit = true;
+        return c;
+      });
+      setData({ comments: updatedData, currentUser: data.currentUser });
+    }
+
+    const updatedData = data.comments.map((c) => {
+      c.id === id &&
+        c.replies?.map((r) => {
+          if (r.id === rId) r.isOnEdit = true;
+          return r;
+        });
+      return c;
+    });
+    setData({ comments: updatedData, currentUser: data.currentUser });
+  };
+
+  const onUpdateBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
+    e.preventDefault();
+    let updatedData;
+    if (!rId) {
+      updatedData = data.comments.map((c) => {
+        if (c.id === cId) {
+          c.content = newReply;
+          c.isOnEdit = false;
+        }
+        return c;
+      });
+    }
+
+    updatedData = data.comments.map((c) => {
+      c.id === cId &&
+        c.replies?.map((r) => {
+          if (r.id === rId) {
+            r.content = newReply;
+            r.isOnEdit = false;
+          }
+          return r;
+        });
+      return c;
+    });
+
+    setData({ comments: updatedData, currentUser: data.currentUser });
+  };
+
   return (
     <Box tag={'main'}>
       {data.comments &&
@@ -190,15 +238,16 @@ function Main() {
               commenter={c.user.username}
               commentTimestamp={c.createdAt}
               isOwn={c.user.username === data.currentUser?.username}
-              isOnEdit={isOnEdit}
+              isOnEdit={c.isOnEdit as boolean}
               upvoteValue={c.score}
               labelID={`comment-${c.user.username}-${c.id}`}
-              onEditBtnClick={() => setIsOnEdit(!isOnEdit)}
+              onEditBtnClick={() => onEditBtnClick(c.id)}
               onMinusIconClick={() => onMinusIconClick(c.id)}
               onPlusIconClick={() => onPlusIconClick(c.id)}
               onReplyBtnClick={() => onReplyBtnClick(c.id)}
+              onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id)}
               onChange={(e) => {
-                console.log(e.target.value);
+                setNewReply(e.target.value);
               }}
               profileImages={{
                 png: require(`../assets/${c.user.image.png}`),
@@ -228,16 +277,17 @@ function Main() {
                       commenter={r.user.username}
                       commentTimestamp={r.createdAt}
                       isOwn={r.user.username === data.currentUser?.username}
-                      isOnEdit={isOnEdit}
+                      isOnEdit={r.isOnEdit as boolean}
                       upvoteValue={r.score}
                       labelID={`comment-${r.user.username}-${r.id}`}
                       onDeleteBtnClick={() => deleteModalRef.current?.showModal()}
-                      onEditBtnClick={() => setIsOnEdit(!isOnEdit)}
+                      onEditBtnClick={() => onEditBtnClick(c.id, r.id)}
                       onMinusIconClick={() => onMinusIconClick(c.id, r.id)}
                       onPlusIconClick={() => onPlusIconClick(c.id, r.id)}
                       onReplyBtnClick={() => onReplyBtnClick(c.id, r.id)}
+                      onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id, r.id)}
                       onChange={(e) => {
-                        console.log(e.target.value);
+                        setNewReply(e.target.value);
                       }}
                       profileImages={{
                         png: require(`../assets/${r.user.image.png}`),
