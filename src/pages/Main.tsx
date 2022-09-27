@@ -4,11 +4,11 @@ import Data from '../data.json';
 import { IComment, IData } from './types';
 
 function Main() {
+  let id = 5;
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
   const [data, setData] = React.useState<IData>({} as IData);
   const [newComment, setNewComment] = React.useState<string>('');
   const [newReply, setNewReply] = React.useState<string>('');
-  let id = 5;
   const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
 
   React.useEffect(() => {
@@ -20,85 +20,34 @@ function Main() {
     }
   }, []);
 
-  const onMinusIconClick = (id: number, rId?: number) => {
+  // Function for plus and minus button clicks
+  const onMinusPlusIconClick = (isMinus: boolean, cId: number, rId?: number) => {
+    let updatedData;
     if (!rId) {
-      const updatedData =
+      updatedData =
         data.comments &&
         data.comments.map((c) => {
-          c.id === id && c.score--;
+          c.id === cId && (isMinus ? c.score-- : c.score++);
           return c;
         });
-
-      setData({ comments: updatedData, currentUser: data.currentUser });
-
-      return;
-    }
-
-    const updatedData =
-      data.comments &&
-      data.comments.map((c) => {
-        c.id === id &&
-          c.replies?.map((r) => {
-            r.id === rId && r.score--;
-          });
-        return c;
-      });
-
-    setData({ comments: updatedData, currentUser: data.currentUser });
-  };
-
-  const onPlusIconClick = (id: number, rId?: number) => {
-    if (!rId) {
-      const updatedData =
+    } else {
+      updatedData =
         data.comments &&
         data.comments.map((c) => {
-          c.id === id && c.score++;
+          c.id === cId &&
+            c.replies?.map((r) => {
+              r.id === rId && (isMinus ? r.score-- : r.score++);
+              return r;
+            });
           return c;
         });
-
-      setData({ comments: updatedData, currentUser: data.currentUser });
-
-      return;
     }
-
-    const updatedData =
-      data.comments &&
-      data.comments.map((c) => {
-        c.id === id &&
-          c.replies?.map((r) => {
-            r.id === rId && r.score++;
-          });
-        return c;
-      });
 
     setData({ comments: updatedData, currentUser: data.currentUser });
   };
 
-  const onReplyBtnClick = (id: number, rId?: number) => {
-    if (!rId) {
-      const updatedData = data.comments.map((c) => {
-        if (c.id === id) c.isOnReply = true;
-        return c;
-      });
-      setData({ comments: updatedData, currentUser: data.currentUser });
-
-      return;
-    }
-
-    const updatedData = data.comments.map((c) => {
-      c.id === id &&
-        c.replies?.map((r) => {
-          if (r.id === rId) r.isOnReply = true;
-          return r;
-        });
-
-      return c;
-    });
-
-    setData({ comments: updatedData, currentUser: data.currentUser });
-  };
-
-  const onSubmitBtnClick = (e: React.MouseEvent) => {
+  // Function for send button click (new comment thread)
+  const onSendBtnClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setData({
       currentUser: data.currentUser,
@@ -113,92 +62,96 @@ function Main() {
         },
       ],
     });
-    setNewComment('');
 
+    setNewComment('');
     id++;
   };
 
+  // Function for click on reply button in threads
+  const onReplyBtnClick = (cId: number, rId?: number) => {
+    let updatedData;
+    if (!rId) {
+      updatedData = data.comments.map((c) => {
+        if (c.id === cId) c.isOnReply = true;
+        return c;
+      });
+    } else {
+      updatedData = data.comments.map((c) => {
+        c.id === cId &&
+          c.replies?.map((r) => {
+            if (r.id === rId) r.isOnReply = true;
+            return r;
+          });
+
+        return c;
+      });
+    }
+
+    setData({ comments: updatedData, currentUser: data.currentUser });
+  };
+
+  // Function for click on new reply submit button in thread
   const onReplySubmitBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
     e.preventDefault();
+    const reply = {
+      id,
+      content: newReply,
+      createdAt: 'few minutes ago',
+      score: 0,
+      user: data.currentUser,
+    };
+    let updatedData;
 
     if (!rId) {
-      const updatedData = data.comments.map((c) => {
+      updatedData = data.comments.map((c) => {
         if (c.id === cId) {
-          c.replies = [
-            ...(c.replies as IComment[]),
-            {
-              id,
-              content: newComment,
-              createdAt: 'few minutes ago',
-              score: 0,
-              replyingTo: c.user.username,
-              user: data.currentUser,
-            },
-          ];
+          c.replies = [...(c.replies as IComment[]), { ...reply, replyingTo: c.user.username }];
           c.isOnReply = false;
         }
         return c;
       });
-
-      setData({
-        currentUser: data.currentUser,
-        comments: updatedData as IComment[],
+    } else {
+      updatedData = data.comments.map((c) => {
+        if (c.id === cId) {
+          c.replies?.map((r) => {
+            if (r.id === rId) {
+              c.replies = [...(c.replies as IComment[]), { ...reply, replyingTo: r.user.username }];
+              r.isOnReply = false;
+            }
+          });
+        }
+        return c;
       });
-
-      return;
     }
 
-    const updatedData = data.comments.map((c) => {
-      if (c.id === cId) {
-        c.replies?.map((r) => {
-          if (r.id === rId) {
-            c.replies = [
-              ...(c.replies as IComment[]),
-              {
-                id,
-                content: newComment,
-                createdAt: 'few minutes ago',
-                score: 0,
-                replyingTo: r.user.username,
-                user: data.currentUser,
-              },
-            ];
-            r.isOnReply = false;
-          }
-        });
-      }
-      return c;
-    });
-
-    setData({
-      currentUser: data.currentUser,
-      comments: updatedData as IComment[],
-    });
-
+    setData({ currentUser: data.currentUser, comments: updatedData as IComment[] });
     setNewComment('');
     id++;
   };
 
-  const onEditBtnClick = (id: number, rId?: number) => {
+  // Function for click on edit button on own comments
+  const onEditBtnClick = (cId: number, rId?: number) => {
+    let updatedData;
     if (!rId) {
-      const updatedData = data.comments.map((c) => {
-        if (c.id === id) c.isOnEdit = true;
+      updatedData = data.comments.map((c) => {
+        if (c.id === cId) c.isOnEdit = true;
         return c;
       });
-      setData({ comments: updatedData, currentUser: data.currentUser });
+    } else {
+      updatedData = data.comments.map((c) => {
+        c.id === cId &&
+          c.replies?.map((r) => {
+            if (r.id === rId) r.isOnEdit = true;
+            return r;
+          });
+        return c;
+      });
     }
 
-    const updatedData = data.comments.map((c) => {
-      c.id === id &&
-        c.replies?.map((r) => {
-          if (r.id === rId) r.isOnEdit = true;
-          return r;
-        });
-      return c;
-    });
     setData({ comments: updatedData, currentUser: data.currentUser });
   };
 
+  // Function for update button click after editing comment
   const onUpdateBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
     e.preventDefault();
     let updatedData;
@@ -210,28 +163,30 @@ function Main() {
         }
         return c;
       });
+    } else {
+      updatedData = data.comments.map((c) => {
+        c.id === cId &&
+          c.replies?.map((r) => {
+            if (r.id === rId) {
+              r.content = newReply;
+              r.isOnEdit = false;
+            }
+            return r;
+          });
+        return c;
+      });
     }
-
-    updatedData = data.comments.map((c) => {
-      c.id === cId &&
-        c.replies?.map((r) => {
-          if (r.id === rId) {
-            r.content = newReply;
-            r.isOnEdit = false;
-          }
-          return r;
-        });
-      return c;
-    });
 
     setData({ comments: updatedData, currentUser: data.currentUser });
   };
 
-  const onDeleteBtnClick = (id: number, rId?: number) => {
+  // Function for delete button click on own comments
+  const onDeleteBtnClick = (cId: number, rId?: number) => {
     deleteModalRef.current?.showModal();
-    setCommentToDelete({ cId: id, rId: rId });
+    setCommentToDelete({ cId, rId });
   };
 
+  // Function for click on delete confirmation button on modal
   const onYesDeleteBtnClick = () => {
     let updatedData;
     if (!commentToDelete?.rId) {
@@ -245,7 +200,6 @@ function Main() {
     }
 
     setData({ comments: updatedData, currentUser: data.currentUser });
-
     deleteModalRef.current && deleteModalRef.current.close();
   };
 
@@ -266,13 +220,11 @@ function Main() {
               upvoteValue={c.score}
               labelID={`comment-${c.user.username}-${c.id}`}
               onEditBtnClick={() => onEditBtnClick(c.id)}
-              onMinusIconClick={() => onMinusIconClick(c.id)}
-              onPlusIconClick={() => onPlusIconClick(c.id)}
+              onMinusIconClick={() => onMinusPlusIconClick(true, c.id)}
+              onPlusIconClick={() => onMinusPlusIconClick(false, c.id)}
               onReplyBtnClick={() => onReplyBtnClick(c.id)}
               onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id)}
-              onChange={(e) => {
-                setNewReply(e.target.value);
-              }}
+              onChange={(e) => setNewReply(e.target.value)}
               profileImages={{
                 png: require(`../assets/${c.user.image.png}`),
                 webp: require(`../assets/${c.user.image.webp}`),
@@ -283,7 +235,7 @@ function Main() {
                 labelID="comment-5"
                 isReply={true}
                 replyingTo={c.user.username}
-                onCommentChange={(e) => setNewComment(e.target.value)}
+                onCommentChange={(e) => setNewReply(e.target.value)}
                 profileImages={{
                   png: require(`../assets/${data.currentUser?.image.png}`),
                   webp: require(`../assets/${data.currentUser?.image.webp}`),
@@ -306,13 +258,11 @@ function Main() {
                       labelID={`comment-${r.user.username}-${r.id}`}
                       onDeleteBtnClick={() => onDeleteBtnClick(c.id, r.id)}
                       onEditBtnClick={() => onEditBtnClick(c.id, r.id)}
-                      onMinusIconClick={() => onMinusIconClick(c.id, r.id)}
-                      onPlusIconClick={() => onPlusIconClick(c.id, r.id)}
+                      onMinusIconClick={() => onMinusPlusIconClick(true, c.id, r.id)}
+                      onPlusIconClick={() => onMinusPlusIconClick(false, c.id, r.id)}
                       onReplyBtnClick={() => onReplyBtnClick(c.id, r.id)}
                       onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id, r.id)}
-                      onChange={(e) => {
-                        setNewReply(e.target.value);
-                      }}
+                      onChange={(e) => setNewReply(e.target.value)}
                       profileImages={{
                         png: require(`../assets/${r.user.image.png}`),
                         webp: require(`../assets/${r.user.image.webp}`),
@@ -323,7 +273,7 @@ function Main() {
                         labelID="comment-5"
                         isReply={true}
                         replyingTo={r.user.username}
-                        onCommentChange={(e) => setNewComment(e.target.value)}
+                        onCommentChange={(e) => setNewReply(e.target.value)}
                         profileImages={{
                           png: require(`../assets/${data.currentUser?.image.png}`),
                           webp: require(`../assets/${data.currentUser?.image.webp}`),
@@ -337,6 +287,7 @@ function Main() {
             )}
           </React.Fragment>
         ))}
+
       {data.currentUser && (
         <CommentInputForm
           labelID="comment-5"
@@ -346,10 +297,11 @@ function Main() {
             png: require(`../assets/${data.currentUser?.image.png}`),
             webp: require(`../assets/${data.currentUser?.image.webp}`),
           }}
-          onSubmitBtnClick={onSubmitBtnClick}
+          onSubmitBtnClick={onSendBtnClick}
           value={newComment}
         />
       )}
+
       <Modal
         id="delete-modal"
         ref={deleteModalRef}
