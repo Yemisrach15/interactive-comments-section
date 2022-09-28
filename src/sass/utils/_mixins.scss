@@ -1,6 +1,19 @@
+$mobile-width: 375px;
 $tablet-width: 768px;
 $hybrid-width: 1100px;
 $desktop-width: 1440px;
+
+@mixin screen-xs-mobile {
+  @media screen and (max-width: $mobile-width) {
+    @content;
+  }
+}
+
+@mixin screen-mobile {
+  @media screen and (min-width: $mobile-width) {
+    @content;
+  }
+}
 
 @mixin screen-desktop {
   @media screen and (min-width: $tablet-width) {

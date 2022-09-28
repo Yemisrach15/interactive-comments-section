@@ -168,7 +168,12 @@ dialog::backdrop {
 }
 
 body {
-  padding: 16px;
+  padding: 31px 16px;
+}
+@media screen and (min-width: 768px) {
+  body {
+    padding: 64px 16px;
+  }
 }
 
 main {
@@ -182,12 +187,22 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 24px;
+  gap: 18px;
+  margin: 0 auto;
+  max-width: 600px;
+}
+@media screen and (min-width: 768px) {
+  main {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    max-width: 732px;
+  }
 }
 
 .btn {
   border-radius: 8px;
-  padding: 14.5px 20px;
+  padding: 14.5px;
 }
 .btn--compact {
   padding: 0;
@@ -246,7 +261,6 @@ main {
 .box {
   border-radius: 8px;
   padding: 16px;
-  padding-bottom: 13px;
 }
 
 .spinner {
@@ -286,6 +300,22 @@ main {
   grid-template-columns: repeat(2, 1fr);
   padding-right: 18px;
 }
+@media screen and (max-width: 375px) {
+  .comment-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+@media screen and (min-width: 375px) {
+  .comment-box {
+    padding: 24px;
+  }
+}
 @media screen and (min-width: 768px) {
   .comment-box {
     -webkit-column-gap: 24.5px;
@@ -293,7 +323,6 @@ main {
             column-gap: 24.5px;
     grid-template-columns: -webkit-min-content repeat(2, auto);
     grid-template-columns: min-content repeat(2, auto);
-    padding: 24px;
   }
 }
 .comment-box--indent {
@@ -305,12 +334,16 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 24px;
-  padding-left: 32px;
+  gap: 16px;
+  margin-top: -4px;
+  padding-left: 16px;
 }
 @media screen and (min-width: 768px) {
   .comment-box--indent {
-    margin-left: 32px;
+    gap: 24px;
+    margin-left: 46px;
+    margin-top: 0;
+    padding-left: 42px;
   }
 }
 .comment-box > section {
@@ -325,10 +358,24 @@ main {
   grid-row: 1;
   margin-bottom: 16px;
 }
+@media screen and (max-width: 375px) {
+  .comment-box > section {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 0px;
+  }
+}
 @media screen and (min-width: 768px) {
   .comment-box > section {
     grid-column: 2/3;
     grid-row: 1;
+  }
+}
+@media screen and (max-width: 375px) {
+  .comment-box > p {
+    text-align: center;
   }
 }
 .comment-box > p,
@@ -464,6 +511,7 @@ dialog > div[role=document] > ul:last-of-type button {
     grid-template-columns: -webkit-min-content 1fr -webkit-min-content;
     grid-template-columns: min-content 1fr min-content;
     padding: 24px;
+    width: 100%;
   }
 }
 .comment-input-form > picture {

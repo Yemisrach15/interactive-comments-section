@@ -55,7 +55,7 @@ function Main() {
         {
           id,
           content: newComment || '',
-          createdAt: 'few minutes ago',
+          createdAt: '1 sec ago',
           score: 0,
           user: data.currentUser,
         },
@@ -95,7 +95,7 @@ function Main() {
     const reply = {
       id,
       content: extractUserName(newReply).text,
-      createdAt: 'few minutes ago',
+      createdAt: '1 sec ago',
       score: 0,
       user: data.currentUser,
     };
