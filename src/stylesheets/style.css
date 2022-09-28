@@ -158,6 +158,31 @@ dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: hsl(228deg, 33%, 97%);
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(239deg, 57%, 85%);
+  border: 3px solid hsl(228deg, 33%, 97%);
+  border-radius: 50px;
+}
+
+::-moz-selection {
+  background-color: hsl(239deg, 57%, 85%);
+  color: hsl(212deg, 24%, 26%);
+}
+
+::selection {
+  background-color: hsl(239deg, 57%, 85%);
+  color: hsl(212deg, 24%, 26%);
+}
+
 *,
 *::after,
 *::before {
@@ -299,6 +324,7 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   padding-right: 18px;
+  width: 100%;
 }
 @media screen and (max-width: 375px) {
   .comment-box {

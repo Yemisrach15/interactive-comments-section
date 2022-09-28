@@ -100,3 +100,23 @@ dialog {
     background-color: transparentize($color: black, $amount: 0.5);
   }
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: $neutral-color-200;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $primary-color-100;
+  border: 3px solid $neutral-color-200;
+  border-radius: 50px;
+}
+
+::selection {
+  background-color: $primary-color-100;
+  color: $neutral-color-500;
+}

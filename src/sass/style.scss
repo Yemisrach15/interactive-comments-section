@@ -122,6 +122,7 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   padding-right: 18px;
+  width: 100%;
 
   @include screen-xs-mobile {
     display: flex;
