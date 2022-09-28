@@ -85,6 +85,20 @@ dialog h2 {
   --neutral-color-400: hsl(211deg, 10%, 45%);
   --neutral-color-500: hsl(212deg, 24%, 26%);
 }
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --primary-color-100: hsl(239deg, 57%, 85%);
+    --primary-color-200: hsl(238deg, 40%, 52%);
+    --secondary-color-100: hsl(357deg, 100%, 86%);
+    --secondary-color-200: hsl(358deg, 79%, 66%);
+    --neutral-color-100: hsl(200deg, 6%, 10%);
+    --neutral-color-200: hsl(195deg, 7%, 12%);
+    --neutral-color-300: hsl(195deg, 6%, 14%);
+    --neutral-color-400: hsl(35deg, 9%, 65%);
+    --neutral-color-500: hsl(0deg, 0%, 100%);
+  }
+}
 
 body {
   background-color: var(--neutral-color-300);
@@ -163,6 +177,11 @@ dialog {
 dialog > div[role=document] {
   background-color: var(--neutral-color-100);
 }
+@media (prefers-color-scheme: dark) {
+  dialog > div[role=document] {
+    background-color: var(--neutral-color-300);
+  }
+}
 dialog::-webkit-backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -193,6 +212,14 @@ dialog::backdrop {
 ::selection {
   background-color: var(--primary-color-100);
   color: var(--neutral-color-500);
+}
+@media (prefers-color-scheme: dark) {
+  ::-moz-selection {
+    background-color: var(--primary-color-200);
+  }
+  ::selection {
+    background-color: var(--primary-color-200);
+  }
 }
 
 *,

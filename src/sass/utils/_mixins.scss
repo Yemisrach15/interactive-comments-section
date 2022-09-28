@@ -32,3 +32,9 @@ $desktop-width: 1440px;
     @content;
   }
 }
+
+@mixin screen-dark-theme {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
