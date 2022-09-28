@@ -1,38 +1,50 @@
 @import '../utils/colors';
 
+:root {
+  --primary-color-100: #{$primary-color-100};
+  --primary-color-200: #{$primary-color-200};
+  --secondary-color-100: #{$secondary-color-100};
+  --secondary-color-200: #{$secondary-color-200};
+  --neutral-color-100: #{$neutral-color-100};
+  --neutral-color-200: #{$neutral-color-200};
+  --neutral-color-300: #{$neutral-color-300};
+  --neutral-color-400: #{$neutral-color-400};
+  --neutral-color-500: #{$neutral-color-500};
+}
+
 body {
-  background-color: $neutral-color-300;
+  background-color: var(--neutral-color-300);
 }
 
 .btn {
   &--primary {
-    background-color: $primary-color-200;
-    color: $neutral-color-100;
+    background-color: var(--primary-color-200);
+    color: var(--neutral-color-100);
   }
 
   &--secondary {
-    color: $primary-color-200;
+    color: var(--primary-color-200);
   }
 
   &--tertiary {
-    color: $neutral-color-300;
+    color: var(--neutral-color-300);
   }
 
   &--gray {
-    background-color: $neutral-color-400;
-    color: $neutral-color-100;
+    background-color: var(--neutral-color-400);
+    color: var(--neutral-color-100);
   }
   &--danger {
-    background-color: $secondary-color-200;
-    color: $neutral-color-100;
+    background-color: var(--secondary-color-200);
+    color: var(--neutral-color-100);
   }
 
   &--text-primary {
-    color: $primary-color-200;
+    color: var(--primary-color-200);
   }
 
   &--text-danger {
-    color: $secondary-color-200;
+    color: var(--secondary-color-200);
   }
 
   &:hover {
@@ -41,51 +53,51 @@ body {
 }
 
 .heading {
-  color: $neutral-color-500;
+  color: var(--neutral-color-500);
 }
 
 .mention {
-  color: $primary-color-200;
+  color: var(--primary-color-200);
 }
 
 .text {
   &--light {
-    color: $neutral-color-400;
+    color: var(--neutral-color-400);
   }
 
   &--dark {
-    color: $neutral-color-500;
+    color: var(--neutral-color-500);
   }
 }
 
 .badge {
-  background-color: $primary-color-200;
-  color: $neutral-color-100;
+  background-color: var(--primary-color-200);
+  color: var(--neutral-color-100);
 }
 
 .comment-input {
   &:hover,
   &:focus-visible {
-    border-color: $neutral-color-500;
-    outline-color: $neutral-color-500;
+    border-color: var(--neutral-color-500);
+    outline-color: var(--neutral-color-500);
   }
 }
 
 .box {
   &--white {
-    background-color: $neutral-color-100;
+    background-color: var(--neutral-color-100);
   }
 }
 
 .spinner {
-  background-color: $neutral-color-300;
+  background-color: var(--neutral-color-300);
 
   & .text {
-    color: $primary-color-200;
+    color: var(--primary-color-200);
   }
 
   & button:hover > svg path {
-    fill: $primary-color-200;
+    fill: var(--primary-color-200);
   }
 }
 
@@ -93,7 +105,7 @@ dialog {
   background-color: transparent;
 
   & > div[role='document'] {
-    background-color: $neutral-color-100;
+    background-color: var(--neutral-color-100);
   }
 
   &::backdrop {
@@ -106,17 +118,17 @@ dialog {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: $neutral-color-200;
+  background-color: var(--neutral-color-200);
   border-radius: 50px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $primary-color-100;
-  border: 3px solid $neutral-color-200;
+  background-color: var(--primary-color-100);
+  border: 3px solid var(--neutral-color-200);
   border-radius: 50px;
 }
 
 ::selection {
-  background-color: $primary-color-100;
-  color: $neutral-color-500;
+  background-color: var(--primary-color-100);
+  color: var(--neutral-color-500);
 }

@@ -74,82 +74,94 @@ dialog h2 {
   }
 }
 
+:root {
+  --primary-color-100: hsl(239deg, 57%, 85%);
+  --primary-color-200: hsl(238deg, 40%, 52%);
+  --secondary-color-100: hsl(357deg, 100%, 86%);
+  --secondary-color-200: hsl(358deg, 79%, 66%);
+  --neutral-color-100: hsl(0deg, 0%, 100%);
+  --neutral-color-200: hsl(228deg, 33%, 97%);
+  --neutral-color-300: hsl(223deg, 19%, 93%);
+  --neutral-color-400: hsl(211deg, 10%, 45%);
+  --neutral-color-500: hsl(212deg, 24%, 26%);
+}
+
 body {
-  background-color: hsl(223deg, 19%, 93%);
+  background-color: var(--neutral-color-300);
 }
 
 .btn--primary {
-  background-color: hsl(238deg, 40%, 52%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: var(--primary-color-200);
+  color: var(--neutral-color-100);
 }
 .btn--secondary {
-  color: hsl(238deg, 40%, 52%);
+  color: var(--primary-color-200);
 }
 .btn--tertiary {
-  color: hsl(223deg, 19%, 93%);
+  color: var(--neutral-color-300);
 }
 .btn--gray {
-  background-color: hsl(211deg, 10%, 45%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: var(--neutral-color-400);
+  color: var(--neutral-color-100);
 }
 .btn--danger {
-  background-color: hsl(358deg, 79%, 66%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: var(--secondary-color-200);
+  color: var(--neutral-color-100);
 }
 .btn--text-primary {
-  color: hsl(238deg, 40%, 52%);
+  color: var(--primary-color-200);
 }
 .btn--text-danger {
-  color: hsl(358deg, 79%, 66%);
+  color: var(--secondary-color-200);
 }
 .btn:hover {
   opacity: 0.75;
 }
 
 .heading {
-  color: hsl(212deg, 24%, 26%);
+  color: var(--neutral-color-500);
 }
 
 .mention {
-  color: hsl(238deg, 40%, 52%);
+  color: var(--primary-color-200);
 }
 
 .text--light {
-  color: hsl(211deg, 10%, 45%);
+  color: var(--neutral-color-400);
 }
 .text--dark {
-  color: hsl(212deg, 24%, 26%);
+  color: var(--neutral-color-500);
 }
 
 .badge {
-  background-color: hsl(238deg, 40%, 52%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: var(--primary-color-200);
+  color: var(--neutral-color-100);
 }
 
 .comment-input:hover, .comment-input:focus-visible {
-  border-color: hsl(212deg, 24%, 26%);
-  outline-color: hsl(212deg, 24%, 26%);
+  border-color: var(--neutral-color-500);
+  outline-color: var(--neutral-color-500);
 }
 
 .box--white {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: var(--neutral-color-100);
 }
 
 .spinner {
-  background-color: hsl(223deg, 19%, 93%);
+  background-color: var(--neutral-color-300);
 }
 .spinner .text {
-  color: hsl(238deg, 40%, 52%);
+  color: var(--primary-color-200);
 }
 .spinner button:hover > svg path {
-  fill: hsl(238deg, 40%, 52%);
+  fill: var(--primary-color-200);
 }
 
 dialog {
   background-color: transparent;
 }
 dialog > div[role=document] {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: var(--neutral-color-100);
 }
 dialog::-webkit-backdrop {
   background-color: rgba(0, 0, 0, 0.5);
@@ -163,24 +175,24 @@ dialog::backdrop {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: hsl(228deg, 33%, 97%);
+  background-color: var(--neutral-color-200);
   border-radius: 50px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: hsl(239deg, 57%, 85%);
-  border: 3px solid hsl(228deg, 33%, 97%);
+  background-color: var(--primary-color-100);
+  border: 3px solid var(--neutral-color-200);
   border-radius: 50px;
 }
 
 ::-moz-selection {
-  background-color: hsl(239deg, 57%, 85%);
-  color: hsl(212deg, 24%, 26%);
+  background-color: var(--primary-color-100);
+  color: var(--neutral-color-500);
 }
 
 ::selection {
-  background-color: hsl(239deg, 57%, 85%);
-  color: hsl(212deg, 24%, 26%);
+  background-color: var(--primary-color-100);
+  color: var(--neutral-color-500);
 }
 
 *,
