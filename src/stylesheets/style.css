@@ -76,6 +76,11 @@ dialog h2 {
   }
 }
 
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+
 :root {
   --primary-color-100: hsl(239deg, 57%, 85%);
   --primary-color-200: hsl(238deg, 40%, 52%);
@@ -223,6 +228,13 @@ dialog::backdrop {
   }
 }
 
+.attribution {
+  color: var(--neutral-color-400);
+}
+.attribution a {
+  color: var(--primary-color-200);
+}
+
 *,
 *::after,
 *::before {
@@ -233,11 +245,11 @@ dialog::backdrop {
 }
 
 body {
-  padding: 31px 16px;
+  padding: 31px 16px 16px;
 }
 @media screen and (min-width: 768px) {
   body {
-    padding: 64px 16px;
+    padding: 64px 16px 16px;
   }
 }
 

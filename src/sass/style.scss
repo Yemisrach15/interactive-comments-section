@@ -11,10 +11,10 @@
 }
 
 body {
-  padding: 31px 16px;
+  padding: 31px 16px 16px;
 
   @include screen-desktop {
-    padding: 64px 16px;
+    padding: 64px 16px 16px;
   }
 }
 

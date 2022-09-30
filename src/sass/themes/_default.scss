@@ -154,3 +154,10 @@ dialog {
     background-color: var(--primary-color-200);
   }
 }
+
+.attribution {
+  color: var(--neutral-color-400);
+  & a {
+    color: var(--primary-color-200);
+  }
+}

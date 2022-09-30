@@ -1,4 +1,5 @@
 import React from 'react';
+import { Footer } from './components';
 import { Main } from './pages';
 import './stylesheets/style.css';
 import { getInitialColorMode } from './utils';
@@ -20,6 +21,7 @@ function App() {
   return (
     <ThemeContext.Provider value={{ colorMode, setColorMode }}>
       <Main />
+      <Footer />
     </ThemeContext.Provider>
   );
 }
