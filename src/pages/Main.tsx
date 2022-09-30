@@ -219,6 +219,7 @@ function Main() {
             ? context.setColorMode(context.colorMode === 'dark' ? 'light' : 'dark')
             : null
         }
+        title={`Change to ${context.colorMode === 'dark' ? 'light' : 'dark'} theme`}
       >
         <span className="sr-only">
           Change to {context.colorMode === 'dark' ? 'light' : 'dark'} theme
