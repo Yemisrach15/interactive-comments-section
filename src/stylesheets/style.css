@@ -105,6 +105,10 @@ dialog h2 {
   --neutral-color-400: hsl(35deg, 9%, 65%);
   --neutral-color-500: hsl(0deg, 0%, 100%);
 }
+[data-theme=dark] img {
+  -webkit-filter: brightness(0.85);
+          filter: brightness(0.85);
+}
 
 body {
   background-color: var(--neutral-color-300);

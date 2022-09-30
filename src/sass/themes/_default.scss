@@ -24,6 +24,10 @@
   --neutral-color-300: #{$dark-neutral-color-300};
   --neutral-color-400: #{$dark-neutral-color-400};
   --neutral-color-500: #{$dark-neutral-color-500};
+
+  & img {
+    filter: brightness(0.85);
+  }
 }
 
 body {
