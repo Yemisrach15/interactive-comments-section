@@ -336,3 +336,22 @@ dialog > div[role='document'] {
     }
   }
 }
+
+.fixed--left {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  left: -5px;
+  line-height: 0;
+  padding: 12px;
+  padding-left: 8px;
+  position: fixed;
+  top: 50%;
+  transition-duration: 0.25s;
+  transition-property: background-color, color, transform;
+
+  &:hover {
+    background-color: var(--primary-color-200);
+    color: var(--neutral-color-100);
+    transform: translateX(5px);
+  }
+}

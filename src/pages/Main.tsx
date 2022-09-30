@@ -1,8 +1,11 @@
 import React from 'react';
-import { Box, CommentBox, CommentInputForm, Modal } from '../components';
+import { Box, Button, CommentBox, CommentInputForm, Modal } from '../components';
 import Data from '../data.json';
 import { extractUserName } from '../utils';
 import { IComment, IData } from './types';
+import { ReactComponent as SunIcon } from '../assets/icons/icon-sun.svg';
+import { ReactComponent as MoonIcon } from '../assets/icons/icon-moon.svg';
+import { ThemeContext } from '../App';
 
 function Main() {
   let id = 5;
@@ -14,6 +17,7 @@ function Main() {
   const [newComment, setNewComment] = React.useState<string>('');
   const [newReply, setNewReply] = React.useState<string>('');
   const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
+  const context = React.useContext(ThemeContext);
 
   React.useEffect(() => {
     localStorage.setItem('data', JSON.stringify(data));
@@ -202,8 +206,24 @@ function Main() {
     deleteModalRef.current && deleteModalRef.current.close();
   };
 
+  // Set data-theme on body tag to color mode
+  document.body.dataset.theme = context.colorMode;
+
   return (
     <Box tag={'main'}>
+      <Button
+        className="btn btn--text-primary fixed--left"
+        icon={context.colorMode === 'dark' ? MoonIcon : SunIcon}
+        onClick={() =>
+          context.setColorMode
+            ? context.setColorMode(context.colorMode === 'dark' ? 'light' : 'dark')
+            : null
+        }
+      >
+        <span className="sr-only">
+          Change to {context.colorMode === 'dark' ? 'light' : 'dark'} theme
+        </span>
+      </Button>
       {data.comments &&
         data.comments.length &&
         data.comments.map((c) => (

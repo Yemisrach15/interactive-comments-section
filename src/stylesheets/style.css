@@ -6,6 +6,8 @@
           box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-transition: background-color 0.45s ease-in;
+  transition: background-color 0.45s ease-in;
 }
 
 button {
@@ -85,19 +87,18 @@ dialog h2 {
   --neutral-color-400: hsl(211deg, 10%, 45%);
   --neutral-color-500: hsl(212deg, 24%, 26%);
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --primary-color-100: hsl(239deg, 57%, 85%);
-    --primary-color-200: hsl(238deg, 40%, 52%);
-    --secondary-color-100: hsl(357deg, 100%, 86%);
-    --secondary-color-200: hsl(358deg, 79%, 66%);
-    --neutral-color-100: hsl(200deg, 6%, 10%);
-    --neutral-color-200: hsl(195deg, 7%, 12%);
-    --neutral-color-300: hsl(195deg, 6%, 14%);
-    --neutral-color-400: hsl(35deg, 9%, 65%);
-    --neutral-color-500: hsl(0deg, 0%, 100%);
-  }
+
+[data-theme=dark] {
+  color-scheme: dark;
+  --primary-color-100: hsl(239deg, 57%, 85%);
+  --primary-color-200: hsl(238deg, 40%, 52%);
+  --secondary-color-100: hsl(357deg, 100%, 86%);
+  --secondary-color-200: hsl(358deg, 79%, 66%);
+  --neutral-color-100: hsl(200deg, 6%, 10%);
+  --neutral-color-200: hsl(195deg, 7%, 12%);
+  --neutral-color-300: hsl(195deg, 6%, 14%);
+  --neutral-color-400: hsl(35deg, 9%, 65%);
+  --neutral-color-500: hsl(0deg, 0%, 100%);
 }
 
 body {
@@ -619,4 +620,27 @@ dialog > div[role=document] > ul:last-of-type button {
     grid-column: 3;
     grid-row: 1;
   }
+}
+
+.fixed--left {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  left: -5px;
+  line-height: 0;
+  padding: 12px;
+  padding-left: 8px;
+  position: fixed;
+  top: 50%;
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  -webkit-transition-property: background-color, color, -webkit-transform;
+  transition-property: background-color, color, -webkit-transform;
+  transition-property: background-color, color, transform;
+  transition-property: background-color, color, transform, -webkit-transform;
+}
+.fixed--left:hover {
+  background-color: var(--primary-color-200);
+  color: var(--neutral-color-100);
+  -webkit-transform: translateX(5px);
+          transform: translateX(5px);
 }
