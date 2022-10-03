@@ -21,7 +21,7 @@ const Modal = React.forwardRef((props: ModalProps, ref) => {
       aria-labelledby={`dialog-title-${props.id}`}
       aria-describedby={`dialog-desc-${props.id}`}
     >
-      <Box tag={'div'} role="document" tabIndex={0}>
+      <Box tag={'div'} role="document">
         <Heading tag={'h2'} className="heading" id={`dialog-title-${props.id}`}>
           Delete comment
         </Heading>

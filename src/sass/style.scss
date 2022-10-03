@@ -11,19 +11,30 @@
 }
 
 body {
-  padding: 16px;
+  padding: 31px 16px 16px;
+
+  @include screen-desktop {
+    padding: 64px 16px 16px;
+  }
 }
 
 main {
   align-items: stretch;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
+  margin: 0 auto;
+  max-width: 600px;
+
+  @include screen-desktop {
+    align-items: center;
+    max-width: 732px;
+  }
 }
 
 .btn {
   border-radius: 8px;
-  padding: 14.5px 20px;
+  padding: 14.5px;
 
   &--compact {
     padding: 0;
@@ -81,7 +92,6 @@ main {
 .box {
   border-radius: 8px;
   padding: 16px;
-  padding-bottom: 13px;
 }
 
 .spinner {
@@ -108,28 +118,66 @@ main {
   }
 }
 
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translate(10px, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
 .comment-box {
+  animation: forwards slide-in 1s ease-in-out;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  //   margin-bottom: 24px;
-  //   max-width: 642px;
   padding-right: 18px;
+  width: 100%;
+
+  &[data-new='true'] {
+    animation: forwards slide-up 0.6s ease-in-out;
+  }
+
+  @include screen-xs-mobile {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include screen-mobile {
+    padding: 24px;
+  }
 
   @include screen-desktop {
     column-gap: 24.5px;
     grid-template-columns: min-content repeat(2, auto);
-    padding: 24px;
   }
 
   &--indent {
     border-left: 1px solid $neutral-color-400;
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    padding-left: 32px;
+    gap: 16px;
+    margin-top: -4px;
+    padding-left: 16px;
 
     @include screen-desktop {
-      margin-left: 32px;
+      gap: 24px;
+      margin-left: 46px;
+      margin-top: 0;
+      padding-left: 42px;
     }
   }
 
@@ -141,9 +189,20 @@ main {
     grid-row: 1;
     margin-bottom: 16px;
 
+    @include screen-xs-mobile {
+      flex-direction: column;
+      gap: 0px;
+    }
+
     @include screen-desktop {
       grid-column: 2 / 3;
       grid-row: 1;
+    }
+  }
+
+  & > p {
+    @include screen-xs-mobile {
+      text-align: center;
     }
   }
 
@@ -256,12 +315,12 @@ dialog > div[role='document'] {
   gap: 16px;
   grid-template-columns: repeat(2, 1fr);
   margin-bottom: 24px;
-  //   max-width: 730px;
 
   @include screen-desktop {
     align-items: start;
     grid-template-columns: min-content 1fr min-content;
     padding: 24px;
+    width: 100%;
   }
 
   & > picture {
@@ -302,5 +361,25 @@ dialog > div[role='document'] {
       grid-column: 3;
       grid-row: 1;
     }
+  }
+}
+
+.fixed--left {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  left: -5px;
+  line-height: 0;
+  padding: 12px;
+  padding-left: 8px;
+  position: fixed;
+  top: 50%;
+  transition-duration: 0.25s;
+  transition-property: background-color, color, transform;
+  z-index: 2;
+
+  &:hover {
+    background-color: var(--primary-color-200);
+    color: var(--neutral-color-100);
+    transform: translateX(5px);
   }
 }
