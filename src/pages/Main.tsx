@@ -8,8 +8,9 @@ import { ReactComponent as MoonIcon } from '../assets/icons/icon-moon.svg';
 import { ThemeContext } from '../App';
 
 function Main() {
-  let id = 5;
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
+  const [initialId, setInitialId] = React.useState<number>(0);
+  const [id, setId] = React.useState<number>(0);
   const [data, setData] = React.useState<IData>(
     ((localStorage.getItem('data') && JSON.parse(localStorage.getItem('data') as string)) ||
       Data) as IData
@@ -18,6 +19,15 @@ function Main() {
   const [newReply, setNewReply] = React.useState<string>('');
   const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
   const context = React.useContext(ThemeContext);
+
+  React.useEffect(() => {
+    let totalComments = data.comments.length;
+    data.comments.forEach((c) => {
+      totalComments += c.replies?.length || 0;
+    });
+    setInitialId(totalComments);
+    setId(++totalComments);
+  }, []);
 
   React.useEffect(() => {
     localStorage.setItem('data', JSON.stringify(data));
@@ -67,7 +77,7 @@ function Main() {
     });
 
     setNewComment('');
-    id++;
+    setId((id) => ++id);
   };
 
   // Function for click on reply button in threads
@@ -129,7 +139,7 @@ function Main() {
 
     setData({ currentUser: data.currentUser, comments: updatedData as IComment[] });
     setNewComment('');
-    id++;
+    setId((id) => ++id);
   };
 
   // Function for click on edit button on own comments
@@ -231,6 +241,8 @@ function Main() {
           <React.Fragment key={c.id}>
             <CommentBox
               key={c.id}
+              id={c.id}
+              new={c.id !== initialId && c.id === id - 1}
               comment={c.content}
               commenter={c.user.username}
               commentTimestamp={c.createdAt}
@@ -269,6 +281,8 @@ function Main() {
                   <React.Fragment key={r.id}>
                     <CommentBox
                       key={r.id}
+                      id={r.id}
+                      new={r.id !== initialId && r.id === id - 1}
                       comment={`@${r.replyingTo} ${r.content}`}
                       commenter={r.user.username}
                       commentTimestamp={r.createdAt}

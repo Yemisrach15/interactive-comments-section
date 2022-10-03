@@ -10,7 +10,12 @@ function CommentBox(props: CommentBoxProps) {
   const { userName, text } = extractUserName(props.comment || '');
 
   return (
-    <Box className="box box--white comment-box" tag={'article'}>
+    <Box
+      className="box box--white comment-box"
+      tag={'article'}
+      data-id={props.id}
+      data-new={props.new as boolean}
+    >
       <Box tag={'section'}>
         <Picture className="profile-pic profile-pic--sm">
           <source srcSet={props.profileImages.webp} type="image/webp"></source>
