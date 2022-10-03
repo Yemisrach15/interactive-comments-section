@@ -56,6 +56,8 @@ export interface CommentBoxProps
   onUpdateBtnClick?: (e: React.MouseEvent) => void;
   profileImages: { png: string; webp: string };
   upvoteValue: number;
+  id: number;
+  new: boolean;
 }
 
 export interface ModalProps extends React.HTMLProps<HTMLDialogElement> {
@@ -63,6 +65,7 @@ export interface ModalProps extends React.HTMLProps<HTMLDialogElement> {
   onDeleteBtnClick: (e: React.MouseEvent) => void;
 }
 export interface CommentInputFormProps {
+  value?: string;
   labelID: string;
   isReply: boolean;
   profileImages: { png: string; webp: string };

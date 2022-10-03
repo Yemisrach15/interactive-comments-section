@@ -6,6 +6,8 @@
           box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-transition: background-color 0.45s ease-in;
+  transition: background-color 0.45s ease-in;
 }
 
 button {
@@ -74,88 +76,173 @@ dialog h2 {
   }
 }
 
-body {
-  background-color: hsl(223deg, 19%, 93%);
+.attribution {
+  font-size: 11px;
+  text-align: center;
 }
 
+:root {
+  --primary-color-100: hsl(239deg, 57%, 85%);
+  --primary-color-200: hsl(238deg, 40%, 52%);
+  --secondary-color-100: hsl(357deg, 100%, 86%);
+  --secondary-color-200: hsl(358deg, 79%, 66%);
+  --neutral-color-100: hsl(0deg, 0%, 100%);
+  --neutral-color-200: hsl(228deg, 33%, 97%);
+  --neutral-color-300: hsl(223deg, 19%, 93%);
+  --neutral-color-400: hsl(211deg, 10%, 45%);
+  --neutral-color-500: hsl(212deg, 24%, 26%);
+}
+
+[data-theme=dark] {
+  color-scheme: dark;
+  --primary-color-100: hsl(239deg, 57%, 85%);
+  --primary-color-200: hsl(238deg, 40%, 52%);
+  --secondary-color-100: hsl(357deg, 100%, 86%);
+  --secondary-color-200: hsl(358deg, 79%, 66%);
+  --neutral-color-100: hsl(200deg, 6%, 10%);
+  --neutral-color-200: hsl(195deg, 7%, 12%);
+  --neutral-color-300: hsl(195deg, 6%, 14%);
+  --neutral-color-400: hsl(35deg, 9%, 65%);
+  --neutral-color-500: hsl(0deg, 0%, 100%);
+}
+[data-theme=dark] img {
+  -webkit-filter: brightness(0.85);
+          filter: brightness(0.85);
+}
+
+body {
+  background-color: var(--neutral-color-300);
+}
+
+.btn {
+  -webkit-transition: opacity 0.15s ease-in;
+  transition: opacity 0.15s ease-in;
+}
 .btn--primary {
-  background-color: hsl(238deg, 40%, 52%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: var(--primary-color-200);
+  color: var(--neutral-color-100);
 }
 .btn--secondary {
-  color: hsl(238deg, 40%, 52%);
+  color: var(--primary-color-200);
 }
 .btn--tertiary {
-  color: hsl(223deg, 19%, 93%);
+  color: var(--neutral-color-300);
 }
 .btn--gray {
-  background-color: hsl(211deg, 10%, 45%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: var(--neutral-color-400);
+  color: var(--neutral-color-100);
 }
 .btn--danger {
-  background-color: hsl(358deg, 79%, 66%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: var(--secondary-color-200);
+  color: var(--neutral-color-100);
 }
 .btn--text-primary {
-  color: hsl(238deg, 40%, 52%);
+  color: var(--primary-color-200);
 }
 .btn--text-danger {
-  color: hsl(358deg, 79%, 66%);
+  color: var(--secondary-color-200);
 }
 .btn:hover {
   opacity: 0.75;
 }
 
 .heading {
-  color: hsl(212deg, 24%, 26%);
+  color: var(--neutral-color-500);
 }
 
 .mention {
-  color: hsl(238deg, 40%, 52%);
+  color: var(--primary-color-200);
 }
 
 .text--light {
-  color: hsl(211deg, 10%, 45%);
+  color: var(--neutral-color-400);
 }
 .text--dark {
-  color: hsl(212deg, 24%, 26%);
+  color: var(--neutral-color-500);
 }
 
 .badge {
-  background-color: hsl(238deg, 40%, 52%);
-  color: hsl(0deg, 0%, 100%);
+  background-color: var(--primary-color-200);
+  color: var(--neutral-color-100);
 }
 
 .comment-input:hover, .comment-input:focus-visible {
-  border-color: hsl(212deg, 24%, 26%);
-  outline-color: hsl(212deg, 24%, 26%);
+  border-color: var(--neutral-color-500);
+  outline-color: var(--neutral-color-500);
 }
 
 .box--white {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: var(--neutral-color-100);
 }
 
 .spinner {
-  background-color: hsl(223deg, 19%, 93%);
+  background-color: var(--neutral-color-300);
 }
 .spinner .text {
-  color: hsl(238deg, 40%, 52%);
+  color: var(--primary-color-200);
 }
 .spinner button:hover > svg path {
-  fill: hsl(238deg, 40%, 52%);
+  fill: var(--primary-color-200);
+  -webkit-transition: fill 0.15s ease-in;
+  transition: fill 0.15s ease-in;
 }
 
 dialog {
   background-color: transparent;
 }
 dialog > div[role=document] {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: var(--neutral-color-100);
+}
+@media (prefers-color-scheme: dark) {
+  dialog > div[role=document] {
+    background-color: var(--neutral-color-300);
+  }
 }
 dialog::-webkit-backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--neutral-color-200);
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color-100);
+  border: 3px solid var(--neutral-color-200);
+  border-radius: 50px;
+}
+
+::-moz-selection {
+  background-color: var(--primary-color-100);
+  color: var(--neutral-color-500);
+}
+
+::selection {
+  background-color: var(--primary-color-100);
+  color: var(--neutral-color-500);
+}
+@media (prefers-color-scheme: dark) {
+  ::-moz-selection {
+    background-color: var(--primary-color-200);
+  }
+  ::selection {
+    background-color: var(--primary-color-200);
+  }
+}
+
+.attribution {
+  color: var(--neutral-color-400);
+}
+.attribution a {
+  color: var(--primary-color-200);
 }
 
 *,
@@ -168,12 +255,41 @@ dialog::backdrop {
 }
 
 body {
-  padding: 16px;
+  padding: 31px 16px 16px;
+}
+@media screen and (min-width: 768px) {
+  body {
+    padding: 64px 16px 16px;
+  }
+}
+
+main {
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 18px;
+  margin: 0 auto;
+  max-width: 600px;
+}
+@media screen and (min-width: 768px) {
+  main {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    max-width: 732px;
+  }
 }
 
 .btn {
   border-radius: 8px;
-  padding: 14.5px 20px;
+  padding: 14.5px;
 }
 .btn--compact {
   padding: 0;
@@ -232,7 +348,6 @@ body {
 .box {
   border-radius: 8px;
   padding: 16px;
-  padding-bottom: 13px;
 }
 
 .spinner {
@@ -267,12 +382,82 @@ body {
       align-self: center;
 }
 
+@-webkit-keyframes slide-in {
+  from {
+    opacity: 0;
+    -webkit-transform: translate(10px, 10px);
+            transform: translate(10px, 10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    -webkit-transform: translate(10px, 10px);
+            transform: translate(10px, 10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+  }
+}
+@-webkit-keyframes slide-up {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(30px);
+            transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(30px);
+            transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
 .comment-box {
+  -webkit-animation: forwards slide-in 1s ease-in-out;
+          animation: forwards slide-in 1s ease-in-out;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 24px;
-  max-width: 642px;
   padding-right: 18px;
+  width: 100%;
+}
+.comment-box[data-new=true] {
+  -webkit-animation: forwards slide-up 0.6s ease-in-out;
+          animation: forwards slide-up 0.6s ease-in-out;
+}
+@media screen and (max-width: 375px) {
+  .comment-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+@media screen and (min-width: 375px) {
+  .comment-box {
+    padding: 24px;
+  }
 }
 @media screen and (min-width: 768px) {
   .comment-box {
@@ -281,7 +466,27 @@ body {
             column-gap: 24.5px;
     grid-template-columns: -webkit-min-content repeat(2, auto);
     grid-template-columns: min-content repeat(2, auto);
-    padding: 24px;
+  }
+}
+.comment-box--indent {
+  border-left: 1px solid hsl(211deg, 10%, 45%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 16px;
+  margin-top: -4px;
+  padding-left: 16px;
+}
+@media screen and (min-width: 768px) {
+  .comment-box--indent {
+    gap: 24px;
+    margin-left: 46px;
+    margin-top: 0;
+    padding-left: 42px;
   }
 }
 .comment-box > section {
@@ -296,10 +501,24 @@ body {
   grid-row: 1;
   margin-bottom: 16px;
 }
+@media screen and (max-width: 375px) {
+  .comment-box > section {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 0px;
+  }
+}
 @media screen and (min-width: 768px) {
   .comment-box > section {
     grid-column: 2/3;
     grid-row: 1;
+  }
+}
+@media screen and (max-width: 375px) {
+  .comment-box > p {
+    text-align: center;
   }
 }
 .comment-box > p,
@@ -426,7 +645,6 @@ dialog > div[role=document] > ul:last-of-type button {
   gap: 16px;
   grid-template-columns: repeat(2, 1fr);
   margin-bottom: 24px;
-  max-width: 730px;
 }
 @media screen and (min-width: 768px) {
   .comment-input-form {
@@ -436,6 +654,7 @@ dialog > div[role=document] > ul:last-of-type button {
     grid-template-columns: -webkit-min-content 1fr -webkit-min-content;
     grid-template-columns: min-content 1fr min-content;
     padding: 24px;
+    width: 100%;
   }
 }
 .comment-input-form > picture {
@@ -478,4 +697,28 @@ dialog > div[role=document] > ul:last-of-type button {
     grid-column: 3;
     grid-row: 1;
   }
+}
+
+.fixed--left {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  left: -5px;
+  line-height: 0;
+  padding: 12px;
+  padding-left: 8px;
+  position: fixed;
+  top: 50%;
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  -webkit-transition-property: background-color, color, -webkit-transform;
+  transition-property: background-color, color, -webkit-transform;
+  transition-property: background-color, color, transform;
+  transition-property: background-color, color, transform, -webkit-transform;
+  z-index: 2;
+}
+.fixed--left:hover {
+  background-color: var(--primary-color-200);
+  color: var(--neutral-color-100);
+  -webkit-transform: translateX(5px);
+          transform: translateX(5px);
 }
