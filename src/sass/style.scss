@@ -375,6 +375,7 @@ dialog > div[role='document'] {
   top: 50%;
   transition-duration: 0.25s;
   transition-property: background-color, color, transform;
+  z-index: 2;
 
   &:hover {
     background-color: var(--primary-color-200);

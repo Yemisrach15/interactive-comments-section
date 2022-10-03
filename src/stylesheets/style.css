@@ -714,6 +714,7 @@ dialog > div[role=document] > ul:last-of-type button {
   transition-property: background-color, color, -webkit-transform;
   transition-property: background-color, color, transform;
   transition-property: background-color, color, transform, -webkit-transform;
+  z-index: 2;
 }
 .fixed--left:hover {
   background-color: var(--primary-color-200);
