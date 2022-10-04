@@ -62,13 +62,17 @@ function Main() {
   // Function for send button click (new comment thread)
   const onSendBtnClick = (e: React.MouseEvent) => {
     e.preventDefault();
+
+    // Don't submit if value is empty
+    if (!newComment.trim()) return;
+
     setData({
       currentUser: data.currentUser,
       comments: [
         ...data.comments,
         {
           id,
-          content: newComment || '',
+          content: newComment,
           createdAt: '1 sec ago',
           score: 0,
           user: data.currentUser,
@@ -106,6 +110,10 @@ function Main() {
   // Function for click on new reply submit button in thread
   const onReplySubmitBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
     e.preventDefault();
+
+    // Don't submit if value is empty
+    if (!extractUserName(newReply).text.trim()) return;
+
     const reply = {
       id,
       content: extractUserName(newReply).text,
@@ -138,7 +146,7 @@ function Main() {
     }
 
     setData({ currentUser: data.currentUser, comments: updatedData as IComment[] });
-    setNewComment('');
+    setNewReply('');
     setId((id) => ++id);
   };
 
@@ -147,14 +155,20 @@ function Main() {
     let updatedData;
     if (!rId) {
       updatedData = data.comments.map((c) => {
-        if (c.id === cId) c.isOnEdit = true;
+        if (c.id === cId) {
+          c.isOnEdit = true;
+          setNewReply(c.content);
+        }
         return c;
       });
     } else {
       updatedData = data.comments.map((c) => {
         c.id === cId &&
           c.replies?.map((r) => {
-            if (r.id === rId) r.isOnEdit = true;
+            if (r.id === rId) {
+              r.isOnEdit = true;
+              setNewReply(r.content);
+            }
             return r;
           });
         return c;
@@ -167,6 +181,10 @@ function Main() {
   // Function for update button click after editing comment
   const onUpdateBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
     e.preventDefault();
+
+    // Don't submit if value is empty
+    if (!extractUserName(newReply).text.trim()) return;
+
     let updatedData;
     if (!rId) {
       updatedData = data.comments.map((c) => {
@@ -191,6 +209,7 @@ function Main() {
     }
 
     setData({ comments: updatedData, currentUser: data.currentUser });
+    setNewReply('');
   };
 
   // Function for delete button click on own comments
