@@ -209,7 +209,7 @@ function Main() {
     }
 
     setData({ comments: updatedData, currentUser: data.currentUser });
-    // setNewReply('');
+    setNewReply('');
   };
 
   // Function for delete button click on own comments
