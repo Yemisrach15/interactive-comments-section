@@ -146,7 +146,7 @@ function Main() {
     }
 
     setData({ currentUser: data.currentUser, comments: updatedData as IComment[] });
-    setNewComment('');
+    setNewReply('');
     setId((id) => ++id);
   };
 
@@ -155,14 +155,20 @@ function Main() {
     let updatedData;
     if (!rId) {
       updatedData = data.comments.map((c) => {
-        if (c.id === cId) c.isOnEdit = true;
+        if (c.id === cId) {
+          c.isOnEdit = true;
+          setNewReply(c.content);
+        }
         return c;
       });
     } else {
       updatedData = data.comments.map((c) => {
         c.id === cId &&
           c.replies?.map((r) => {
-            if (r.id === rId) r.isOnEdit = true;
+            if (r.id === rId) {
+              r.isOnEdit = true;
+              setNewReply(r.content);
+            }
             return r;
           });
         return c;
@@ -203,6 +209,7 @@ function Main() {
     }
 
     setData({ comments: updatedData, currentUser: data.currentUser });
+    // setNewReply('');
   };
 
   // Function for delete button click on own comments
