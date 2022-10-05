@@ -89,14 +89,14 @@ function Main() {
     let updatedData;
     if (!rId) {
       updatedData = data.comments.map((c) => {
-        if (c.id === cId) c.isOnReply = true;
+        if (c.id === cId) c.isOnReply = !c.isOnReply;
         return c;
       });
     } else {
       updatedData = data.comments.map((c) => {
         c.id === cId &&
           c.replies?.map((r) => {
-            if (r.id === rId) r.isOnReply = true;
+            if (r.id === rId) r.isOnReply = !r.isOnReply;
             return r;
           });
 
@@ -268,6 +268,7 @@ function Main() {
               isOwn={c.user.username === data.currentUser?.username}
               onDeleteBtnClick={() => onDeleteBtnClick(c.id)}
               isOnEdit={c.isOnEdit as boolean}
+              isOnReply={c.isOnReply as boolean}
               upvoteValue={c.score}
               labelID={`comment-${c.user.username}-${c.id}`}
               onEditBtnClick={() => onEditBtnClick(c.id)}
@@ -308,6 +309,7 @@ function Main() {
                       commentTimestamp={r.createdAt}
                       isOwn={r.user.username === data.currentUser?.username}
                       isOnEdit={r.isOnEdit as boolean}
+                      isOnReply={r.isOnReply as boolean}
                       upvoteValue={r.score}
                       labelID={`comment-${r.user.username}-${r.id}`}
                       onDeleteBtnClick={() => onDeleteBtnClick(c.id, r.id)}

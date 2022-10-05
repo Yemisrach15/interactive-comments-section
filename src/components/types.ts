@@ -49,6 +49,7 @@ export interface CommentBoxProps
   commenter: string;
   commentTimestamp: string;
   isOnEdit: boolean;
+  isOnReply: boolean;
   isOwn: boolean;
   onDeleteBtnClick?: (e: React.MouseEvent) => void;
   onEditBtnClick?: (e: React.MouseEvent) => void;
