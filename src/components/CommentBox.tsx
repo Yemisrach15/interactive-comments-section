@@ -21,7 +21,7 @@ function CommentBox(props: CommentBoxProps) {
           <source srcSet={props.profileImages.webp} type="image/webp"></source>
           <img
             src={props.profileImages.png}
-            alt="Profile"
+            alt={`${props.commenter}'s profile`}
             width={64}
             height={64}
             aria-hidden="true"
