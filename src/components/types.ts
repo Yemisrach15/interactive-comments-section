@@ -7,7 +7,7 @@ export interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>> | null;
 }
 
 type headingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';

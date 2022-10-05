@@ -77,7 +77,7 @@ function CommentBox(props: CommentBoxProps) {
             </Button>
             <Button
               className="btn btn--iconed btn--text-primary"
-              icon={EditIcon}
+              icon={props.isOnEdit ? null : EditIcon}
               onClick={props.onEditBtnClick}
             >
               {props.isOnEdit ? 'Cancel' : 'Edit'}
@@ -86,7 +86,7 @@ function CommentBox(props: CommentBoxProps) {
         ) : (
           <Button
             className="btn btn--iconed btn--text-primary"
-            icon={ReplyIcon}
+            icon={props.isOnReply ? null : ReplyIcon}
             onClick={props.onReplyBtnClick}
           >
             {props.isOnReply ? 'Cancel' : 'Reply'}
