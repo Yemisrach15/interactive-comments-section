@@ -77,11 +77,11 @@ function CommentBox(props: CommentBoxProps) {
             </Button>
             <Button
               className="btn btn--iconed btn--text-primary"
-              disabled={props.isOnEdit}
+              //   disabled={props.isOnEdit}
               icon={EditIcon}
               onClick={props.onEditBtnClick}
             >
-              Edit
+              {props.isOnEdit ? 'Cancel' : 'Edit'}
             </Button>
           </>
         ) : (

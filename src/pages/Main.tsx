@@ -156,7 +156,7 @@ function Main() {
     if (!rId) {
       updatedData = data.comments.map((c) => {
         if (c.id === cId) {
-          c.isOnEdit = true;
+          c.isOnEdit = !c.isOnEdit;
           setNewReply(c.content);
         }
         return c;
@@ -166,7 +166,7 @@ function Main() {
         c.id === cId &&
           c.replies?.map((r) => {
             if (r.id === rId) {
-              r.isOnEdit = true;
+              r.isOnEdit = !r.isOnEdit;
               setNewReply(r.content);
             }
             return r;
