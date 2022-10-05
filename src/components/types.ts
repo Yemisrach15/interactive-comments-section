@@ -72,4 +72,5 @@ export interface CommentInputFormProps {
   replyingTo?: string;
   onCommentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmitBtnClick?: (e: React.MouseEvent) => void;
+  commenter: string;
 }

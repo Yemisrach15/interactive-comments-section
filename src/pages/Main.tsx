@@ -292,6 +292,7 @@ function Main() {
                   webp: require(`../assets/${data.currentUser?.image.webp}`),
                 }}
                 onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id)}
+                commenter={data.currentUser.username}
               />
             )}
             {c.replies && c.replies.length !== 0 && (
@@ -332,6 +333,7 @@ function Main() {
                           webp: require(`../assets/${data.currentUser?.image.webp}`),
                         }}
                         onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id, r.id)}
+                        commenter={data.currentUser.username}
                       />
                     )}
                   </React.Fragment>
@@ -352,6 +354,7 @@ function Main() {
           }}
           onSubmitBtnClick={onSendBtnClick}
           value={newComment}
+          commenter={data.currentUser.username}
         />
       )}
 
