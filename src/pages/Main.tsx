@@ -283,7 +283,7 @@ function Main() {
             />
             {c.isOnReply && (
               <CommentInputForm
-                labelID="comment-5"
+                labelID={`comment-${data.currentUser.username}-${id}-for-${c.id}`}
                 isReply={true}
                 replyingTo={c.user.username}
                 onCommentChange={(e) => setNewReply(e.target.value)}
@@ -324,7 +324,7 @@ function Main() {
                     />
                     {r.isOnReply && (
                       <CommentInputForm
-                        labelID="comment-5"
+                        labelID={`comment-${data.currentUser.username}-${id}-for-${r.id}`}
                         isReply={true}
                         replyingTo={r.user.username}
                         onCommentChange={(e) => setNewReply(e.target.value)}
@@ -345,7 +345,7 @@ function Main() {
 
       {data.currentUser && (
         <CommentInputForm
-          labelID="comment-5"
+          labelID={`comment-${data.currentUser.username}-${id}`}
           isReply={false}
           onCommentChange={(e) => setNewComment(e.target.value)}
           profileImages={{
