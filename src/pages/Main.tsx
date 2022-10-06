@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, CommentBox, CommentInputForm, Heading, Modal } from '../components';
 import Data from '../data.json';
-import { extractUserName } from '../utils';
+import { extractUserName, selectTextAreaNode } from '../utils';
 import { IComment, IData } from './types';
 import { ReactComponent as SunIcon } from '../assets/icons/icon-sun.svg';
 import { ReactComponent as MoonIcon } from '../assets/icons/icon-moon.svg';
@@ -19,6 +19,7 @@ function Main() {
   const [newReply, setNewReply] = React.useState<string>('');
   const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
   const [isModalActive, setIsModalActive] = React.useState(false);
+  const [editingCommentId, setEditingCommentId] = React.useState<number | null>(null); // For focusing on edit
   const context = React.useContext(ThemeContext);
 
   React.useEffect(() => {
@@ -33,6 +34,12 @@ function Main() {
   React.useEffect(() => {
     localStorage.setItem('data', JSON.stringify(data));
   }, [data]);
+
+  React.useEffect(() => {
+    if (editingCommentId) {
+      selectTextAreaNode(editingCommentId).focus();
+    }
+  }, [editingCommentId]);
 
   // Function for plus and minus button clicks
   const onMinusPlusIconClick = (isMinus: boolean, cId: number, rId?: number) => {
@@ -152,24 +159,19 @@ function Main() {
   };
 
   // Function for click on edit button on own comments
-  const onEditBtnClick = (cId: number, rId?: number) => {
+  const onEditBtnClick = (isEdit: boolean, cId: number, rId?: number) => {
+    isEdit ? setEditingCommentId(rId || cId) : setEditingCommentId(null);
     let updatedData;
     if (!rId) {
       updatedData = data.comments.map((c) => {
-        if (c.id === cId) {
-          c.isOnEdit = !c.isOnEdit;
-          setNewReply(c.content);
-        }
+        if (c.id === cId) c.isOnEdit = !c.isOnEdit;
         return c;
       });
     } else {
       updatedData = data.comments.map((c) => {
         c.id === cId &&
           c.replies?.map((r) => {
-            if (r.id === rId) {
-              r.isOnEdit = !r.isOnEdit;
-              setNewReply(r.content);
-            }
+            if (r.id === rId) r.isOnEdit = !r.isOnEdit;
             return r;
           });
         return c;
@@ -183,14 +185,16 @@ function Main() {
   const onUpdateBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
     e.preventDefault();
 
+    const updatingCommentValue = selectTextAreaNode(rId || cId).value;
     // Don't submit if value is empty
-    if (!extractUserName(newReply).text.trim()) return;
+    if (!extractUserName(updatingCommentValue).text.trim()) return;
 
     let updatedData;
+    setEditingCommentId(null);
     if (!rId) {
       updatedData = data.comments.map((c) => {
         if (c.id === cId) {
-          c.content = extractUserName(newReply).text;
+          c.content = extractUserName(updatingCommentValue).text.trim();
           c.isOnEdit = false;
         }
         return c;
@@ -200,7 +204,7 @@ function Main() {
         c.id === cId &&
           c.replies?.map((r) => {
             if (r.id === rId) {
-              r.content = extractUserName(newReply).text;
+              r.content = extractUserName(updatingCommentValue).text.trim();
               r.isOnEdit = false;
             }
             return r;
@@ -210,7 +214,6 @@ function Main() {
     }
 
     setData({ comments: updatedData, currentUser: data.currentUser });
-    setNewReply('');
   };
 
   const toggleOpenModal = () => {
@@ -281,7 +284,7 @@ function Main() {
                 isOnReply={c.isOnReply as boolean}
                 upvoteValue={c.score}
                 labelID={`comment-${c.user.username}-${c.id}`}
-                onEditBtnClick={() => onEditBtnClick(c.id)}
+                onEditBtnClick={() => onEditBtnClick(!c.isOnEdit, c.id)}
                 onMinusIconClick={() => onMinusPlusIconClick(true, c.id)}
                 onPlusIconClick={() => onMinusPlusIconClick(false, c.id)}
                 onReplyBtnClick={() => onReplyBtnClick(c.id)}
@@ -323,7 +326,7 @@ function Main() {
                         upvoteValue={r.score}
                         labelID={`comment-${r.user.username}-${r.id}`}
                         onDeleteBtnClick={() => onDeleteBtnClick(c.id, r.id)}
-                        onEditBtnClick={() => onEditBtnClick(c.id, r.id)}
+                        onEditBtnClick={() => onEditBtnClick(!r.isOnEdit, c.id, r.id)}
                         onMinusIconClick={() => onMinusPlusIconClick(true, c.id, r.id)}
                         onPlusIconClick={() => onMinusPlusIconClick(false, c.id, r.id)}
                         onReplyBtnClick={() => onReplyBtnClick(c.id, r.id)}
