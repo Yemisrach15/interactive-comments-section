@@ -4,14 +4,12 @@ import { ModalProps } from './types';
 import FocusTrap from 'focus-trap-react';
 
 const Modal = React.forwardRef((props: ModalProps, ref) => {
-  React.useEffect(() => {
+  const closeModal = (e: React.MouseEvent) => {
     const modalRef = ref as React.RefObject<HTMLDialogElement>;
-    if (modalRef && modalRef.current) {
-      modalRef.current.addEventListener('click', (e) => {
-        if (modalRef.current && e.target === modalRef.current) modalRef.current.close();
-      });
+    if (modalRef.current && e.target === modalRef.current) {
+      props.onCancelBtnClick();
     }
-  }, []);
+  };
 
   return (
     <FocusTrap active={props.isActive}>
@@ -22,6 +20,7 @@ const Modal = React.forwardRef((props: ModalProps, ref) => {
         role="alertdialog"
         aria-labelledby={`dialog-title-${props.id}`}
         aria-describedby={`dialog-desc-${props.id}`}
+        onClick={closeModal}
       >
         <Box tag={'div'} role="document">
           <Heading tag={'h2'} className="heading" id={`dialog-title-${props.id}`}>
