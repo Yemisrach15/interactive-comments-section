@@ -295,6 +295,18 @@ main {
   }
 }
 
+article {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
 .btn {
   border-radius: 8px;
   padding: 14.5px;
@@ -658,7 +670,6 @@ dialog > div[role=document] > ul:last-of-type button {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 24px;
 }
 @media screen and (min-width: 768px) {
   .comment-input-form {

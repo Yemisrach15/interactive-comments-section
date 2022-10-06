@@ -296,24 +296,25 @@ function Main() {
                   png: require(`../assets/${c.user.image.png}`),
                   webp: require(`../assets/${c.user.image.webp}`),
                 }}
-              />
-              {c.isOnReply && (
-                <CommentInputForm
-                  labelID={`comment-${data.currentUser.username}-${id}-for-${c.id}`}
-                  isReply={true}
-                  replyingTo={c.user.username}
-                  onCommentChange={(e) => setNewReply(e.target.value)}
-                  profileImages={{
-                    png: require(`../assets/${data.currentUser?.image.png}`),
-                    webp: require(`../assets/${data.currentUser?.image.webp}`),
-                  }}
-                  onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id)}
-                  commenter={data.currentUser.username}
-                />
-              )}
-              {c.replies && c.replies.length !== 0 && (
-                <Box tag={'div'} className="comment-box--indent">
-                  {c.replies.map((r) => (
+                hasReplies={Boolean(c.replies?.length) || false}
+              >
+                {c.isOnReply && (
+                  <CommentInputForm
+                    labelID={`comment-${data.currentUser.username}-${id}-for-${c.id}`}
+                    isReply={true}
+                    replyingTo={c.user.username}
+                    onCommentChange={(e) => setNewReply(e.target.value)}
+                    profileImages={{
+                      png: require(`../assets/${data.currentUser?.image.png}`),
+                      webp: require(`../assets/${data.currentUser?.image.webp}`),
+                    }}
+                    onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id)}
+                    commenter={data.currentUser.username}
+                  />
+                )}
+                {c.replies &&
+                  c.replies.length !== 0 &&
+                  c.replies.map((r) => (
                     <React.Fragment key={r.id}>
                       <CommentBox
                         key={r.id}
@@ -355,8 +356,7 @@ function Main() {
                       )}
                     </React.Fragment>
                   ))}
-                </Box>
-              )}
+              </CommentBox>
             </React.Fragment>
           ))}
 

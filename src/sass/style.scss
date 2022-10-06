@@ -32,6 +32,13 @@ main {
   }
 }
 
+article {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
 .btn {
   border-radius: 8px;
   padding: 14.5px;
@@ -321,7 +328,6 @@ dialog > div[role='document'] {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 24px;
 
   @include screen-desktop {
     align-items: start;

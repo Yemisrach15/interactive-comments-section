@@ -32,5 +32,5 @@ export function getInitialColorMode() {
 
 // Selects textarea node in article of data-id=commentId
 export const selectTextAreaNode = (commentId: number) => {
-  return document.querySelector(`article[data-id="${commentId}"] textarea`) as HTMLTextAreaElement;
+  return document.querySelector(`div[data-id="${commentId}"] textarea`) as HTMLTextAreaElement;
 };

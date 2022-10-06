@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type BoxProps = React.HTMLAttributes<HTMLElement> & {
   tag: React.ElementType;
 };
@@ -59,6 +61,8 @@ export interface CommentBoxProps
   upvoteValue: number;
   id: number;
   new: boolean;
+  children?: React.ReactNode;
+  hasReplies?: boolean;
 }
 
 export interface ModalProps extends React.HTMLProps<HTMLDialogElement> {
