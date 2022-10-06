@@ -35,12 +35,16 @@ picture {
 }
 
 .heading {
-  letter-spacing: -0.3px;
+  font-weight: 500;
+}
+.heading--l1 {
+  font-size: 1.5em;
+  font-weight: 400;
+  text-align: center;
 }
 
 .mention {
-  font-weight: 700;
-  letter-spacing: -0.3px;
+  font-weight: 500;
 }
 
 .text {
@@ -96,7 +100,7 @@ dialog h2 {
 [data-theme=dark] {
   color-scheme: dark;
   --primary-color-100: hsl(239deg, 57%, 85%);
-  --primary-color-200: hsl(238deg, 40%, 52%);
+  --primary-color-200: hsl(238deg, 40%, 67%);
   --secondary-color-100: hsl(357deg, 100%, 86%);
   --secondary-color-200: hsl(358deg, 79%, 66%);
   --neutral-color-100: hsl(200deg, 6%, 10%);
@@ -245,6 +249,10 @@ dialog::backdrop {
   color: var(--primary-color-200);
 }
 
+.sr-only {
+  color: var(--neutral-color-500);
+}
+
 *,
 *::after,
 *::before {
@@ -302,6 +310,12 @@ main {
   display: -ms-flexbox;
   display: flex;
   gap: 8px;
+}
+
+.heading--l1 {
+  -webkit-animation: forwards slide-in 1s ease-in-out;
+          animation: forwards slide-in 1s ease-in-out;
+  margin-bottom: 24px;
 }
 
 .badge {

@@ -47,6 +47,13 @@ main {
   }
 }
 
+.heading {
+  &--l1 {
+    animation: forwards slide-in 1s ease-in-out;
+    margin-bottom: 24px;
+  }
+}
+
 .badge {
   border-radius: 2px;
   padding: 2px 6px;

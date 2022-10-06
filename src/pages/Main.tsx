@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, CommentBox, CommentInputForm, Modal } from '../components';
+import { Box, Button, CommentBox, CommentInputForm, Heading, Modal } from '../components';
 import Data from '../data.json';
 import { extractUserName } from '../utils';
 import { IComment, IData } from './types';
@@ -247,6 +247,9 @@ function Main() {
   return (
     <>
       <Box tag={'main'}>
+        <Heading className="heading heading--l1" tag={'h1'}>
+          Interactive Comments Section Solution
+        </Heading>
         <Button
           className="btn btn--text-primary fixed--left"
           icon={context.colorMode === 'dark' ? MoonIcon : SunIcon}
@@ -258,7 +261,7 @@ function Main() {
           title={`Change to ${context.colorMode === 'dark' ? 'light' : 'dark'} theme`}
         >
           <span className="sr-only">
-            Change to {context.colorMode === 'dark' ? 'light' : 'dark'} theme
+            {`Change to ${context.colorMode === 'dark' ? 'light' : 'dark'} theme`}
           </span>
         </Button>
         {data.comments &&
