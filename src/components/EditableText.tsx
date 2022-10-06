@@ -14,6 +14,7 @@ function EditableText(props: EditableTextProps) {
         className="comment-input text--dark"
         id={props.labelID}
         onChange={props.onChange}
+        onFocus={(e) => (e.target.selectionStart = e.target.selectionEnd = e.target.value.length)}
         defaultValue={props.value}
       />
     </>
