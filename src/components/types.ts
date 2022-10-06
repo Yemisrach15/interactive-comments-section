@@ -64,6 +64,7 @@ export interface CommentBoxProps
 export interface ModalProps extends React.HTMLProps<HTMLDialogElement> {
   onCancelBtnClick: (e: React.MouseEvent) => void;
   onDeleteBtnClick: (e: React.MouseEvent) => void;
+  isActive: boolean;
 }
 export interface CommentInputFormProps {
   value?: string;
