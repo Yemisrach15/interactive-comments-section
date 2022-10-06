@@ -66,32 +66,38 @@ function CommentBox(props: CommentBoxProps) {
           onMinusIconClick={props.onMinusIconClick}
           onPlusIconClick={props.onPlusIconClick}
         />
-        <Box tag={'div'}>
+        <Box tag={'ul'}>
           {props.isOwn ? (
             <>
-              <Button
-                className="btn btn--iconed btn--text-danger"
-                icon={DeleteIcon}
-                onClick={props.onDeleteBtnClick}
-              >
-                Delete
-              </Button>
-              <Button
-                className="btn btn--iconed btn--text-primary"
-                icon={props.isOnEdit ? null : EditIcon}
-                onClick={props.onEditBtnClick}
-              >
-                {props.isOnEdit ? 'Cancel' : 'Edit'}
-              </Button>
+              <li>
+                <Button
+                  className="btn btn--iconed btn--text-danger"
+                  icon={DeleteIcon}
+                  onClick={props.onDeleteBtnClick}
+                >
+                  Delete
+                </Button>
+              </li>
+              <li>
+                <Button
+                  className="btn btn--iconed btn--text-primary"
+                  icon={props.isOnEdit ? null : EditIcon}
+                  onClick={props.onEditBtnClick}
+                >
+                  {props.isOnEdit ? 'Cancel' : 'Edit'}
+                </Button>
+              </li>
             </>
           ) : (
-            <Button
-              className="btn btn--iconed btn--text-primary"
-              icon={props.isOnReply ? null : ReplyIcon}
-              onClick={props.onReplyBtnClick}
-            >
-              {props.isOnReply ? 'Cancel' : 'Reply'}
-            </Button>
+            <li>
+              <Button
+                className="btn btn--iconed btn--text-primary"
+                icon={props.isOnReply ? null : ReplyIcon}
+                onClick={props.onReplyBtnClick}
+              >
+                {props.isOnReply ? 'Cancel' : 'Reply'}
+              </Button>
+            </li>
           )}
         </Box>
       </Box>

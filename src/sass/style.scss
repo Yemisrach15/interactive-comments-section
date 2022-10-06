@@ -252,12 +252,13 @@ article {
     }
   }
 
-  & > div:last-of-type {
+  & > ul {
     align-self: center;
     display: flex;
     grid-column: 2 / 3;
     grid-row: 3;
     justify-self: end;
+    list-style: none;
     margin: 0px -8.5px;
 
     @include screen-desktop {
