@@ -16,7 +16,7 @@ function CommentBox(props: CommentBoxProps) {
       data-id={props.id}
       data-new={props.new as boolean}
     >
-      <Box tag={'section'}>
+      <Box tag={'header'}>
         <Picture className="profile-pic profile-pic--sm">
           <source srcSet={props.profileImages.webp} type="image/webp"></source>
           <img

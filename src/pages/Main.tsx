@@ -249,10 +249,12 @@ function Main() {
 
   return (
     <>
-      <Box tag={'main'}>
+      <Box tag={'header'}>
         <Heading className="heading heading--l1" tag={'h1'}>
           Interactive Comments Section Solution
         </Heading>
+      </Box>
+      <Box tag={'main'}>
         <Button
           className="btn btn--text-primary fixed--left"
           icon={context.colorMode === 'dark' ? MoonIcon : SunIcon}
