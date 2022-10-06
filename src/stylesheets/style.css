@@ -191,16 +191,15 @@ body {
   transition: fill 0.15s ease-in;
 }
 
+[data-theme=dark] dialog > div[role=document] {
+  background-color: var(--neutral-color-300);
+}
+
 dialog {
   background-color: transparent;
 }
 dialog > div[role=document] {
   background-color: var(--neutral-color-100);
-}
-@media (prefers-color-scheme: dark) {
-  dialog > div[role=document] {
-    background-color: var(--neutral-color-300);
-  }
 }
 dialog::-webkit-backdrop {
   background-color: rgba(0, 0, 0, 0.5);
@@ -233,13 +232,13 @@ dialog::backdrop {
   background-color: var(--primary-color-100);
   color: var(--neutral-color-500);
 }
-@media (prefers-color-scheme: dark) {
-  ::-moz-selection {
-    background-color: var(--primary-color-200);
-  }
-  ::selection {
-    background-color: var(--primary-color-200);
-  }
+
+[data-theme=dark] ::-moz-selection {
+  background-color: var(--primary-color-200);
+}
+
+[data-theme=dark] ::selection {
+  background-color: var(--primary-color-200);
 }
 
 .attribution {
