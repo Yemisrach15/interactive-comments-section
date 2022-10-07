@@ -18,14 +18,22 @@ function CommentInputForm(props: CommentInputFormProps) {
       <label htmlFor={props.labelID} className="sr-only">
         Add a comment
       </label>
-      <TextArea
-        className="comment-input text--dark"
-        id={props.labelID}
-        placeholder="Add a comment..."
-        defaultValue={props.isReply ? `@${props.replyingTo}` : ''}
-        onChange={props.onCommentChange}
-        value={props.value}
-      />
+      {props.isReply ? (
+        <TextArea
+          className="comment-input text--dark"
+          id={props.labelID}
+          placeholder="Add a comment..."
+          defaultValue={`@${props.replyingTo}`}
+        />
+      ) : (
+        <TextArea
+          className="comment-input text--dark"
+          id={props.labelID}
+          placeholder="Add a comment..."
+          onChange={props.onCommentChange}
+          value={props.value}
+        />
+      )}
       <Button className="btn btn--primary btn--uppercase" onClick={props.onSubmitBtnClick}>
         {props.isReply ? 'Reply' : 'Send'}
       </Button>
