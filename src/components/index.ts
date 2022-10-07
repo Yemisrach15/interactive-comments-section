@@ -2,6 +2,7 @@ import Box from './blocks/Box';
 import Button from './blocks/Button';
 import CommentBox from './CommentBox';
 import CommentInputForm from './CommentInputForm';
+import CommentText from './CommentText';
 import EditableText from './EditableText';
 import Footer from './Footer';
 import Heading from './blocks/Heading';
@@ -16,6 +17,7 @@ export {
   Button,
   CommentBox,
   CommentInputForm,
+  CommentText,
   EditableText,
   Footer,
   Heading,

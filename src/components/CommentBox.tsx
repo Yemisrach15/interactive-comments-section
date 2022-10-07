@@ -1,14 +1,11 @@
 import React from 'react';
-import { Box, Button, EditableText, Heading, Picture, Spinner, Text } from '.';
+import { Box, Button, CommentText, EditableText, Heading, Picture, Spinner, Text } from '.';
 import { ReactComponent as ReplyIcon } from '../assets/icons/icon-reply.svg';
 import { ReactComponent as EditIcon } from '../assets/icons/icon-edit.svg';
 import { ReactComponent as DeleteIcon } from '../assets/icons/icon-delete.svg';
 import { CommentBoxProps } from './types';
-import { extractUserName } from '../utils';
 
 function CommentBox(props: CommentBoxProps) {
-  const { userName, text } = extractUserName(props.comment || '');
-
   return (
     <Box tag={'article'}>
       <Box
@@ -51,14 +48,7 @@ function CommentBox(props: CommentBoxProps) {
             </Button>
           </form>
         ) : (
-          <Text className="text text--light">
-            {userName && (
-              <Text className="mention" tag={'span'}>
-                {userName}&nbsp;
-              </Text>
-            )}
-            {text}
-          </Text>
+          <CommentText value={props.comment} />
         )}
         <Spinner
           value={props.upvoteValue}

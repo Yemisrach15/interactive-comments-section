@@ -79,3 +79,7 @@ export interface CommentInputFormProps {
   onSubmitBtnClick?: (e: React.MouseEvent) => void;
   commenter: string;
 }
+
+export interface CommentTextProps {
+  value: string;
+}
