@@ -9,7 +9,7 @@ function CommentBox(props: CommentBoxProps) {
   return (
     <Box tag={'article'}>
       <Box
-        tag={'div'}
+        tag={'section'}
         className="box box--white comment-box"
         data-id={props.id}
         data-new={props.new as boolean}
@@ -91,7 +91,7 @@ function CommentBox(props: CommentBoxProps) {
         </Box>
       </Box>
       {(props.hasReplies || props.isOnReply) && (
-        <Box tag={'section'} className="comment-box--indent">
+        <Box tag={'div'} className="comment-box--indent">
           {props.children}
         </Box>
       )}
