@@ -19,7 +19,7 @@ function Main() {
   const [newReply, setNewReply] = React.useState<string>('');
   const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
   const [isModalActive, setIsModalActive] = React.useState(false);
-  const [editingCommentId, setEditingCommentId] = React.useState<number | null>(null); // For focusing on edit
+  const [currentTextAreaId, setCurrentTextAreaId] = React.useState<string | null>(null); // For focusing on edit
   const context = React.useContext(ThemeContext);
 
   React.useEffect(() => {
@@ -36,10 +36,10 @@ function Main() {
   }, [data]);
 
   React.useEffect(() => {
-    if (editingCommentId) {
-      selectTextAreaNode(editingCommentId).focus();
+    if (currentTextAreaId && selectTextAreaNode(currentTextAreaId)) {
+      selectTextAreaNode(currentTextAreaId).focus();
     }
-  }, [editingCommentId]);
+  }, [currentTextAreaId]);
 
   // Function for plus and minus button clicks
   const onMinusPlusIconClick = (isMinus: boolean, cId: number, rId?: number) => {
@@ -93,7 +93,11 @@ function Main() {
   };
 
   // Function for click on reply button in threads
-  const onReplyBtnClick = (cId: number, rId?: number) => {
+  const onReplyBtnClick = (isReply: boolean, cId: number, rId?: number) => {
+    isReply
+      ? setCurrentTextAreaId(`comment-juliusomo-${id}-for-${rId || cId}`)
+      : setCurrentTextAreaId(null);
+
     let updatedData;
     if (!rId) {
       updatedData = data.comments.map((c) => {
@@ -130,6 +134,7 @@ function Main() {
       user: data.currentUser,
     };
     let updatedData;
+    setCurrentTextAreaId(null);
 
     if (!rId) {
       updatedData = data.comments.map((c) => {
@@ -160,7 +165,7 @@ function Main() {
 
   // Function for click on edit button on own comments
   const onEditBtnClick = (isEdit: boolean, cId: number, rId?: number) => {
-    isEdit ? setEditingCommentId(rId || cId) : setEditingCommentId(null);
+    isEdit ? setCurrentTextAreaId(`comment-${rId || cId}`) : setCurrentTextAreaId(null);
     let updatedData;
     if (!rId) {
       updatedData = data.comments.map((c) => {
@@ -185,12 +190,12 @@ function Main() {
   const onUpdateBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
     e.preventDefault();
 
-    const updatingCommentValue = selectTextAreaNode(rId || cId).value;
+    const updatingCommentValue = selectTextAreaNode(`comment-${rId || cId}`).value;
     // Don't submit if value is empty
     if (!extractUserName(updatingCommentValue).text.trim()) return;
 
     let updatedData;
-    setEditingCommentId(null);
+    setCurrentTextAreaId(null);
     if (!rId) {
       updatedData = data.comments.map((c) => {
         if (c.id === cId) {
@@ -285,11 +290,11 @@ function Main() {
                 isOnEdit={c.isOnEdit as boolean}
                 isOnReply={c.isOnReply as boolean}
                 upvoteValue={c.score}
-                labelID={`comment-${c.user.username}-${c.id}`}
+                labelID={`comment-${c.id}`}
                 onEditBtnClick={() => onEditBtnClick(!c.isOnEdit, c.id)}
                 onMinusIconClick={() => onMinusPlusIconClick(true, c.id)}
                 onPlusIconClick={() => onMinusPlusIconClick(false, c.id)}
-                onReplyBtnClick={() => onReplyBtnClick(c.id)}
+                onReplyBtnClick={() => onReplyBtnClick(!c.isOnReply, c.id)}
                 onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id)}
                 onChange={(e) => setNewReply(e.target.value)}
                 profileImages={{
@@ -327,12 +332,12 @@ function Main() {
                         isOnEdit={r.isOnEdit as boolean}
                         isOnReply={r.isOnReply as boolean}
                         upvoteValue={r.score}
-                        labelID={`comment-${r.user.username}-${r.id}`}
+                        labelID={`comment-${r.id}`}
                         onDeleteBtnClick={() => onDeleteBtnClick(c.id, r.id)}
                         onEditBtnClick={() => onEditBtnClick(!r.isOnEdit, c.id, r.id)}
                         onMinusIconClick={() => onMinusPlusIconClick(true, c.id, r.id)}
                         onPlusIconClick={() => onMinusPlusIconClick(false, c.id, r.id)}
-                        onReplyBtnClick={() => onReplyBtnClick(c.id, r.id)}
+                        onReplyBtnClick={() => onReplyBtnClick(!r.isOnReply, c.id, r.id)}
                         onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id, r.id)}
                         onChange={(e) => setNewReply(e.target.value)}
                         profileImages={{
