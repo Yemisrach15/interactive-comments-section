@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Button, CommentBox, CommentInputForm, Modal } from '../components';
+import { Box, Button, CommentBox, CommentInputForm, Heading, Modal } from '../components';
 import Data from '../data.json';
-import { extractUserName } from '../utils';
+import { extractUserName, selectTextAreaNode } from '../utils';
 import { IComment, IData } from './types';
 import { ReactComponent as SunIcon } from '../assets/icons/icon-sun.svg';
 import { ReactComponent as MoonIcon } from '../assets/icons/icon-moon.svg';
@@ -16,8 +16,9 @@ function Main() {
       Data) as IData
   );
   const [newComment, setNewComment] = React.useState<string>('');
-  const [newReply, setNewReply] = React.useState<string>('');
   const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
+  const [isModalActive, setIsModalActive] = React.useState(false);
+  const [currentTextAreaId, setCurrentTextAreaId] = React.useState<string | null>(null); // For focusing on edit
   const context = React.useContext(ThemeContext);
 
   React.useEffect(() => {
@@ -32,6 +33,12 @@ function Main() {
   React.useEffect(() => {
     localStorage.setItem('data', JSON.stringify(data));
   }, [data]);
+
+  React.useEffect(() => {
+    if (currentTextAreaId && selectTextAreaNode(currentTextAreaId)) {
+      selectTextAreaNode(currentTextAreaId).focus();
+    }
+  }, [currentTextAreaId]);
 
   // Function for plus and minus button clicks
   const onMinusPlusIconClick = (isMinus: boolean, cId: number, rId?: number) => {
@@ -85,18 +92,20 @@ function Main() {
   };
 
   // Function for click on reply button in threads
-  const onReplyBtnClick = (cId: number, rId?: number) => {
+  const onReplyBtnClick = (isReply: boolean, cId: number, rId?: number) => {
+    isReply ? setCurrentTextAreaId(`comment-${id}-for-${rId || cId}`) : setCurrentTextAreaId(null);
+
     let updatedData;
     if (!rId) {
       updatedData = data.comments.map((c) => {
-        if (c.id === cId) c.isOnReply = true;
+        if (c.id === cId) c.isOnReply = !c.isOnReply;
         return c;
       });
     } else {
       updatedData = data.comments.map((c) => {
         c.id === cId &&
           c.replies?.map((r) => {
-            if (r.id === rId) r.isOnReply = true;
+            if (r.id === rId) r.isOnReply = !r.isOnReply;
             return r;
           });
 
@@ -111,17 +120,19 @@ function Main() {
   const onReplySubmitBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
     e.preventDefault();
 
+    const newReplyValue = selectTextAreaNode(`comment-${id}-for-${rId || cId}`).value;
     // Don't submit if value is empty
-    if (!extractUserName(newReply).text.trim()) return;
+    if (!extractUserName(newReplyValue).text.trim()) return;
 
     const reply = {
       id,
-      content: extractUserName(newReply).text,
+      content: extractUserName(newReplyValue).text.trim(),
       createdAt: '1 sec ago',
       score: 0,
       user: data.currentUser,
     };
     let updatedData;
+    setCurrentTextAreaId(null);
 
     if (!rId) {
       updatedData = data.comments.map((c) => {
@@ -146,29 +157,23 @@ function Main() {
     }
 
     setData({ currentUser: data.currentUser, comments: updatedData as IComment[] });
-    setNewReply('');
     setId((id) => ++id);
   };
 
   // Function for click on edit button on own comments
-  const onEditBtnClick = (cId: number, rId?: number) => {
+  const onEditBtnClick = (isEdit: boolean, cId: number, rId?: number) => {
+    isEdit ? setCurrentTextAreaId(`comment-${rId || cId}`) : setCurrentTextAreaId(null);
     let updatedData;
     if (!rId) {
       updatedData = data.comments.map((c) => {
-        if (c.id === cId) {
-          c.isOnEdit = true;
-          setNewReply(c.content);
-        }
+        if (c.id === cId) c.isOnEdit = !c.isOnEdit;
         return c;
       });
     } else {
       updatedData = data.comments.map((c) => {
         c.id === cId &&
           c.replies?.map((r) => {
-            if (r.id === rId) {
-              r.isOnEdit = true;
-              setNewReply(r.content);
-            }
+            if (r.id === rId) r.isOnEdit = !r.isOnEdit;
             return r;
           });
         return c;
@@ -182,14 +187,16 @@ function Main() {
   const onUpdateBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
     e.preventDefault();
 
+    const updatingCommentValue = selectTextAreaNode(`comment-${rId || cId}`).value;
     // Don't submit if value is empty
-    if (!extractUserName(newReply).text.trim()) return;
+    if (!extractUserName(updatingCommentValue).text.trim()) return;
 
     let updatedData;
+    setCurrentTextAreaId(null);
     if (!rId) {
       updatedData = data.comments.map((c) => {
         if (c.id === cId) {
-          c.content = extractUserName(newReply).text;
+          c.content = extractUserName(updatingCommentValue).text.trim();
           c.isOnEdit = false;
         }
         return c;
@@ -199,7 +206,7 @@ function Main() {
         c.id === cId &&
           c.replies?.map((r) => {
             if (r.id === rId) {
-              r.content = extractUserName(newReply).text;
+              r.content = extractUserName(updatingCommentValue).text.trim();
               r.isOnEdit = false;
             }
             return r;
@@ -209,12 +216,16 @@ function Main() {
     }
 
     setData({ comments: updatedData, currentUser: data.currentUser });
-    setNewReply('');
+  };
+
+  const toggleOpenModal = () => {
+    setIsModalActive((value) => !value);
+    isModalActive ? deleteModalRef.current?.close() : deleteModalRef.current?.showModal();
   };
 
   // Function for delete button click on own comments
   const onDeleteBtnClick = (cId: number, rId?: number) => {
-    deleteModalRef.current?.showModal();
+    toggleOpenModal();
     setCommentToDelete({ cId, rId });
   };
 
@@ -232,136 +243,144 @@ function Main() {
     }
 
     setData({ comments: updatedData, currentUser: data.currentUser });
-    deleteModalRef.current && deleteModalRef.current.close();
+    toggleOpenModal();
   };
 
   // Set data-theme on body tag to color mode
   document.body.dataset.theme = context.colorMode;
 
   return (
-    <Box tag={'main'}>
-      <Button
-        className="btn btn--text-primary fixed--left"
-        icon={context.colorMode === 'dark' ? MoonIcon : SunIcon}
-        onClick={() =>
-          context.setColorMode
-            ? context.setColorMode(context.colorMode === 'dark' ? 'light' : 'dark')
-            : null
-        }
-        title={`Change to ${context.colorMode === 'dark' ? 'light' : 'dark'} theme`}
-      >
-        <span className="sr-only">
-          Change to {context.colorMode === 'dark' ? 'light' : 'dark'} theme
-        </span>
-      </Button>
-      {data.comments &&
-        data.comments.length &&
-        data.comments.map((c) => (
-          <React.Fragment key={c.id}>
-            <CommentBox
-              key={c.id}
-              id={c.id}
-              new={c.id !== initialId && c.id === id - 1}
-              comment={c.content}
-              commenter={c.user.username}
-              commentTimestamp={c.createdAt}
-              isOwn={c.user.username === data.currentUser?.username}
-              onDeleteBtnClick={() => onDeleteBtnClick(c.id)}
-              isOnEdit={c.isOnEdit as boolean}
-              upvoteValue={c.score}
-              labelID={`comment-${c.user.username}-${c.id}`}
-              onEditBtnClick={() => onEditBtnClick(c.id)}
-              onMinusIconClick={() => onMinusPlusIconClick(true, c.id)}
-              onPlusIconClick={() => onMinusPlusIconClick(false, c.id)}
-              onReplyBtnClick={() => onReplyBtnClick(c.id)}
-              onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id)}
-              onChange={(e) => setNewReply(e.target.value)}
-              profileImages={{
-                png: require(`../assets/${c.user.image.png}`),
-                webp: require(`../assets/${c.user.image.webp}`),
-              }}
-            />
-            {c.isOnReply && (
-              <CommentInputForm
-                labelID="comment-5"
-                isReply={true}
-                replyingTo={c.user.username}
-                onCommentChange={(e) => setNewReply(e.target.value)}
+    <>
+      <Box tag={'header'}>
+        <Heading className="heading heading--l1" tag={'h1'}>
+          Interactive Comments Section Solution
+        </Heading>
+      </Box>
+      <Box tag={'main'}>
+        <Button
+          className="btn btn--text-primary fixed--left"
+          icon={context.colorMode === 'dark' ? MoonIcon : SunIcon}
+          onClick={() =>
+            context.setColorMode
+              ? context.setColorMode(context.colorMode === 'dark' ? 'light' : 'dark')
+              : null
+          }
+          title={`Change to ${context.colorMode === 'dark' ? 'light' : 'dark'} theme`}
+        >
+          <span className="sr-only">
+            {`Change to ${context.colorMode === 'dark' ? 'light' : 'dark'} theme`}
+          </span>
+        </Button>
+        {data.comments &&
+          data.comments.length &&
+          data.comments.map((c) => (
+            <React.Fragment key={c.id}>
+              <CommentBox
+                key={c.id}
+                id={c.id}
+                new={c.id !== initialId && c.id === id - 1}
+                comment={c.content}
+                commenter={c.user.username}
+                commentTimestamp={c.createdAt}
+                isOwn={c.user.username === data.currentUser?.username}
+                onDeleteBtnClick={() => onDeleteBtnClick(c.id)}
+                isOnEdit={c.isOnEdit as boolean}
+                isOnReply={c.isOnReply as boolean}
+                upvoteValue={c.score}
+                labelID={`comment-${c.id}`}
+                onEditBtnClick={() => onEditBtnClick(!c.isOnEdit, c.id)}
+                onMinusIconClick={() => onMinusPlusIconClick(true, c.id)}
+                onPlusIconClick={() => onMinusPlusIconClick(false, c.id)}
+                onReplyBtnClick={() => onReplyBtnClick(!c.isOnReply, c.id)}
+                onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id)}
                 profileImages={{
-                  png: require(`../assets/${data.currentUser?.image.png}`),
-                  webp: require(`../assets/${data.currentUser?.image.webp}`),
+                  png: require(`../assets/${c.user.image.png}`),
+                  webp: require(`../assets/${c.user.image.webp}`),
                 }}
-                onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id)}
-              />
-            )}
-            {c.replies && c.replies.length !== 0 && (
-              <Box tag={'div'} className="comment-box--indent">
-                {c.replies.map((r) => (
-                  <React.Fragment key={r.id}>
-                    <CommentBox
-                      key={r.id}
-                      id={r.id}
-                      new={r.id !== initialId && r.id === id - 1}
-                      comment={`@${r.replyingTo} ${r.content}`}
-                      commenter={r.user.username}
-                      commentTimestamp={r.createdAt}
-                      isOwn={r.user.username === data.currentUser?.username}
-                      isOnEdit={r.isOnEdit as boolean}
-                      upvoteValue={r.score}
-                      labelID={`comment-${r.user.username}-${r.id}`}
-                      onDeleteBtnClick={() => onDeleteBtnClick(c.id, r.id)}
-                      onEditBtnClick={() => onEditBtnClick(c.id, r.id)}
-                      onMinusIconClick={() => onMinusPlusIconClick(true, c.id, r.id)}
-                      onPlusIconClick={() => onMinusPlusIconClick(false, c.id, r.id)}
-                      onReplyBtnClick={() => onReplyBtnClick(c.id, r.id)}
-                      onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id, r.id)}
-                      onChange={(e) => setNewReply(e.target.value)}
-                      profileImages={{
-                        png: require(`../assets/${r.user.image.png}`),
-                        webp: require(`../assets/${r.user.image.webp}`),
-                      }}
-                    />
-                    {r.isOnReply && (
-                      <CommentInputForm
-                        labelID="comment-5"
-                        isReply={true}
-                        replyingTo={r.user.username}
-                        onCommentChange={(e) => setNewReply(e.target.value)}
+                hasReplies={Boolean(c.replies?.length) || false}
+              >
+                {c.isOnReply && (
+                  <CommentInputForm
+                    labelID={`comment-${id}-for-${c.id}`}
+                    isReply={true}
+                    replyingTo={c.user.username}
+                    profileImages={{
+                      png: require(`../assets/${data.currentUser?.image.png}`),
+                      webp: require(`../assets/${data.currentUser?.image.webp}`),
+                    }}
+                    onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id)}
+                    commenter={data.currentUser.username}
+                  />
+                )}
+                {c.replies &&
+                  c.replies.length !== 0 &&
+                  c.replies.map((r) => (
+                    <React.Fragment key={r.id}>
+                      <CommentBox
+                        key={r.id}
+                        id={r.id}
+                        new={r.id !== initialId && r.id === id - 1}
+                        comment={`@${r.replyingTo} ${r.content}`}
+                        commenter={r.user.username}
+                        commentTimestamp={r.createdAt}
+                        isOwn={r.user.username === data.currentUser?.username}
+                        isOnEdit={r.isOnEdit as boolean}
+                        isOnReply={r.isOnReply as boolean}
+                        upvoteValue={r.score}
+                        labelID={`comment-${r.id}`}
+                        onDeleteBtnClick={() => onDeleteBtnClick(c.id, r.id)}
+                        onEditBtnClick={() => onEditBtnClick(!r.isOnEdit, c.id, r.id)}
+                        onMinusIconClick={() => onMinusPlusIconClick(true, c.id, r.id)}
+                        onPlusIconClick={() => onMinusPlusIconClick(false, c.id, r.id)}
+                        onReplyBtnClick={() => onReplyBtnClick(!r.isOnReply, c.id, r.id)}
+                        onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id, r.id)}
                         profileImages={{
-                          png: require(`../assets/${data.currentUser?.image.png}`),
-                          webp: require(`../assets/${data.currentUser?.image.webp}`),
+                          png: require(`../assets/${r.user.image.png}`),
+                          webp: require(`../assets/${r.user.image.webp}`),
                         }}
-                        onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id, r.id)}
                       />
-                    )}
-                  </React.Fragment>
-                ))}
-              </Box>
-            )}
-          </React.Fragment>
-        ))}
+                      {r.isOnReply && (
+                        <CommentInputForm
+                          labelID={`comment-${id}-for-${r.id}`}
+                          isReply={true}
+                          replyingTo={r.user.username}
+                          profileImages={{
+                            png: require(`../assets/${data.currentUser?.image.png}`),
+                            webp: require(`../assets/${data.currentUser?.image.webp}`),
+                          }}
+                          onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id, r.id)}
+                          commenter={data.currentUser.username}
+                        />
+                      )}
+                    </React.Fragment>
+                  ))}
+              </CommentBox>
+            </React.Fragment>
+          ))}
 
-      {data.currentUser && (
-        <CommentInputForm
-          labelID="comment-5"
-          isReply={false}
-          onCommentChange={(e) => setNewComment(e.target.value)}
-          profileImages={{
-            png: require(`../assets/${data.currentUser?.image.png}`),
-            webp: require(`../assets/${data.currentUser?.image.webp}`),
-          }}
-          onSubmitBtnClick={onSendBtnClick}
-          value={newComment}
-        />
-      )}
-
+        {data.currentUser && (
+          <CommentInputForm
+            labelID={`comment-${data.currentUser.username}-${id}`}
+            isReply={false}
+            onCommentChange={(e) => setNewComment(e.target.value)}
+            profileImages={{
+              png: require(`../assets/${data.currentUser?.image.png}`),
+              webp: require(`../assets/${data.currentUser?.image.webp}`),
+            }}
+            onSubmitBtnClick={onSendBtnClick}
+            value={newComment}
+            commenter={data.currentUser.username}
+          />
+        )}
+      </Box>
       <Modal
         id="delete-modal"
         ref={deleteModalRef}
-        onCancelBtnClick={() => deleteModalRef.current && deleteModalRef.current.close()}
+        onCancelBtnClick={toggleOpenModal}
         onDeleteBtnClick={onYesDeleteBtnClick}
+        isActive={isModalActive}
       />
-    </Box>
+    </>
   );
 }
 

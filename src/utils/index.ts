@@ -29,3 +29,8 @@ export function getInitialColorMode() {
   // color themes, let's default to 'light'.
   return 'light';
 }
+
+// Selects textarea node in article of data-id=commentId
+export const selectTextAreaNode = (textAreaId: number | string) => {
+  return document.querySelector(`textarea#${textAreaId}`) as HTMLTextAreaElement;
+};
