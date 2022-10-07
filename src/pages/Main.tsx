@@ -16,7 +16,6 @@ function Main() {
       Data) as IData
   );
   const [newComment, setNewComment] = React.useState<string>('');
-  const [newReply, setNewReply] = React.useState<string>('');
   const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
   const [isModalActive, setIsModalActive] = React.useState(false);
   const [currentTextAreaId, setCurrentTextAreaId] = React.useState<string | null>(null); // For focusing on edit
@@ -94,9 +93,7 @@ function Main() {
 
   // Function for click on reply button in threads
   const onReplyBtnClick = (isReply: boolean, cId: number, rId?: number) => {
-    isReply
-      ? setCurrentTextAreaId(`comment-juliusomo-${id}-for-${rId || cId}`)
-      : setCurrentTextAreaId(null);
+    isReply ? setCurrentTextAreaId(`comment-${id}-for-${rId || cId}`) : setCurrentTextAreaId(null);
 
     let updatedData;
     if (!rId) {
@@ -123,12 +120,13 @@ function Main() {
   const onReplySubmitBtnClick = (e: React.MouseEvent, cId: number, rId?: number) => {
     e.preventDefault();
 
+    const newReplyValue = selectTextAreaNode(`comment-${id}-for-${rId || cId}`).value;
     // Don't submit if value is empty
-    if (!extractUserName(newReply).text.trim()) return;
+    if (!extractUserName(newReplyValue).text.trim()) return;
 
     const reply = {
       id,
-      content: extractUserName(newReply).text,
+      content: extractUserName(newReplyValue).text.trim(),
       createdAt: '1 sec ago',
       score: 0,
       user: data.currentUser,
@@ -159,7 +157,6 @@ function Main() {
     }
 
     setData({ currentUser: data.currentUser, comments: updatedData as IComment[] });
-    setNewReply('');
     setId((id) => ++id);
   };
 
@@ -296,7 +293,6 @@ function Main() {
                 onPlusIconClick={() => onMinusPlusIconClick(false, c.id)}
                 onReplyBtnClick={() => onReplyBtnClick(!c.isOnReply, c.id)}
                 onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id)}
-                onChange={(e) => setNewReply(e.target.value)}
                 profileImages={{
                   png: require(`../assets/${c.user.image.png}`),
                   webp: require(`../assets/${c.user.image.webp}`),
@@ -305,10 +301,9 @@ function Main() {
               >
                 {c.isOnReply && (
                   <CommentInputForm
-                    labelID={`comment-${data.currentUser.username}-${id}-for-${c.id}`}
+                    labelID={`comment-${id}-for-${c.id}`}
                     isReply={true}
                     replyingTo={c.user.username}
-                    onCommentChange={(e) => setNewReply(e.target.value)}
                     profileImages={{
                       png: require(`../assets/${data.currentUser?.image.png}`),
                       webp: require(`../assets/${data.currentUser?.image.webp}`),
@@ -339,7 +334,6 @@ function Main() {
                         onPlusIconClick={() => onMinusPlusIconClick(false, c.id, r.id)}
                         onReplyBtnClick={() => onReplyBtnClick(!r.isOnReply, c.id, r.id)}
                         onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id, r.id)}
-                        onChange={(e) => setNewReply(e.target.value)}
                         profileImages={{
                           png: require(`../assets/${r.user.image.png}`),
                           webp: require(`../assets/${r.user.image.webp}`),
@@ -347,10 +341,9 @@ function Main() {
                       />
                       {r.isOnReply && (
                         <CommentInputForm
-                          labelID={`comment-${data.currentUser.username}-${id}-for-${r.id}`}
+                          labelID={`comment-${id}-for-${r.id}`}
                           isReply={true}
                           replyingTo={r.user.username}
-                          onCommentChange={(e) => setNewReply(e.target.value)}
                           profileImages={{
                             png: require(`../assets/${data.currentUser?.image.png}`),
                             webp: require(`../assets/${data.currentUser?.image.webp}`),

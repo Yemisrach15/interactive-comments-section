@@ -13,7 +13,6 @@ function EditableText(props: EditableTextProps) {
       <TextArea
         className="comment-input text--dark"
         id={props.labelID}
-        onChange={props.onChange}
         defaultValue={props.value}
       />
     </>

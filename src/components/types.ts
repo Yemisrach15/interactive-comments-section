@@ -40,7 +40,6 @@ export interface EditableTextProps {
   isOnEdit: boolean;
   label: string;
   labelID: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   value: string;
 }
 
@@ -76,7 +75,7 @@ export interface CommentInputFormProps {
   isReply: boolean;
   profileImages: { png: string; webp: string };
   replyingTo?: string;
-  onCommentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onCommentChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmitBtnClick?: (e: React.MouseEvent) => void;
   commenter: string;
 }

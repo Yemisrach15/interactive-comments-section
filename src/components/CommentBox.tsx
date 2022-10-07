@@ -45,7 +45,6 @@ function CommentBox(props: CommentBoxProps) {
               label={'Edit comment'}
               labelID={props.labelID}
               value={props.comment}
-              onChange={props.onChange}
             />
             <Button className="btn btn--primary btn--uppercase" onClick={props.onUpdateBtnClick}>
               Update
