@@ -2,10 +2,12 @@ import React from 'react';
 import { Box, Button, CommentBox, CommentInputForm, Heading, Modal } from '../components';
 import Data from '../data.json';
 import { extractUserName, selectTextAreaNode } from '../utils';
-import { IComment, IData } from './types';
+import { IComment, IData } from '../types';
 import { ReactComponent as SunIcon } from '../assets/icons/icon-sun.svg';
 import { ReactComponent as MoonIcon } from '../assets/icons/icon-moon.svg';
 import { ThemeContext } from '../App';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { commentsState, currentUserState } from '../store';
 
 function Main() {
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
@@ -15,6 +17,8 @@ function Main() {
     ((localStorage.getItem('data') && JSON.parse(localStorage.getItem('data') as string)) ||
       Data) as IData
   );
+  const [comments, setComments] = useRecoilState(commentsState);
+  const currentUser = useRecoilValue(currentUserState);
   const [newComment, setNewComment] = React.useState<string>('');
   const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
   const [isModalActive, setIsModalActive] = React.useState(false);
@@ -42,28 +46,26 @@ function Main() {
 
   // Function for plus and minus button clicks
   const onMinusPlusIconClick = (isMinus: boolean, cId: number, rId?: number) => {
-    let updatedData;
     if (!rId) {
-      updatedData =
-        data.comments &&
-        data.comments.map((c) => {
-          c.id === cId && (isMinus ? c.score-- : c.score++);
-          return c;
-        });
+      setComments((currentValue) =>
+        currentValue.map((c) =>
+          c.id === cId ? { ...c, score: isMinus ? c.score - 1 : c.score + 1 } : c
+        )
+      );
     } else {
-      updatedData =
-        data.comments &&
-        data.comments.map((c) => {
-          c.id === cId &&
-            c.replies?.map((r) => {
-              r.id === rId && (isMinus ? r.score-- : r.score++);
-              return r;
-            });
-          return c;
-        });
+      setComments((currentValue) =>
+        currentValue.map((c) =>
+          c.id === cId
+            ? {
+                ...c,
+                replies: c.replies?.map((r) =>
+                  r.id === rId ? { ...r, score: isMinus ? r.score - 1 : r.score + 1 } : r
+                ),
+              }
+            : c
+        )
+      );
     }
-
-    setData({ comments: updatedData, currentUser: data.currentUser });
   };
 
   // Function for send button click (new comment thread)
@@ -271,9 +273,9 @@ function Main() {
             {`Change to ${context.colorMode === 'dark' ? 'light' : 'dark'} theme`}
           </span>
         </Button>
-        {data.comments &&
-          data.comments.length &&
-          data.comments.map((c) => (
+        {comments &&
+          comments.length &&
+          comments.map((c) => (
             <React.Fragment key={c.id}>
               <CommentBox
                 key={c.id}
@@ -358,18 +360,18 @@ function Main() {
             </React.Fragment>
           ))}
 
-        {data.currentUser && (
+        {currentUser && (
           <CommentInputForm
-            labelID={`comment-${data.currentUser.username}-${id}`}
+            labelID={`comment-${currentUser.username}-${id}`}
             isReply={false}
             onCommentChange={(e) => setNewComment(e.target.value)}
             profileImages={{
-              png: require(`../assets/${data.currentUser?.image.png}`),
-              webp: require(`../assets/${data.currentUser?.image.webp}`),
+              png: require(`../assets/${currentUser.image.png}`),
+              webp: require(`../assets/${currentUser.image.webp}`),
             }}
             onSubmitBtnClick={onSendBtnClick}
             value={newComment}
-            commenter={data.currentUser.username}
+            commenter={currentUser.username}
           />
         )}
       </Box>

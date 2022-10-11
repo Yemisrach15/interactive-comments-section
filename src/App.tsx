@@ -1,4 +1,5 @@
 import React from 'react';
+import { RecoilRoot } from 'recoil';
 import { Footer } from './components';
 import { Main } from './pages';
 import './stylesheets/style.css';
@@ -20,7 +21,9 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{ colorMode, setColorMode }}>
-      <Main />
+      <RecoilRoot>
+        <Main />
+      </RecoilRoot>
       <Footer />
     </ThemeContext.Provider>
   );
