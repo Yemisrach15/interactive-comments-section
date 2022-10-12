@@ -231,10 +231,7 @@ function Main() {
                 onPlusIconClick={() => onMinusPlusIconClick(false, c.id)}
                 onReplyBtnClick={() => onReplyBtnClick(!c.isOnReply, c.id)}
                 onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id)}
-                profileImages={{
-                  png: require(`../assets/${c.user.image.png}`),
-                  webp: require(`../assets/${c.user.image.webp}`),
-                }}
+                profileImages={c.user.image}
                 hasReplies={Boolean(c.replies?.length) || false}
               >
                 {c.isOnReply && (
@@ -242,10 +239,7 @@ function Main() {
                     labelID={`comment-${id}-for-${c.id}`}
                     isReply={true}
                     replyingTo={c.user.username}
-                    profileImages={{
-                      png: require(`../assets/${currentUser?.image.png}`),
-                      webp: require(`../assets/${currentUser?.image.webp}`),
-                    }}
+                    profileImages={currentUser.image}
                     onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id)}
                     commenter={currentUser.username}
                   />
@@ -272,20 +266,14 @@ function Main() {
                         onPlusIconClick={() => onMinusPlusIconClick(false, c.id, r.id)}
                         onReplyBtnClick={() => onReplyBtnClick(!r.isOnReply, c.id, r.id)}
                         onUpdateBtnClick={(e) => onUpdateBtnClick(e, c.id, r.id)}
-                        profileImages={{
-                          png: require(`../assets/${r.user.image.png}`),
-                          webp: require(`../assets/${r.user.image.webp}`),
-                        }}
+                        profileImages={r.user.image}
                       />
                       {r.isOnReply && (
                         <CommentInputForm
                           labelID={`comment-${id}-for-${r.id}`}
                           isReply={true}
                           replyingTo={r.user.username}
-                          profileImages={{
-                            png: require(`../assets/${currentUser?.image.png}`),
-                            webp: require(`../assets/${currentUser?.image.webp}`),
-                          }}
+                          profileImages={currentUser.image}
                           onSubmitBtnClick={(e) => onReplySubmitBtnClick(e, c.id, r.id)}
                           commenter={currentUser.username}
                         />
@@ -301,10 +289,7 @@ function Main() {
             labelID={`comment-${currentUser.username}-${id}`}
             isReply={false}
             onCommentChange={(e) => setNewComment(e.target.value)}
-            profileImages={{
-              png: require(`../assets/${currentUser.image.png}`),
-              webp: require(`../assets/${currentUser.image.webp}`),
-            }}
+            profileImages={currentUser.image}
             onSubmitBtnClick={onSendBtnClick}
             value={newComment}
             commenter={currentUser.username}
