@@ -5,6 +5,7 @@ import CommentInputForm from './CommentInputForm';
 import CommentText from './CommentText';
 import EditableText from './EditableText';
 import Footer from './Footer';
+import Header from './Header';
 import Heading from './blocks/Heading';
 import Modal from './Modal';
 import Picture from './blocks/Picture';
@@ -20,6 +21,7 @@ export {
   CommentText,
   EditableText,
   Footer,
+  Header,
   Heading,
   Modal,
   Picture,

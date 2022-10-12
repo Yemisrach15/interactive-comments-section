@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { Box, CommentBox, CommentInputForm, Heading, Modal } from '../components';
+import { Box, CommentBox, CommentInputForm, Modal } from '../components';
 import { useStickystate } from '../hooks';
 import { commentsState, currentUserState } from '../store';
 import { IComment } from '../types';
@@ -208,11 +208,6 @@ function Main() {
 
   return (
     <>
-      <Box tag={'header'}>
-        <Heading className="heading heading--l1" tag={'h1'}>
-          Interactive Comments Section Solution
-        </Heading>
-      </Box>
       <Box tag={'main'}>
         {comments &&
           comments.length &&
