@@ -1,14 +1,11 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { ReactComponent as SunIcon } from '../assets/icons/icon-sun.svg';
-import { ReactComponent as MoonIcon } from '../assets/icons/icon-moon.svg';
-import { Box, Button, CommentBox, CommentInputForm, Heading, Modal } from '../components';
+import { Box, CommentBox, CommentInputForm, Heading, Modal } from '../components';
 import { useStickystate } from '../hooks';
 import { commentsState, currentUserState } from '../store';
 import { IComment } from '../types';
 import { extractUserName, selectTextAreaNode } from '../utils';
 import { StringDictionary } from '../utils/constants';
-import { ThemeContext } from '../App';
 
 function Main() {
   const deleteModalRef = React.useRef<HTMLDialogElement>(null);
@@ -23,7 +20,6 @@ function Main() {
   const [commentToDelete, setCommentToDelete] = React.useState<{ cId: number; rId?: number }>();
   const [isModalActive, setIsModalActive] = React.useState(false);
   const [currentTextAreaId, setCurrentTextAreaId] = React.useState<string | null>(null); // For focusing on edit
-  const context = React.useContext(ThemeContext);
 
   React.useEffect(() => {
     let totalComments = comments.length;
@@ -210,9 +206,6 @@ function Main() {
     toggleOpenModal();
   };
 
-  // Set data-theme on body tag to color mode
-  document.body.dataset.theme = context.colorMode;
-
   return (
     <>
       <Box tag={'header'}>
@@ -221,20 +214,6 @@ function Main() {
         </Heading>
       </Box>
       <Box tag={'main'}>
-        <Button
-          className="btn btn--text-primary fixed--left"
-          icon={context.colorMode === 'dark' ? MoonIcon : SunIcon}
-          onClick={() =>
-            context.setColorMode
-              ? context.setColorMode(context.colorMode === 'dark' ? 'light' : 'dark')
-              : null
-          }
-          title={`Change to ${context.colorMode === 'dark' ? 'light' : 'dark'} theme`}
-        >
-          <span className="sr-only">
-            {`Change to ${context.colorMode === 'dark' ? 'light' : 'dark'} theme`}
-          </span>
-        </Button>
         {comments &&
           comments.length &&
           comments.map((c) => (

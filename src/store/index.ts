@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { getComments, getCurrentUser } from '../utils';
+import { getComments, getCurrentUser, getInitialColorMode } from '../utils';
 import { StringDictionary } from '../utils/constants';
 
 export const commentsState = atom({
@@ -12,6 +12,9 @@ export const currentUserState = atom({
   default: getCurrentUser(),
 });
 
-// TODO: id to use for new comment, maybe selector
+export const themeState = atom({
+  key: StringDictionary.THEME,
+  default: getInitialColorMode(),
+});
 
-// TODO: theme state
+// TODO: id to use for new comment, maybe selector
