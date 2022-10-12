@@ -5,7 +5,7 @@ function useStickystate<T>(atom: RecoilState<T>, key: string) {
   const [value, setValue] = useRecoilState<T>(atom);
 
   React.useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(value));
+    window.localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value));
   }, [value]);
 
   return [value, setValue] as const;
