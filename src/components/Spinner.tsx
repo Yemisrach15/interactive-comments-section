@@ -9,14 +9,15 @@ function Spinner(props: SpinnerProps) {
     <Box className="spinner" tag="div">
       <Button onClick={props.onPlusIconClick}>
         <PlusIcon aria-hidden="true" focusable="false" />
-        <span className="sr-only">Like</span>
+        <span className="sr-only">Upvote this comment</span>
       </Button>
-      <Text className="text" aria-label={`${props.value} likes`}>
-        {props.value}
+      <Text className="text">
+        <span aria-hidden="true">{props.value}</span>
+        <span className="sr-only">{`${props.value} votes`}</span>
       </Text>
       <Button onClick={props.onMinusIconClick}>
         <MinusIcon aria-hidden="true" focusable="false" />
-        <span className="sr-only">Dislike</span>
+        <span className="sr-only">Downvote this comment</span>
       </Button>
     </Box>
   );

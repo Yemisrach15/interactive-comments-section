@@ -35,12 +35,16 @@ picture {
 }
 
 .heading {
-  letter-spacing: -0.3px;
+  font-weight: 500;
+}
+.heading--l1 {
+  font-size: 1.5em;
+  font-weight: 400;
+  text-align: center;
 }
 
 .mention {
-  font-weight: 700;
-  letter-spacing: -0.3px;
+  font-weight: 500;
 }
 
 .text {
@@ -96,7 +100,7 @@ dialog h2 {
 [data-theme=dark] {
   color-scheme: dark;
   --primary-color-100: hsl(239deg, 57%, 85%);
-  --primary-color-200: hsl(238deg, 40%, 52%);
+  --primary-color-200: hsl(238deg, 40%, 67%);
   --secondary-color-100: hsl(357deg, 100%, 86%);
   --secondary-color-200: hsl(358deg, 79%, 66%);
   --neutral-color-100: hsl(200deg, 6%, 10%);
@@ -187,16 +191,15 @@ body {
   transition: fill 0.15s ease-in;
 }
 
+[data-theme=dark] dialog > div[role=document] {
+  background-color: var(--neutral-color-300);
+}
+
 dialog {
   background-color: transparent;
 }
 dialog > div[role=document] {
   background-color: var(--neutral-color-100);
-}
-@media (prefers-color-scheme: dark) {
-  dialog > div[role=document] {
-    background-color: var(--neutral-color-300);
-  }
 }
 dialog::-webkit-backdrop {
   background-color: rgba(0, 0, 0, 0.5);
@@ -229,13 +232,13 @@ dialog::backdrop {
   background-color: var(--primary-color-100);
   color: var(--neutral-color-500);
 }
-@media (prefers-color-scheme: dark) {
-  ::-moz-selection {
-    background-color: var(--primary-color-200);
-  }
-  ::selection {
-    background-color: var(--primary-color-200);
-  }
+
+[data-theme=dark] ::-moz-selection {
+  background-color: var(--primary-color-200);
+}
+
+[data-theme=dark] ::selection {
+  background-color: var(--primary-color-200);
 }
 
 .attribution {
@@ -243,6 +246,10 @@ dialog::backdrop {
 }
 .attribution a {
   color: var(--primary-color-200);
+}
+
+.sr-only {
+  color: var(--neutral-color-500);
 }
 
 *,
@@ -287,6 +294,18 @@ main {
   }
 }
 
+article {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
 .btn {
   border-radius: 8px;
   padding: 14.5px;
@@ -302,6 +321,12 @@ main {
   display: -ms-flexbox;
   display: flex;
   gap: 8px;
+}
+
+.heading--l1 {
+  -webkit-animation: forwards slide-in 1s ease-in-out;
+          animation: forwards slide-in 1s ease-in-out;
+  margin-bottom: 24px;
 }
 
 .badge {
@@ -489,7 +514,7 @@ main {
     padding-left: 42px;
   }
 }
-.comment-box > section {
+.comment-box > header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -502,7 +527,7 @@ main {
   margin-bottom: 16px;
 }
 @media screen and (max-width: 375px) {
-  .comment-box > section {
+  .comment-box > header {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -511,7 +536,7 @@ main {
   }
 }
 @media screen and (min-width: 768px) {
-  .comment-box > section {
+  .comment-box > header {
     grid-column: 2/3;
     grid-row: 1;
   }
@@ -560,7 +585,7 @@ main {
     grid-row: 1/3;
   }
 }
-.comment-box > div:last-of-type {
+.comment-box > ul {
   align-self: center;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -568,10 +593,11 @@ main {
   grid-column: 2/3;
   grid-row: 3;
   justify-self: end;
+  list-style: none;
   margin: 0px -8.5px;
 }
 @media screen and (min-width: 768px) {
-  .comment-box > div:last-of-type {
+  .comment-box > ul {
     align-self: start;
     gap: 8px;
     grid-column: 3/4;
@@ -579,7 +605,7 @@ main {
     margin: -3px -8.5px;
   }
 }
-.comment-box > div:last-of-type button {
+.comment-box > ul button {
   padding: 10.5px 8.5px;
 }
 .comment-box h2 > span {
@@ -644,7 +670,6 @@ dialog > div[role=document] > ul:last-of-type button {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 24px;
 }
 @media screen and (min-width: 768px) {
   .comment-input-form {

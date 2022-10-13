@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type BoxProps = React.HTMLAttributes<HTMLElement> & {
   tag: React.ElementType;
 };
@@ -7,7 +9,7 @@ export interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>> | null;
 }
 
 type headingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -38,7 +40,6 @@ export interface EditableTextProps {
   isOnEdit: boolean;
   label: string;
   labelID: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   value: string;
 }
 
@@ -49,6 +50,7 @@ export interface CommentBoxProps
   commenter: string;
   commentTimestamp: string;
   isOnEdit: boolean;
+  isOnReply: boolean;
   isOwn: boolean;
   onDeleteBtnClick?: (e: React.MouseEvent) => void;
   onEditBtnClick?: (e: React.MouseEvent) => void;
@@ -58,11 +60,14 @@ export interface CommentBoxProps
   upvoteValue: number;
   id: number;
   new: boolean;
+  children?: React.ReactNode;
+  hasReplies?: boolean;
 }
 
 export interface ModalProps extends React.HTMLProps<HTMLDialogElement> {
-  onCancelBtnClick: (e: React.MouseEvent) => void;
+  onCancelBtnClick: () => void;
   onDeleteBtnClick: (e: React.MouseEvent) => void;
+  isActive: boolean;
 }
 export interface CommentInputFormProps {
   value?: string;
@@ -70,6 +75,11 @@ export interface CommentInputFormProps {
   isReply: boolean;
   profileImages: { png: string; webp: string };
   replyingTo?: string;
-  onCommentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onCommentChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmitBtnClick?: (e: React.MouseEvent) => void;
+  commenter: string;
+}
+
+export interface CommentTextProps {
+  value: string;
 }

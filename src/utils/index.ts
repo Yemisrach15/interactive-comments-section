@@ -1,3 +1,7 @@
+import { StringDictionary } from './constants';
+import Data from '../data.json';
+import { IComment, IUser } from '../types';
+
 export function extractUserName(text: string) {
   if (text.trim()[0] === '@') {
     const splittedText = text.trim().split(' ');
@@ -29,3 +33,26 @@ export function getInitialColorMode() {
   // color themes, let's default to 'light'.
   return 'light';
 }
+
+export function getComments(): IComment[] {
+  const persistedComments = window.localStorage.getItem(StringDictionary.COMMENTS);
+  if (persistedComments) {
+    return JSON.parse(persistedComments);
+  }
+  window.localStorage.setItem(StringDictionary.COMMENTS, JSON.stringify(Data.comments));
+  return Data.comments;
+}
+
+export function getCurrentUser(): IUser {
+  const persistedCurrentUser = window.localStorage.getItem(StringDictionary.CURRENTUSER);
+  if (persistedCurrentUser) {
+    return JSON.parse(persistedCurrentUser);
+  }
+  window.localStorage.setItem(StringDictionary.CURRENTUSER, JSON.stringify(Data.currentUser));
+  return Data.currentUser;
+}
+
+// Selects textarea node in article of data-id=commentId
+export const selectTextAreaNode = (textAreaId: number | string) => {
+  return document.querySelector(`textarea#${textAreaId}`) as HTMLTextAreaElement;
+};

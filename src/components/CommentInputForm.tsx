@@ -6,10 +6,13 @@ function CommentInputForm(props: CommentInputFormProps) {
   return (
     <Box className="box box--white comment-input-form" tag={'form'}>
       <Picture className="profile-pic profile-pic--sm">
-        <source srcSet={props.profileImages.webp} type="image/webp"></source>
+        <source
+          srcSet={require(`../assets/${props.profileImages.webp}`)}
+          type="image/webp"
+        ></source>
         <img
-          src={props.profileImages.png}
-          alt="Profile"
+          src={require(`../assets/${props.profileImages.png}`)}
+          alt={`${props.commenter}'s profile`}
           width={64}
           height={64}
           aria-hidden="true"
@@ -18,14 +21,22 @@ function CommentInputForm(props: CommentInputFormProps) {
       <label htmlFor={props.labelID} className="sr-only">
         Add a comment
       </label>
-      <TextArea
-        className="comment-input text--dark"
-        id={props.labelID}
-        placeholder="Add a comment..."
-        defaultValue={props.isReply ? `@${props.replyingTo}` : ''}
-        onChange={props.onCommentChange}
-        value={props.value}
-      />
+      {props.isReply ? (
+        <TextArea
+          className="comment-input text--dark"
+          id={props.labelID}
+          placeholder="Add a comment..."
+          defaultValue={`@${props.replyingTo}`}
+        />
+      ) : (
+        <TextArea
+          className="comment-input text--dark"
+          id={props.labelID}
+          placeholder="Add a comment..."
+          onChange={props.onCommentChange}
+          value={props.value}
+        />
+      )}
       <Button className="btn btn--primary btn--uppercase" onClick={props.onSubmitBtnClick}>
         {props.isReply ? 'Reply' : 'Send'}
       </Button>
