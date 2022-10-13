@@ -16,9 +16,12 @@ function CommentBox(props: CommentBoxProps) {
       >
         <Box tag={'header'}>
           <Picture className="profile-pic profile-pic--sm">
-            <source srcSet={props.profileImages.webp} type="image/webp"></source>
+            <source
+              srcSet={require(`../assets/${props.profileImages.webp}`)}
+              type="image/webp"
+            ></source>
             <img
-              src={props.profileImages.png}
+              src={require(`../assets/${props.profileImages.png}`)}
               alt={`${props.commenter}'s profile`}
               width={64}
               height={64}
