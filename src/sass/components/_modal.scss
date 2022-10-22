@@ -5,7 +5,7 @@ dialog > div[role='document'] {
   padding: 25px;
   width: 91.5%;
 
-  @include screen-desktop {
+  @include adapt-screen(md) {
     padding: 32px;
   }
 }
@@ -14,7 +14,7 @@ dialog > div[role='document'] h2,
 dialog > div[role='document'] p {
   margin-bottom: 16px;
 
-  @include screen-desktop {
+  @include adapt-screen(md) {
     margin-bottom: 20px;
   }
 }

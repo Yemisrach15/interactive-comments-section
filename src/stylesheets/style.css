@@ -296,7 +296,7 @@ main {
   padding-right: 18px;
   width: 100%;
 }
-@media screen and (max-width: 375px) {
+@media screen and (min-width: 0px) and (max-width: 375px) {
   .comment-box {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -376,7 +376,7 @@ main {
   grid-row: 1;
   margin-bottom: 16px;
 }
-@media screen and (max-width: 375px) {
+@media screen and (min-width: 0px) and (max-width: 375px) {
   .comment-box > header {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -407,7 +407,7 @@ main {
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (min-width: 0px) and (max-width: 375px) {
   .comment-box > p {
     text-align: center;
   }

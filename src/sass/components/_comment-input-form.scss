@@ -4,7 +4,7 @@
   gap: 16px;
   grid-template-columns: repeat(2, 1fr);
 
-  @include screen-desktop {
+  @include adapt-screen(md) {
     align-items: start;
     grid-template-columns: min-content 1fr min-content;
     padding: 24px;
@@ -16,7 +16,7 @@
   grid-column: 1;
   grid-row: 2;
 
-  @include screen-desktop {
+  @include adapt-screen(md) {
     grid-row: 1;
     margin-top: 4px;
 
@@ -32,7 +32,7 @@
   grid-row: 1;
   min-height: 96px;
 
-  @include screen-desktop {
+  @include adapt-screen(md) {
     grid-column: 2;
   }
 }
@@ -44,7 +44,7 @@
   padding: 14.5px 30.5px;
   width: min-content;
 
-  @include screen-desktop {
+  @include adapt-screen(md) {
     grid-column: 3;
     grid-row: 1;
   }

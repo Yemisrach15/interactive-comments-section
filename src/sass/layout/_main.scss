@@ -4,7 +4,7 @@ main {
   flex-direction: column;
   gap: 18px;
 
-  @include screen-desktop {
+  @include adapt-screen(md) {
     align-items: center;
   }
 }

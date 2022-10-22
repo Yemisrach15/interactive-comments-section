@@ -6,7 +6,7 @@
   padding: 4px;
   width: fit-content;
 
-  @include screen-desktop {
+  @include adapt-screen(md) {
     flex-direction: column;
   }
 }
@@ -14,7 +14,7 @@
 .spinner button {
   padding: 10.5px;
 
-  @include screen-desktop {
+  @include adapt-screen(md) {
     padding: 9px 10.5px;
   }
 }

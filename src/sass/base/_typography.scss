@@ -8,7 +8,7 @@
 dialog h2 {
   font-size: 1.25em;
 
-  @include screen-desktop {
+  @include adapt-screen(md) {
     font-size: 1.5em;
   }
 }
