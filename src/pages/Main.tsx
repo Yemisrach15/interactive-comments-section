@@ -208,7 +208,7 @@ function Main() {
 
   return (
     <>
-      <Box tag={'main'}>
+      <Box tag={'main'} className="container">
         {comments &&
           comments.length &&
           comments.map((c) => (

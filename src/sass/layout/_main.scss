@@ -1,0 +1,10 @@
+main {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  @include screen-desktop {
+    align-items: center;
+  }
+}

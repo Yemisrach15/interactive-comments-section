@@ -2,7 +2,15 @@
 *::after,
 *::before {
   font-family: 'Rubik', sans-serif;
-  font-size: 16px;
+  font-size: 16px; // TODO: not sure if this is a good practice
+}
+
+dialog h2 {
+  font-size: 1.25em;
+
+  @include screen-desktop {
+    font-size: 1.5em;
+  }
 }
 
 .btn {
@@ -54,17 +62,7 @@
   line-height: 1.5;
 }
 
-dialog {
-  & h2 {
-    font-size: 1.25em;
-
-    @include screen-desktop {
-      font-size: 1.5em;
-    }
-  }
-}
-
 .attribution {
-  font-size: 11px;
+  font-size: 11px; // FIXME: should not use px
   text-align: center;
 }
