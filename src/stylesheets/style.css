@@ -610,7 +610,6 @@ dialog > div[role=document] > ul:last-of-type button {
 }
 
 [data-theme=dark] {
-  color-scheme: dark;
   --primary-color-100: hsl(239deg, 57%, 85%);
   --primary-color-200: hsl(238deg, 40%, 67%);
   --secondary-color-100: hsl(357deg, 100%, 86%);
@@ -620,20 +619,18 @@ dialog > div[role=document] > ul:last-of-type button {
   --neutral-color-300: hsl(195deg, 6%, 14%);
   --neutral-color-400: hsl(35deg, 9%, 65%);
   --neutral-color-500: hsl(0deg, 0%, 100%);
+  color-scheme: dark;
 }
 [data-theme=dark] img {
   -webkit-filter: brightness(0.85);
           filter: brightness(0.85);
 }
-
 [data-theme=dark] dialog > div[role=document] {
   background-color: var(--neutral-color-300);
 }
-
 [data-theme=dark] ::-moz-selection {
   background-color: var(--primary-color-200);
 }
-
 [data-theme=dark] ::selection {
   background-color: var(--primary-color-200);
 }

@@ -38,3 +38,9 @@ $desktop-width: 1440px;
     @content;
   }
 }
+
+@mixin color-vars($colors) {
+  @each $color-key, $color-value in $colors {
+    --#{$color-key}: #{$color-value};
+  }
+}
