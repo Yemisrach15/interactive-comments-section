@@ -11,6 +11,7 @@
 }
 
 body {
+  -webkit-font-smoothing: antialiased;
   padding: 31px 16px 16px;
 }
 @media screen and (min-width: 768px) {
@@ -19,14 +20,29 @@ body {
   }
 }
 
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea {
+  font: inherit;
+}
+
+p,
+h1,
+h2 {
+  overflow-wrap: break-word;
+}
+
 button {
   background: none;
   border: none;
   cursor: pointer;
-}
-
-picture {
-  line-height: 0;
 }
 
 dialog {
@@ -36,6 +52,10 @@ dialog {
 
 ul {
   list-style: none;
+}
+
+#root {
+  isolation: isolate;
 }
 
 @-webkit-keyframes slide-in {
