@@ -111,7 +111,7 @@ ul {
 *::after,
 *::before {
   font-family: "Rubik", sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 dialog h2 {
@@ -168,7 +168,7 @@ dialog h2 {
 }
 
 .attribution {
-  font-size: 11px;
+  font-size: 0.45rem;
   text-align: center;
 }
 
@@ -574,7 +574,7 @@ dialog > div[role=document] > ul:last-of-type button {
 }
 .profile-pic--sm img {
   height: auto;
-  width: 32px;
+  width: 2rem;
 }
 
 .spinner {

@@ -2,7 +2,7 @@
 *::after,
 *::before {
   font-family: 'Rubik', sans-serif;
-  font-size: 16px; // TODO: not sure if this is a good practice
+  font-size: 1rem;
 }
 
 dialog h2 {
@@ -63,6 +63,6 @@ dialog h2 {
 }
 
 .attribution {
-  font-size: 11px; // FIXME: should not use px
+  font-size: 0.45rem;
   text-align: center;
 }
