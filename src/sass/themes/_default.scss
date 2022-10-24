@@ -103,10 +103,6 @@ body {
   }
 }
 
-[data-theme='dark'] dialog > div[role='document'] {
-  background-color: var(--neutral-color-300);
-}
-
 dialog {
   background-color: transparent;
 
@@ -147,20 +143,5 @@ dialog {
 
 ::selection {
   background-color: var(--primary-color-100);
-  color: var(--neutral-color-500);
-}
-
-[data-theme='dark'] ::selection {
-  background-color: var(--primary-color-200);
-}
-
-.attribution {
-  color: var(--neutral-color-400);
-  & a {
-    color: var(--primary-color-200);
-  }
-}
-
-.sr-only {
   color: var(--neutral-color-500);
 }
