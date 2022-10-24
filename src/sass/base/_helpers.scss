@@ -1,0 +1,35 @@
+.container {
+  margin: 0 auto;
+  max-width: 600px;
+
+  @include adapt-screen(md) {
+    max-width: 732px;
+  }
+}
+
+.sr-only {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.fixed {
+  position: fixed;
+
+  &--center {
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  &--left-center {
+    left: -5px;
+    line-height: 0;
+    top: 50%;
+    z-index: 2;
+  }
+}

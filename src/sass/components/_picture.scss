@@ -1,0 +1,10 @@
+.profile-pic {
+  & img {
+    border-radius: 50%;
+  }
+
+  &--sm img {
+    height: auto;
+    width: 2rem;
+  }
+}

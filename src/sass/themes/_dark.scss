@@ -1,0 +1,16 @@
+[data-theme='dark'] {
+  @include color-vars($dark-theme-colors);
+  color-scheme: dark;
+
+  & img {
+    filter: brightness(0.85);
+  }
+
+  & dialog > div[role='document'] {
+    background-color: var(--neutral-color-300);
+  }
+
+  & ::selection {
+    background-color: var(--primary-color-200);
+  }
+}

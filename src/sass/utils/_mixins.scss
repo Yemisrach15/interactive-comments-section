@@ -1,40 +1,29 @@
-$mobile-width: 375px;
-$tablet-width: 768px;
-$hybrid-width: 1100px;
-$desktop-width: 1440px;
+@use 'sass:map';
 
-@mixin screen-xs-mobile {
-  @media screen and (max-width: $mobile-width) {
-    @content;
+// Prefixes colors with '--' for use as css variables and maps with values
+@mixin color-vars($colors) {
+  @each $color-key, $color-value in $colors {
+    --#{$color-key}: #{$color-value};
   }
 }
 
-@mixin screen-mobile {
-  @media screen and (min-width: $mobile-width) {
-    @content;
+// Generates media queries with min-width and max-width(if not null)
+@mixin adapt-screen($min-width, $max-width: null) {
+  @if (map.has-key($screens, $min-width) == false) {
+    @error "Valid values for the first argument(min-width) of mixin adapt-screen are #{map.keys($screens)}";
   }
-}
 
-@mixin screen-desktop {
-  @media screen and (min-width: $tablet-width) {
-    @content;
+  @if ($max-width != null and map.has-key($screens, $max-width) == false) {
+    @error "Valid values for the second argument(max-width) of mixin adapt-screen are #{map.keys($screens)}";
   }
-}
 
-@mixin screen-hybrid {
-  @media screen and (min-width: $tablet-width) and (max-width: $hybrid-width) {
-    @content;
-  }
-}
-
-@mixin screen-hybrid-max {
-  @media screen and (min-width: $hybrid-width) {
-    @content;
-  }
-}
-
-@mixin screen-dark-theme {
-  @media (prefers-color-scheme: dark) {
-    @content;
+  @if ($max-width == null) {
+    @media screen and (min-width: map.get($screens, $min-width)) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: map.get($screens, $min-width)) and (max-width: map.get($screens, $max-width)) {
+      @content;
+    }
   }
 }

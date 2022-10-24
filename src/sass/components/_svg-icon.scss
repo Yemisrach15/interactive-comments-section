@@ -1,0 +1,19 @@
+.svg-icon {
+  height: auto;
+
+  &--11 {
+    width: calculateRem(11px);
+  }
+
+  &--12 {
+    width: calculateRem(12px);
+  }
+
+  &--14 {
+    width: calculateRem(14px);
+  }
+
+  &--16 {
+    width: calculateRem(16px);
+  }
+}

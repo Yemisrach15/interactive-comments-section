@@ -1,0 +1,20 @@
+.spinner {
+  align-items: center;
+  border-radius: 12px;
+  display: flex;
+  gap: 10px;
+  padding: 4px;
+  width: fit-content;
+
+  @include adapt-screen(md) {
+    flex-direction: column;
+  }
+}
+
+.spinner button {
+  padding: 10.5px;
+
+  @include adapt-screen(md) {
+    padding: 9px 10.5px;
+  }
+}
