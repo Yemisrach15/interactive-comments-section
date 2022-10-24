@@ -221,7 +221,19 @@ article {
   width: 100%;
 }
 
+footer {
+  -webkit-animation: forwards slide-in 1s ease-in-out;
+          animation: forwards slide-in 1s ease-in-out;
+}
+
+#root > header {
+  -webkit-animation: forwards slide-in 1s ease-in-out;
+          animation: forwards slide-in 1s ease-in-out;
+}
+
 main {
+  -webkit-animation: forwards slide-in 1s ease-in-out;
+          animation: forwards slide-in 1s ease-in-out;
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
@@ -289,8 +301,6 @@ main {
 }
 
 .comment-box {
-  -webkit-animation: forwards slide-in 1s ease-in-out;
-          animation: forwards slide-in 1s ease-in-out;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   padding-right: 18px;
@@ -522,8 +532,6 @@ main {
 }
 
 .heading--l1 {
-  -webkit-animation: forwards slide-in 1s ease-in-out;
-          animation: forwards slide-in 1s ease-in-out;
   margin-bottom: 24px;
 }
 
