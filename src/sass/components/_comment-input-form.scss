@@ -22,7 +22,7 @@
 
     & > img {
       height: auto;
-      width: 40px;
+      width: calculateRem(40px);
     }
   }
 }

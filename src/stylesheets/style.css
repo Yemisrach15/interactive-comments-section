@@ -24,7 +24,6 @@ img,
 picture,
 svg {
   display: block;
-  max-width: 100%;
 }
 
 input,
@@ -490,7 +489,7 @@ main {
   }
   .comment-input-form > picture > img {
     height: auto;
-    width: 40px;
+    width: 2.5rem;
   }
 }
 
@@ -619,7 +618,6 @@ dialog > div[role=document] > ul:last-of-type button {
 
 .svg-icon {
   height: auto;
-  max-width: none;
 }
 .svg-icon--11 {
   width: 0.6875rem;
