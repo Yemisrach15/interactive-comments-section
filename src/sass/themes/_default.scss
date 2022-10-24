@@ -1,33 +1,5 @@
-@import '../utils/colors';
-@import '../utils/mixins';
-
 :root {
-  --primary-color-100: #{$primary-color-100};
-  --primary-color-200: #{$primary-color-200};
-  --secondary-color-100: #{$secondary-color-100};
-  --secondary-color-200: #{$secondary-color-200};
-  --neutral-color-100: #{$neutral-color-100};
-  --neutral-color-200: #{$neutral-color-200};
-  --neutral-color-300: #{$neutral-color-300};
-  --neutral-color-400: #{$neutral-color-400};
-  --neutral-color-500: #{$neutral-color-500};
-}
-
-[data-theme='dark'] {
-  color-scheme: dark;
-  --primary-color-100: #{$dark-primary-color-100};
-  --primary-color-200: #{$dark-primary-color-200};
-  --secondary-color-100: #{$dark-secondary-color-100};
-  --secondary-color-200: #{$dark-secondary-color-200};
-  --neutral-color-100: #{$dark-neutral-color-100};
-  --neutral-color-200: #{$dark-neutral-color-200};
-  --neutral-color-300: #{$dark-neutral-color-300};
-  --neutral-color-400: #{$dark-neutral-color-400};
-  --neutral-color-500: #{$dark-neutral-color-500};
-
-  & img {
-    filter: brightness(0.85);
-  }
+  @include color-vars($light-theme-colors);
 }
 
 body {
@@ -35,7 +7,6 @@ body {
 }
 
 .btn {
-  transition: opacity 0.15s ease-in;
   &--primary {
     background-color: var(--primary-color-200);
     color: var(--neutral-color-100);
@@ -68,6 +39,11 @@ body {
 
   &:hover {
     opacity: 0.75;
+
+    &.fixed--left-center {
+      background-color: var(--primary-color-200);
+      color: var(--neutral-color-100);
+    }
   }
 }
 
@@ -94,7 +70,13 @@ body {
   color: var(--neutral-color-100);
 }
 
+.comment-box--indent {
+  border-left-color: var(--neutral-color-400);
+}
+
 .comment-input {
+  border-color: var(--neutral-color-300);
+
   &:hover,
   &:focus-visible {
     border-color: var(--neutral-color-500);
@@ -135,6 +117,17 @@ dialog {
   &::backdrop {
     background-color: transparentize($color: black, $amount: 0.5);
   }
+}
+
+.attribution {
+  color: var(--neutral-color-400);
+  & a {
+    color: var(--primary-color-200);
+  }
+}
+
+.sr-only {
+  color: var(--neutral-color-500);
 }
 
 ::-webkit-scrollbar {

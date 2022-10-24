@@ -17,7 +17,7 @@ function ThemeProvider(props: ThemeProviderProps) {
   return (
     <>
       <Button
-        className="btn btn--text-primary fixed--left"
+        className="btn btn--text-primary fixed fixed--left-center"
         icon={theme === 'dark' ? MoonIcon : SunIcon}
         onClick={() => (theme ? setTheme(theme === 'dark' ? 'light' : 'dark') : null)}
         title={`Change to ${theme === 'dark' ? 'light' : 'dark'} theme`}

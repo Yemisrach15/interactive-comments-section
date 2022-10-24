@@ -1,0 +1,24 @@
+.btn {
+  border-radius: 8px;
+  padding: 14.5px;
+  transition: opacity 0.15s ease-in;
+
+  &--iconed {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.btn.fixed--left-center {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  padding: 12px;
+  padding-left: 8px;
+  transition-duration: 0.25s;
+  transition-property: background-color, color, transform;
+
+  &:hover {
+    transform: translateX(5px);
+  }
+}

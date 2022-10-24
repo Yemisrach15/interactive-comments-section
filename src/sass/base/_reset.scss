@@ -7,12 +7,48 @@
   transition: background-color 0.45s ease-in;
 }
 
+body {
+  -webkit-font-smoothing: antialiased;
+  padding: 31px 16px 16px;
+
+  @include adapt-screen(md) {
+    padding: 64px 16px 16px;
+  }
+}
+
+img,
+picture,
+svg {
+  display: block;
+}
+
+input,
+button,
+textarea {
+  font: inherit;
+}
+
+p,
+h1,
+h2 {
+  overflow-wrap: break-word;
+}
+
 button {
   background: none;
   border: none;
   cursor: pointer;
 }
 
-picture {
-  line-height: 0;
+dialog {
+  border: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+#root {
+  isolation: isolate;
 }
