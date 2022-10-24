@@ -1,5 +1,6 @@
 .svg-icon {
   height: auto;
+  max-width: none;
 
   &--11 {
     width: calculateRem(11px);

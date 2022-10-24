@@ -611,6 +611,7 @@ dialog > div[role=document] > ul:last-of-type button {
 
 .svg-icon {
   height: auto;
+  max-width: none;
 }
 .svg-icon--11 {
   width: 0.6875rem;
