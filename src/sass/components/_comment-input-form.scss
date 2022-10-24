@@ -10,6 +10,10 @@
     padding: 24px;
     width: 100%;
   }
+
+  div > & {
+    animation: forwards slide-down 0.45s ease-in-out;
+  }
 }
 
 .comment-input-form > picture {

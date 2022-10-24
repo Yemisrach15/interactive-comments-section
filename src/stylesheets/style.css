@@ -106,6 +106,30 @@ ul {
             transform: translateY(0px);
   }
 }
+@-webkit-keyframes slide-down {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
 *,
 *::after,
 *::before {
@@ -167,7 +191,7 @@ dialog h2 {
 }
 
 .attribution {
-  font-size: 0.45rem;
+  font-size: 0.6875rem;
   text-align: center;
 }
 
@@ -223,6 +247,8 @@ article {
 footer {
   -webkit-animation: forwards slide-in 1s ease-in-out;
           animation: forwards slide-in 1s ease-in-out;
+  padding: 24px;
+  padding-bottom: 16px;
 }
 
 #root > header {
@@ -476,6 +502,10 @@ main {
     padding: 24px;
     width: 100%;
   }
+}
+div > .comment-input-form {
+  -webkit-animation: forwards slide-down 0.45s ease-in-out;
+          animation: forwards slide-down 0.45s ease-in-out;
 }
 
 .comment-input-form > picture {
