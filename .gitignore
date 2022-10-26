@@ -25,6 +25,7 @@ yarn-error.log*
 # custom
 .env
 *.md
+!README.md
 
 design/
 .vercel
