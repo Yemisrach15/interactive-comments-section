@@ -75,7 +75,7 @@ There's a lot I learned while doing this project ranging from basic HTML element
 	``` 
 	Inside the `Text` component, the `tag` prop is renamed to `Tag` with uppercase *t* when destructuring and is then called as a typical component. React interprets lowercase components as native HTML tags. If `tag` prop had not been renamed, we would get an element with name `tag` in the DOM. 
 	```js
-	function Text({ tag: Tag }) {
+	function Text({ children, tag: Tag }) {
 		return <Tag>{children}</Tag>;
 	}
 	``` 
